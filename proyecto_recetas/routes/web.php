@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecetaController;
+use App\Models\Usuario;
 
 // -------------------- EJEMPLOS -------------------- //
 
@@ -29,7 +30,24 @@ Route::get('variable/{post}/{id}', function ($post, $id) {
 
 // -------------------- CODIGO UTIL -------------------- //
 
-Route::get('recetas', [RecetaController::class, 'listarRecetas']); // ('URI', [Controlador, 'metodo']);
-
-//Ruta con variable enviada a una vista
+Route::get('recetas', [RecetaController::class, 'listarRecetas'])->name('recetas.lista'); // ('URI', [Controlador, 'metodo']);
 Route::get('receta/{id}', [RecetaController::class, 'mostrarRecetaIndividual']);
+Route::get('recetas/crear', [RecetaController::class, 'crearReceta']);
+Route::post('recetas', [RecetaController::class, 'guardarReceta'])->name('recetas.store');
+
+Route::get('usuarios', function() {
+    $usuarios = Usuario::all();
+
+    return $usuarios;
+});
+
+Route::get('registrarUsuarios', function() {
+    $usuario = new Usuario();
+
+    $usuario->email = 'sergio@email.com';
+    $usuario->password = 'abc123';
+    $usuario->f_registro = now();
+
+    $usuario->save();
+    return $usuario;
+});
