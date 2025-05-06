@@ -19,7 +19,7 @@
     --}}
 
     <h2>Listado de recetas</h2>
-
+    
     @foreach ($recetas as $receta)
         <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
             <h3>
