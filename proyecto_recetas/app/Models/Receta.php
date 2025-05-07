@@ -16,4 +16,10 @@ class Receta extends Model {
         'autor',
         'imagen',
     ];
+
+    public function autor()
+    {
+        return $this->belongsTo(User::class, 'autor', 'email');
+    }
+
 }

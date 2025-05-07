@@ -11,8 +11,8 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('recetas', function (Blueprint $table) {
             $table->id();
-            $table->string('autor');
-            $table->foreign('autor')->references('email')->on('usuarios')->onDelete('cascade');
+            $table->string('autor'); // campo que almacena el email del autor
+            $table->foreign('autor')->references('email')->on('users')->onDelete('cascade');
             $table->string('titulo');
             $table->string('imagen')->nullable();
             $table->string('tipo');

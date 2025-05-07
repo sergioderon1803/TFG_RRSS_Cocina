@@ -19,6 +19,7 @@
     --}}
 
     <h2>Listado de recetas</h2>
+    <a href="{{ url('recetas/crear') }}" class="btn btn-primary">Nueva receta</a>
     
     @foreach ($recetas as $receta)
         <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">

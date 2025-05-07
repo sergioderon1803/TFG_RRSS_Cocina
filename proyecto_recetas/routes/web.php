@@ -1,36 +1,27 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecetaController;
 use App\Models\Usuario;
 
-// -------------------- EJEMPLOS -------------------- //
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Ruta con varias variables opcionales (EL ORDEN EN EL QUE SE COLOCAN LAS RUTAS IMPORTA)
-Route::get('variable/{post}/{id}/{contenido?}', function ($post, $id, $contenido = "vacío") {
-    return "Post {$post} con ID {$id} y contenido {$contenido}";
+Route::get('/', function () {
+    return view('welcome');
 });
 
-// Ruta con variable
-Route::get('variable/{post}', function ($post) {
-    return "Probando variables {$post}";
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Ruta con varias variables
-Route::get('variable/{post}/{id}', function ($post, $id) {
-    return "Post {$post} con ID {$id}";
-});
+require __DIR__.'/auth.php';
 
-
-
-
-// -------------------- CODIGO UTIL -------------------- //
-
-Route::get('/', [RecetaController::class, 'listarRecetas'])->name('recetas.lista'); // ('URI', [Controlador, 'metodo']);
+Route::get('recetas', [RecetaController::class, 'listarRecetas'])->name('recetas.lista'); // ('URI', [Controlador, 'metodo']);
 Route::get('receta/{id}', [RecetaController::class, 'mostrarRecetaIndividual']);
 Route::get('recetas/crear', [RecetaController::class, 'crearReceta']);
 Route::post('recetas', [RecetaController::class, 'guardarReceta'])->name('recetas.store');
