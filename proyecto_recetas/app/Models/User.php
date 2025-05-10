@@ -17,9 +17,9 @@ class User extends Authenticatable {
      * @var list<string>
      */
     protected $fillable = [
-        //'name',
         'email',
         'password',
+        'user_type'
     ];
 
     /**
@@ -47,6 +47,6 @@ class User extends Authenticatable {
 
     public function recetas()
     {
-        return $this->hasMany(Receta::class, 'autor', 'email');
+        return $this->hasMany(Receta::class, 'autor', 'id');
     }
 }

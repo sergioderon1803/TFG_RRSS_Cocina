@@ -15,11 +15,12 @@ class Receta extends Model {
         'procedimiento',
         'autor',
         'imagen',
+        'estado'
     ];
 
     public function autor()
     {
-        return $this->belongsTo(User::class, 'autor', 'email');
+        return $this->belongsTo(User::class, 'autor', 'id');
     }
 
 }

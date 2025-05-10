@@ -36,7 +36,7 @@
     <hr>
 
     {{-- Lógica condicional según autor --}}
-    @if ($receta->autor === 'sergio@email.com') {{-- Reemplaza esto con auth()->user()->email si usas auth --}}
+    @if ($receta->autor === 1) {{-- Reemplaza esto con auth()->user()->email si usas auth --}}
         <form action="{{ url('recetas/' . $receta->id . '/editar') }}" method="GET" style="display:inline;">
             <button class="btn btn-warning">Editar</button>
         </form>

@@ -43,7 +43,8 @@ class RecetaController extends Controller {
             'ingredientes' => $request->input('ingredientes'),
             'procedimiento' => $request->input('procedimiento'),
             'imagen' => $rutaImagen,
-            'autor' => 'sergio@email.com', // temporalmente fijo; si tienes auth, usa auth()->user()->email
+            'autor' => 1, // temporalmente fijo; si tienes auth, usa auth()->user()->id()
+            'estado' => 0
         ]);
 
         return redirect()->route('recetas.lista')->with('success', 'Receta creada exitosamente.');
