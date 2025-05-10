@@ -11,14 +11,15 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('recetas', function (Blueprint $table) {
             $table->id();
-            $table->string('autor'); // campo que almacena el email del autor
-            $table->foreign('autor')->references('email')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('autor'); // campo que almacena el id del autor
+            $table->foreign('autor')->references('id')->on('users')->onDelete('cascade');
             $table->string('titulo');
             $table->string('imagen')->nullable();
             $table->string('tipo');
-            $table->string('ingredientes');
-            $table->string('procedimiento');
-            $table->timestamp('f_creacion')->useCurrent();
+            $table->text('ingredientes');
+            $table->text('procedimiento');
+            $table->tinyInteger('estado'); // 0 = Publico | 1 = Privado
+            $table->timestamps();
         });
     }
 
