@@ -24,7 +24,7 @@
     @foreach ($recetas as $receta)
         <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
             <h3>
-                <a href="{{ url('receta/' . $receta->id) }}">{{ $receta->titulo }}</a>
+                <strong><a href="{{ url('receta/' . $receta->id) }}">{{ $receta->titulo }}</a></strong>
             </h3>
 
             @if ($receta->imagen)
@@ -35,9 +35,8 @@
             <p><strong>Ingredientes:</strong> {{ $receta->ingredientes }}</p>
             <p><strong>Procedimiento:</strong> {{ Str::limit($receta->procedimiento, 100, '...') }}</p>
             <p><strong>Autor:</strong> {{ $receta->autor }}</p>
-            <p><strong>Creado el:</strong> {{ $receta->f_creacion }}</p>
 
-            @if ($receta->autor === 'sergio@email.com') {{-- Simulación de usuario actual --}}
+            @if ($receta->autor === 1) {{-- Simulación de usuario actual --}}
                 <a href="{{ url('recetas/' . $receta->id . '/editar') }}" class="btn btn-sm btn-warning">Editar</a>
 
                 <form action="{{ url('recetas/' . $receta->id) }}" method="POST" style="display:inline-block;">

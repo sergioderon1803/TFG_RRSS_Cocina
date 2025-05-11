@@ -45,8 +45,48 @@ class User extends Authenticatable {
         ];
     }
 
+    // Relaciones
     public function recetas()
     {
         return $this->hasMany(Receta::class, 'autor', 'id');
+    }
+    
+    public function perfil()
+    {
+        return $this->hasOne(Perfil::class, 'id_user');
+    }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class, 'id_user');
+    }
+
+    public function respuestas()
+    {
+        return $this->hasMany(Respuesta::class, 'id_user');
+    }
+
+    public function recetasGuardadas()
+    {
+        return $this->belongsToMany(Receta::class, 'guardar_receta', 'id_user', 'id_receta')
+                    ->withPivot('f_guardar');
+    }
+
+    public function recetasGustadas()
+    {
+        return $this->belongsToMany(Receta::class, 'gustar_receta', 'id_user', 'id_receta')
+                    ->withPivot('f_gustar');
+    }
+
+    public function seguidores()
+    {
+        return $this->belongsToMany(User::class, 'seguir_usuario', 'id_user', 'id_seguidor')
+                    ->withPivot('f_seguimiento');
+    }
+
+    public function seguidos()
+    {
+        return $this->belongsToMany(User::class, 'seguir_usuario', 'id_seguidor', 'id_user')
+                    ->withPivot('f_seguimiento');
     }
 }
