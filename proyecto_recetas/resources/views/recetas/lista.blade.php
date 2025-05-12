@@ -3,20 +3,6 @@
 @section('titulo', 'Listado de recetas')
 
 @section('listado')
-    
-    {{-- 
-    <x-alerta type="danger">
-        Variable slot ($slot es la predeterminada)
-
-        <x-slot name="otraVariable">
-            Esta es otra variable
-        </x-slot>
-
-        <x-slot name="variableTernaria">
-            Variable ternaria manual
-        </x-slot>
-    </x-alerta>
-    --}}
 
     <h2>Listado de recetas</h2>
     <a href="{{ url('recetas/crear') }}" class="btn btn-primary">Nueva receta</a>

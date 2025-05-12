@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecetaController;
-use App\Models\Usuario;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,20 +33,3 @@ Route::put('recetas/{id}', [RecetaController::class, 'actualizarReceta'])->name(
 
 // Eliminar receta
 Route::delete('recetas/{id}', [RecetaController::class, 'eliminarReceta'])->name('recetas.eliminar');
-
-Route::get('usuarios', function() {
-    $usuarios = Usuario::all();
-
-    return $usuarios;
-});
-
-Route::get('registrarUsuarios', function() {
-    $usuario = new Usuario();
-
-    $usuario->email = 'sergio@email.com';
-    $usuario->password = 'abc123';
-    $usuario->f_registro = now();
-
-    $usuario->save();
-    return $usuario;
-});
