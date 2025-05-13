@@ -11,13 +11,14 @@
         {{-- <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
         <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-[#FFE6D4]">
+        <div class="min-h-screen bg-peach">
             @include('layouts.navigation')
 
             <!-- Page Heading -->

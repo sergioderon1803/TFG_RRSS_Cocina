@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-peach {
+    background-color: #FFE6D4 !important;
+}
