@@ -10,7 +10,8 @@ Route::get('/', function () {
 
 Route::get('admin', function () {
     return view('admin.admin');
-});
+})->middleware(['auth', 'verified'])->name('admin');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
