@@ -18,7 +18,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-peach">
+            <div class="min-h-screen {{ Request::is('admin*') ? 'bg-body-secondary' : 'bg-peach' }}">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
