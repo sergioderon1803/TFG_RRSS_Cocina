@@ -1,0 +1,14 @@
+.tamañoBoton{
+    width: 200px;
+    height: 100px;
+    border: 2px solid black;
+}
+
+.btn-hover-animate{
+    transition: all 0.3s ease;
+}
+
+.btn-hover-animate:hover{
+    border: 2px solid slateblue;
+    transform: translateY(-2px) scale(1.03);
+}

@@ -9,3 +9,7 @@
 .bg-barraNavegacion{
     background-color: #FFB871 !important;
 }
+
+.nav-height {
+    height: 85px; /* puedes ajustar este valor */
+}
