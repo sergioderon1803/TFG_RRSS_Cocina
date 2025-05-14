@@ -31,11 +31,9 @@
                 <input type="submit" class="btn mx-1 bg-primary" value="Filtrar">
             </form>
         </div>
-
+        
         {{-- Mostrar tabla correspondiente --}}
-        @if(request('tipo') === 'usuarios')
-            {{-- Tabla de Usuarios --}}
-            <div class="mx-5 mt-5">
+        <div class="mx-5 mt-5">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -45,6 +43,8 @@
                             <th>Fecha de registro</th>
                         </tr>
                     </thead>
+        @if(request('tipo') === 'usuarios')
+            {{-- Tabla de Usuarios --}}
                     <tbody>
                         @forelse($usuarios as $usuario)
                             <tr>
@@ -64,17 +64,6 @@
             </div>
         @else
             {{-- Tabla de Recetas --}}
-            <div class="mx-5 mt-4">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Título</th>
-                            <th>Tipo</th>
-                            <th>Autor</th>
-                            <th>Fecha</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         @forelse($recetas as $receta)
                             <tr>
