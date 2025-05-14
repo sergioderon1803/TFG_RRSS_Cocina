@@ -1,7 +1,8 @@
 .tamañoBoton{
-    width: 200px;
-    height: 100px;
+    width: 180px;
+    height: 90px;
     border: 2px solid black;
+    margin: 20px 100px 0 100px;
 }
 
 .btn-hover-animate{
@@ -11,4 +12,8 @@
 .btn-hover-animate:hover{
     border: 2px solid slateblue;
     transform: translateY(-2px) scale(1.03);
+}
+.titulo{
+    font-size: 60px;
+    margin-top: 80px;
 }
