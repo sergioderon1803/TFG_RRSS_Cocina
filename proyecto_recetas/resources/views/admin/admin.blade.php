@@ -34,17 +34,17 @@
         
         {{-- Mostrar tabla correspondiente --}}
         <div class="mx-5 mt-5">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Email</th>
-                            <th>Tipo</th>
-                            <th>Fecha de registro</th>
-                        </tr>
-                    </thead>
-        @if(request('tipo') === 'usuarios')
-            {{-- Tabla de Usuarios --}}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Tipo</th>
+                        <th>Fecha de registro</th>
+                    </tr>
+                </thead>
+                @if(request('tipo') === 'usuarios')
+                    {{-- Tabla de Usuarios --}}
                     <tbody>
                         @forelse($usuarios as $usuario)
                             <tr>
@@ -59,11 +59,8 @@
                             </tr>
                         @endforelse
                     </tbody>
-                </table>
-                {{ $usuarios->links() }}
-            </div>
-        @else
-            {{-- Tabla de Recetas --}}
+                @else
+                    {{-- Tabla de Recetas --}}
                     <tbody>
                         @forelse($recetas as $receta)
                             <tr>
@@ -79,9 +76,16 @@
                             </tr>
                         @endforelse
                     </tbody>
-                </table>
+                @endif
+            </table>
+            
+            {{-- Paginación --}}
+            @if(request('tipo') === 'usuarios')
+                {{ $usuarios->links() }}
+            @else
+                <a href="{{ url('recetas/crear') }}" class="btn btn-primary">Nueva receta</a>
                 {{ $recetas->links() }}
-            </div>
-        @endif
+            @endif
+        </div>
     </div>
 @endsection

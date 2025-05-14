@@ -4,10 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecetaController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/perfil', [UserController::class, 'mostrarPerfilAutenticado'])->middleware(['auth'])->name('usuario.perfil');
+Route::get('/usuarios/{id}', [UserController::class, 'mostrarPerfil'])->name('usuarios.perfil');
 
 Route::get('admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
 

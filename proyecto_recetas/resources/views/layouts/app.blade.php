@@ -31,6 +31,7 @@
                 @yield('formularioReceta')
                 @yield('formularioEdicion')
                 @yield('admin')
+                @yield('perfil')
             </main>
         </div>
     </body>
