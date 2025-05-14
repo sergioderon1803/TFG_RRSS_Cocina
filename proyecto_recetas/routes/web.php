@@ -15,6 +15,8 @@ Route::get('/usuarios/{id}', [UserController::class, 'mostrarPerfil'])->name('us
 
 Route::get('admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
 
+Route::view('/about', 'about')->name('about');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
