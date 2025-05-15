@@ -17,12 +17,14 @@
                     </x-nav-link>
                 </div>
 
+                @php
+                    $perfilId = auth()->check() && auth()->user()->perfil ? auth()->user()->perfil->id_user : (auth()->check() ? auth()->id() : null);
+                @endphp
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('usuario.perfil')" :active="request()->routeIs('usuario.perfil')">
+                    <x-nav-link :href="route('perfil.ver', ['id' => $perfilId])" :active="request()->routeIs('perfil.ver')">
                         {{ __('Perfil') }}
                     </x-nav-link>
                 </div>
-
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('admin')" :active="request()->routeIs('admin')">

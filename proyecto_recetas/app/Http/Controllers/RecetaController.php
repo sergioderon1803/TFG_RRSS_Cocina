@@ -18,7 +18,7 @@ class RecetaController extends Controller {
     }
 
     // Mostrar el formulario
-    public function crearReceta(){
+    public function formularioReceta(){
         return view('recetas.creacionReceta');
     }
 

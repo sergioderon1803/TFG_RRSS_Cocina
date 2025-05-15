@@ -33,6 +33,7 @@
                 @yield('admin')
                 @yield('perfil')
                 @yield('about')
+                @yield('edicionPerfil')
             </main>
         </div>
     </body>

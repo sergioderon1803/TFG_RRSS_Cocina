@@ -20,6 +20,13 @@
         <h3 class="mb-0">{{ $perfil->name }}</h3>
     </div>
 
+    {{-- Editar perfil --}}
+    @auth
+        @if(auth()->id() == $perfil->id_user)
+            <a href="{{ route('perfil.edicionPerfil', ['id' => $perfil->id_user]) }}" class="btn btn-primary">Editar perfil</a>
+        @endif
+    @endauth
+
     {{-- Biografía --}}
     <p><strong>Biografía:</strong> {{ $perfil->biografia ?? '¡Compartiendo recetas en WeCook!' }}</p>
 

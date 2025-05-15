@@ -11,6 +11,10 @@ Route::get('/', function () {
 });
 
 Route::get('/perfil', [UserController::class, 'mostrarPerfilAutenticado'])->middleware(['auth'])->name('usuario.perfil');
+Route::get('/perfil/{id}', [ProfileController::class, 'ver'])->name('perfil.ver');
+Route::get('/perfil/{id}/editar', [ProfileController::class, 'editar'])->name('perfil.edicionPerfil');
+Route::post('/perfil/{id}/actualizar', [ProfileController::class, 'actualizar'])->name('perfil.actualizar');
+
 Route::get('/usuarios/{id}', [UserController::class, 'mostrarPerfil'])->name('usuarios.perfil');
 
 Route::get('admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
@@ -31,7 +35,7 @@ require __DIR__.'/auth.php';
 
 Route::get('recetas', [RecetaController::class, 'listarRecetas'])->name('recetas.lista'); // ('URI', [Controlador, 'metodo']);
 Route::get('receta/{id}', [RecetaController::class, 'mostrarRecetaIndividual']);
-Route::get('recetas/crear', [RecetaController::class, 'crearReceta']);
+Route::get('recetas/crear', [RecetaController::class, 'formularioReceta']);
 Route::post('recetas', [RecetaController::class, 'guardarReceta'])->name('recetas.store');
 
 // Mostrar formulario de edición
