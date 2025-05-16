@@ -5,13 +5,8 @@
         body {
             background-color: bisque;
         }
-    </style>
-@endpush
-
-@push('css')
-    <style>
         p {
-            color:teal;
+            color: teal;
         }
     </style>
 @endpush
@@ -20,38 +15,61 @@
     
 @section('detalle')
 <div class="container mt-4">
-    <h2>{{ $receta->titulo }}</h2>
-    <p><strong>Tipo:</strong> {{ $receta->tipo }}</p>
+    <div class="row">
+        <!-- Columna izquierda -->
+        <div class="col-md-5">
 
-    @if ($receta->imagen)
-        <img src="{{ asset('storage/' . $receta->imagen) }}" class="img-fluid mb-3" alt="Imagen de {{ $receta->titulo }}">
-    @endif
+            {{-- Botones de edición/eliminación si el usuario es autor --}}
+            @if ($receta->autor === 1) {{-- Reemplaza con auth()->id() === $receta->user_id si usas auth --}}
+                <form action="{{ url('recetas/' . $receta->id . '/editar') }}" method="GET" style="display:inline;">
+                    <button class="btn btn-warning mb-2">Editar</button>
+                </form>
 
-    <h4>Ingredientes</h4>
-    <p>{{ $receta->ingredientes }}</p>
+                <form action="{{ url('recetas/' . $receta->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger mb-3">Eliminar</button>
+                </form>
+            @endif
 
-    <h4>Procedimiento</h4>
-    <p>{{ $receta->procedimiento }}</p>
+            {{-- Imagen --}}
+            @if ($receta->imagen)
+                <img src="{{ asset('storage/' . $receta->imagen) }}" class="img-fluid mb-3" alt="Imagen de {{ $receta->titulo }}">
+            @endif
 
-    <hr>
+            {{-- Ingredientes --}}
+            <h4>Ingredientes</h4>
+            <p>{{ $receta->ingredientes }}</p>
 
-    {{-- Lógica condicional según autor --}}
-    @if ($receta->autor === 1) {{-- Reemplaza esto con auth()->user()->email si usas auth --}}
-        <form action="{{ url('recetas/' . $receta->id . '/editar') }}" method="GET" style="display:inline;">
-            <button class="btn btn-warning">Editar</button>
-        </form>
+            {{-- Botones de interacción --}}
+            <form method="POST" action="#">
+                @csrf
+                <button class="btn btn-outline-primary mb-2">¡Me gusta!</button>
+                <button class="btn btn-outline-secondary mb-2">Guardar</button>
+            </form>
+        </div>
 
-        <form action="{{ url('recetas/' . $receta->id) }}" method="POST" style="display:inline;">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-danger">Eliminar</button>
-        </form>
-    @else
-        <form method="POST" action="#">
-            @csrf
-            <button class="btn btn-outline-primary">¡Me gusta!</button>
-            <button class="btn btn-outline-secondary">Guardar</button>
-        </form>
-    @endif
+        <!-- Columna derecha -->
+        <div class="col-md-7">
+            <h2>{{ $receta->titulo }}</h2>
+
+            <p>
+                <strong>Tipo:</strong> {{ $receta->tipo }} |
+                <strong>Autor:</strong> {{ $receta->autor }}
+            </p>
+
+            <h4>Procedimiento</h4>
+            <p>{{ $receta->procedimiento }}</p>
+        </div>
+    </div>
+
+    <!-- Sección de comentarios (placeholder) -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h4>Comentarios</h4>
+            <p class="text-muted">Aquí se mostrarán los comentarios de los usuarios sobre esta receta.</p>
+            {{-- Aquí iría el listado de comentarios cuando se implemente --}}
+        </div>
+    </div>
 </div>
 @endsection
