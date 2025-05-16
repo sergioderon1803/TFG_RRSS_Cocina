@@ -9,8 +9,7 @@ use App\Models\Receta;
 
 class UserController extends Controller {
 
-    public function mostrarPerfilAutenticado()
-    {
+    public function mostrarPerfilAutenticado() {
         $user = Auth::user(); // Usuario logado
         $perfil = $user->perfil;
         $recetas = $user->recetas;

@@ -68,7 +68,50 @@
         <div class="col-12">
             <h4>Comentarios</h4>
             <p class="text-muted">Aquí se mostrarán los comentarios de los usuarios sobre esta receta.</p>
-            {{-- Aquí iría el listado de comentarios cuando se implemente --}}
+            <!-- Formulario para añadir comentario -->
+            @auth
+                <form method="POST" action="{{ route('comentarios.store') }}">
+                    @csrf
+                    <input type="hidden" name="id_receta" value="{{ $receta->id }}">
+                    <div class="mb-3">
+                        <label for="contenido" class="form-label">Añadir comentario:</label>
+                        <textarea class="form-control" id="contenido" name="contenido" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Comentar</button>
+                </form>
+            @endauth
+            <hr>
+            @foreach ($receta->comentarios as $comentario)
+                <div class="mb-3">
+                    <strong>{{ $comentario->user->email }}</strong> 
+                    <span class="text-muted">({{ $comentario->f_creacion }})</span>
+                    <p>{{ $comentario->contenido }}</p>
+                    {{-- Respuestas al comentario --}}
+                    @if($comentario->respuestas && $comentario->respuestas->count() > 0)
+                        @foreach ($comentario->respuestas as $respuesta)
+                            <div class="ms-4 ps-3 border-start mb-2">
+                                <strong>{{ $respuesta->user->email }}</strong>
+                                <span class="text-muted">({{ $respuesta->f_creacion }})</span>
+                                <p>{{ $respuesta->contenido }}</p>
+                            </div>
+                        @endforeach
+                    @endif
+                    {{-- Formulario para responder al comentario --}}
+                    @auth
+                        <form method="POST" action="{{ route('respuestas.store') }}" class="ms-4 mt-2">
+                            @csrf
+                            <input type="hidden" name="id_user" value="1"> {{-- Value fijo para probar --}}
+                            <input type="hidden" name="id_comentario" value="{{ $comentario->id }}">
+                            <input type="hidden" name="id_receta" value="{{ $receta->id }}">
+                            <input type="hidden" name="id_user_respondido" value="{{ $comentario->id_user }}">
+                            <div class="mb-2">
+                                <textarea name="contenido" class="form-control" rows="2" placeholder="Escribe una respuesta..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-outline-primary">Responder</button>
+                        </form>
+                    @endauth
+                </div>
+            @endforeach
         </div>
     </div>
 </div>

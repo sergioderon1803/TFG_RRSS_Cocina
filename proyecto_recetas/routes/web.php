@@ -5,10 +5,15 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecetaController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\RespuestaController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/comentarios', [ComentarioController::class, 'store'])->name('comentarios.store');
+Route::post('/respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');
 
 Route::get('/perfil', [UserController::class, 'mostrarPerfilAutenticado'])->middleware(['auth'])->name('usuario.perfil');
 Route::get('/perfil/{id}', [ProfileController::class, 'ver'])->name('perfil.ver');

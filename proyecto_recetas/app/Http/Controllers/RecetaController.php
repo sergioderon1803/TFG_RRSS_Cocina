@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Receta;
 
 class RecetaController extends Controller {
+
+    public function mostrarComentario($id) {
+        $receta = Receta::with(['comentarios.user'])->findOrFail($id);
+        return view('recetas.detalle', compact('receta'));
+    }
     
     public function listarRecetas(){
         $recetas = Receta::paginate(3);
@@ -13,7 +18,11 @@ class RecetaController extends Controller {
     }
 
     public function mostrarRecetaIndividual($id){
-        $receta = Receta::findOrFail($id);
+        $receta = Receta::with([
+            'comentarios.user',
+            'comentarios.respuestas.user'
+        ])->findOrFail($id);
+
         return view('recetas.detalle', compact('receta'));
     }
 
