@@ -21,11 +21,11 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-            <div class="min-h-screen {{ Request::is('admin*') ? 'bg-body-secondary' : 'bg-peach' }}">
+            <div class="d-flex flex-column min-vh-100 bg-peach {{ Request::is('admin*') ? 'bg-body-secondary' : 'bg-peach' }}">
             @include('layouts.navigation')
 
             <!-- Page Content -->
-            <main>
+            <main class="flex-grow-1">
                 @yield('listado')
                 @yield('detalle')
                 @yield('formularioReceta')
@@ -35,16 +35,7 @@
                 @yield('about')
                 @yield('edicionPerfil')
             </main>
+            @include('layouts.footer')
         </div>
     </body>
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container text-center">
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('about') }}">About Us</a>
-                </li>
-            </ul>
-            <p class="mt-3">&copy; 2025 WeCook - Todos los derechos reservados.</p>
-        </div>
-    </footer>
 </html>

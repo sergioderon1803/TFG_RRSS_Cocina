@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@ta1ilwind utilities;
 
+
+/* COLORES DE LA APLICACIÓN */
 .bg-peach {
     background-color: #FFE6D4 !important;
 }
@@ -10,6 +14,22 @@
     background-color: #FFB871 !important;
 }
 
+/* BARRA DE NAVEGACIÓN */
 .nav-height {
-    height: 85px; /* puedes ajustar este valor */
+    height: 85px; /* Alto de la barra de navegación */
+}
+
+/*Principal*/
+.espaciado{
+    margin: 20px 0px 10px 30px;
+}
+
+.categorias{
+    background-color: #92FB00;
+    border: 2px solid black;
+}
+
+.img-publicacion{
+    height: 200px;
+    object-fit: cover;
 }

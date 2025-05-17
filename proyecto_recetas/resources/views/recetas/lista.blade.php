@@ -4,39 +4,56 @@
 
 @section('listado')
 
-    <h2>Listado de recetas</h2>
-    <a href="{{ url('recetas/crear') }}" class="btn btn-primary">Nueva receta</a>
-    
-    @foreach ($recetas as $receta)
-        <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
-            <h3>
-                <strong><a href="{{ url('receta/' . $receta->id) }}">{{ $receta->titulo }}</a></strong>
-            </h3>
+    <div class="container ">
+    <div class="row espaciado">
+        <div class="col-md-8">
+            <div class="row ">
+                @foreach ($recetas as $receta)
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            @if ($receta->imagen)
+                                <img src="{{ asset('storage/' . $receta->imagen) }}" class="card-img-top img-publicacion" alt="Imagen de {{ $receta->titulo }}">
+                            @endif
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold"><a href="{{ url('receta/' . $receta->id) }}">{{ $receta->titulo }}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
 
-            @if ($receta->imagen)
-                <img src="{{ asset('storage/' . $receta->imagen) }}" alt="Imagen de la receta" style="max-width: 200px;">
-            @endif
-
-            <p><strong>Tipo:</strong> {{ $receta->tipo }}</p>
-            <p><strong>Ingredientes:</strong> {{ $receta->ingredientes }}</p>
-            <p><strong>Procedimiento:</strong> {{ Str::limit($receta->procedimiento, 100, '...') }}</p>
-            <p><strong>Autor:</strong> {{ $receta->autor }}</p>
-
-            @if ($receta->autor === 1) {{-- Simulación de usuario actual --}}
-                <a href="{{ url('recetas/' . $receta->id . '/editar') }}" class="btn btn-sm btn-warning">Editar</a>
-
-                <form action="{{ url('recetas/' . $receta->id) }}" method="POST" style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-sm btn-danger">Eliminar</button>
-                </form>
-            @endif
+            {{-- Paginación --}}
+            <div class="d-flex justify-content-center">
+                {{ $recetas->links('pagination::bootstrap-5') }}
+            </div>
         </div>
-    @endforeach
 
-    {{-- Paginación --}}
-    <div>
-        {{ $recetas->links('pagination::bootstrap-5') }}
+        {{-- Columna de filtros --}}
+        <div class="col-md-3 d-flex flex-column align-items-center mt-3 ml-4">
+            <a href="{{ url('recetas/crear') }}" class="btn btn-primary mb-3 w-100 text-white fw-bold">CREAR RECETA</a>
+
+            @php
+                $filtros = ['Pasta', 'Fritos', 'Healthy', 'Primer Plato', 'Postre', 'Sin gluten'];
+            @endphp
+
+            @foreach ($filtros as $filtro)
+                <a href="#" 
+                   class="btn mb-2 w-100 text-dark fw-bold b-1 categorias">
+                   {{ $filtro }}
+                </a>
+            @endforeach
+            <div class="card shadow-sm border-info">
+                <div class="card-header bg-info text-white text-center fw-bold">
+                    RECETA DE LA SEMANA
+                </div>
+                <img src="#" class="card-img-top" alt="Receta de la semana" style="height: 200px; object-fit: cover;">
+                <div class="card-body text-center">
+                    <h6 class="card-title fw-bold">Garbanzos con espinacas</h6>
+                </div>
+            </div>
+        </div>
+
     </div>
+</div>
 
 @endsection
