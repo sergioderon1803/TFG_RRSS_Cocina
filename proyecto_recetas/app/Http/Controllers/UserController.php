@@ -19,9 +19,9 @@ class UserController extends Controller {
 
     // Eliminar usuario
     public function eliminarUsuarioAdmin($id) {
-        /*$usuario = User::findOrFail($id);
+        $usuario = User::findOrFail($id);
         $usuario->delete();
-        */
+        
         $usuarios = User::paginate(5);
 
         return redirect()->route('admin',array('tipo' => 'usuarios'))->with('success', 'Usuario eliminado.');
