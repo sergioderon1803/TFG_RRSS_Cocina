@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Respuesta;
 
@@ -16,10 +17,10 @@ class RespuestaController extends Controller {
 
         Respuesta::create([
             'id_comentario' => $request->id_comentario,
-            'id_user' => $request->input('id_user'),
+            'id_user' => Auth::id(),
             'contenido' => $request->contenido,
             'id_receta' => $request->id_receta,
-            'id_user_respondido' => $request->id_user_respondido ?? null,
+            'id_user_respondido' => $request->id_user_respondido,
             'f_creacion' => now(),
         ]);
 

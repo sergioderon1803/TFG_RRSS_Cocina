@@ -77,6 +77,7 @@ class RecetaController extends Controller {
     public function mostrarRecetaIndividual($id)
     {
         $receta = Receta::with([
+            'autor.perfil',
             'comentarios.user',
             'comentarios.respuestas.user'
         ])->findOrFail($id);
