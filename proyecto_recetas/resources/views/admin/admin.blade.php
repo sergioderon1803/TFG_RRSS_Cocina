@@ -31,19 +31,20 @@
                 <input type="submit" class="btn mx-1 bg-primary" value="Filtrar">
             </form>
         </div>
-        
+    
+
         {{-- Mostrar tabla correspondiente --}}
         <div class="mx-5 mt-5">
             <table class="table table-bordered">
-                <thead>
+                @if(request('tipo') === 'usuarios')
+                <thead>                   
                     <tr>
                         <th>ID</th>
                         <th>Email</th>
-                        <th>Tipo</th>
+                        <th>Rol</th>
                         <th>Fecha de registro</th>
                     </tr>
                 </thead>
-                @if(request('tipo') === 'usuarios')
                     {{-- Tabla de Usuarios --}}
                     <tbody>
                         @forelse($usuarios as $usuario)
@@ -59,23 +60,44 @@
                             </tr>
                         @endforelse
                     </tbody>
+                    
                 @else
-                    {{-- Tabla de Recetas --}}
+
+                <thead>                   
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Autor</th>
+                        <th>Fecha de creación</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                   {{-- Tabla de Recetas --}}
                     <tbody>
                         @forelse($recetas as $receta)
                             <tr>
                                 <td>{{ $receta->id }}</td>
-                                <td>{{ $receta->titulo }}</td>
+                                <td><a href="{{ url('receta/' . $receta->id) }}" class="btn btn-primary btn-sm">{{ $receta->titulo }}</a></td>
                                 <td>{{ $receta->tipo }}</td>
                                 <td>{{ $receta->autor->email ?? 'Desconocido' }}</td>
                                 <td>{{ $receta->created_at ?? 'N/D' }}</td>
+                                <td class="text-center">
+                                    <form action="{{ url('recetas/admin/' . $receta->id) }}" method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                                    </form>
+                                    <form action="{{ url('recetas/' . $receta->id . '/editar') }}" method="GET" style="display:inline;">
+                                        <button class="btn btn-warning mb-2">Editar</button>
+                                    </form>
+                                </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="5">No hay recetas disponibles.</td>
                             </tr>
                         @endforelse
-                    </tbody>
                 @endif
             </table>
             

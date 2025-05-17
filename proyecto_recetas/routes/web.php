@@ -51,3 +51,6 @@ Route::put('recetas/{id}', [RecetaController::class, 'actualizarReceta'])->name(
 
 // Eliminar receta
 Route::delete('recetas/{id}', [RecetaController::class, 'eliminarReceta'])->name('recetas.eliminar');
+
+// Eliminar receta
+Route::delete('recetas/admin/{id}', [RecetaController::class, 'eliminarRecetaAdmin'])->name('recetas.eliminarAdmin');
