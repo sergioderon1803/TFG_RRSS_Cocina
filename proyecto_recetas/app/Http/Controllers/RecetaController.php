@@ -2,10 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GuardarReceta;
+use App\Models\GustarReceta;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Receta;
 
 class RecetaController extends Controller {
+
+    public function guardarRecetaUsuario($id)
+    {
+        $userId = Auth::id();
+
+        // Verificar si ya está guardada
+        $yaExiste = GuardarReceta::where('id_receta', $id)->where('id_user', $userId)->exists();
+
+        if (!$yaExiste) {
+            GuardarReceta::create([
+                'id_receta' => $id,
+                'id_user' => $userId,
+                'f_guardar' => now(),
+            ]);
+        }
+
+        return back()->with('success', 'Receta guardada.');
+    }
+
+    public function eliminarGuardado($id)
+    {
+        $userId = Auth::id();
+
+        GuardarReceta::where('id_receta', $id)->where('id_user', $userId)->delete();
+
+        return back()->with('success', 'Guardado eliminado.');
+    }
+
+    public function gustarRecetaUsuario($id)
+    {
+        $userId = Auth::id();
+
+        // Verificar si ya le dio me gusta
+        $yaExiste = GustarReceta::where('id_receta', $id)->where('id_user', $userId)->exists();
+
+        if (!$yaExiste) {
+            GustarReceta::create([
+                'id_receta' => $id,
+                'id_user' => $userId,
+                'f_gustar' => now(),
+            ]);
+        }
+
+        return back()->with('success', 'Te ha gustado la receta.');
+    }
+
+    public function eliminarMeGusta($id)
+    {
+        $userId = Auth::id();
+
+        GustarReceta::where('id_receta', $id)->where('id_user', $userId)->delete();
+
+        return back()->with('success', 'Ya no te gusta esta receta.');
+    }
 
     public function mostrarComentario($id) {
         $receta = Receta::with(['comentarios.user'])->findOrFail($id);
@@ -17,13 +74,28 @@ class RecetaController extends Controller {
         return view('recetas.lista', compact('recetas'));
     }
 
-    public function mostrarRecetaIndividual($id){
+    public function mostrarRecetaIndividual($id)
+    {
         $receta = Receta::with([
             'comentarios.user',
             'comentarios.respuestas.user'
         ])->findOrFail($id);
 
-        return view('recetas.detalle', compact('receta'));
+        $guardada = false;
+        $gustada = false;
+
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $guardada = GuardarReceta::where('id_receta', $id)
+                                    ->where('id_user', $userId)
+                                    ->exists();
+
+            $gustada = GustarReceta::where('id_receta', $id)
+                                ->where('id_user', $userId)
+                                ->exists();
+        }
+
+        return view('recetas.detalle', compact('receta', 'guardada', 'gustada'));
     }
 
     // Mostrar el formulario
@@ -52,7 +124,7 @@ class RecetaController extends Controller {
             'ingredientes' => $request->input('ingredientes'),
             'procedimiento' => $request->input('procedimiento'),
             'imagen' => $rutaImagen,
-            'autor' => 1, // temporalmente fijo; si tienes auth, usa auth()->user()->id()
+            'autor' => Auth::id(),
             'estado' => 0
         ]);
 
@@ -62,6 +134,9 @@ class RecetaController extends Controller {
     // Mostrar formulario con datos actuales
     public function editarReceta($id) {
         $receta = Receta::findOrFail($id);
+        if (Auth::id() !== $receta->autor) {
+            abort(403, 'No autorizado.');
+        }
         return view('recetas.edicionReceta', compact('receta'));
     }
 
@@ -76,6 +151,9 @@ class RecetaController extends Controller {
         ]);
 
         $receta = Receta::findOrFail($id);
+        if (Auth::id() !== $receta->autor) {
+            abort(403, 'No autorizado.');
+        }
 
         if ($request->hasFile('imagen')) {
             $rutaImagen = $request->file('imagen')->store('recetas', 'public');
@@ -95,6 +173,9 @@ class RecetaController extends Controller {
     // Eliminar receta
     public function eliminarReceta($id) {
         $receta = Receta::findOrFail($id);
+        if (Auth::id() !== $receta->autor) {
+            abort(403, 'No autorizado.');
+        }
         $receta->delete();
 
         return redirect()->route('recetas.lista')->with('success', 'Receta eliminada.');

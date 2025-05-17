@@ -43,6 +43,14 @@ Route::get('receta/{id}', [RecetaController::class, 'mostrarRecetaIndividual']);
 Route::get('recetas/crear', [RecetaController::class, 'formularioReceta']);
 Route::post('recetas', [RecetaController::class, 'guardarReceta'])->name('recetas.store');
 
+// Guardar receta
+Route::post('/recetas/{id}/guardar', [RecetaController::class, 'guardarRecetaUsuario'])->middleware('auth')->name('recetas.guardar');
+Route::delete('/recetas/{id}/guardar', [RecetaController::class, 'eliminarGuardado'])->middleware('auth')->name('recetas.guardar.eliminar');
+
+// Me gusta receta
+Route::post('/recetas/{id}/gustar', [RecetaController::class, 'gustarRecetaUsuario'])->middleware('auth')->name('recetas.gustar');
+Route::delete('/recetas/{id}/gustar', [RecetaController::class, 'eliminarMeGusta'])->middleware('auth')->name('recetas.gustar.eliminar');
+
 // Mostrar formulario de edición
 Route::get('recetas/{id}/editar', [RecetaController::class, 'editarReceta'])->name('recetas.editar');
 
