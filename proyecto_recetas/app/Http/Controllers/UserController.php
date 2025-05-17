@@ -17,4 +17,14 @@ class UserController extends Controller {
         return view('profile.perfil', compact('user', 'perfil', 'recetas'));
     }
 
+    // Eliminar usuario
+    public function eliminarUsuarioAdmin($id) {
+        /*$usuario = User::findOrFail($id);
+        $usuario->delete();
+        */
+        $usuarios = User::paginate(5);
+
+        return redirect()->route('admin',array('tipo' => 'usuarios'))->with('success', 'Usuario eliminado.');
+    }
+
 }

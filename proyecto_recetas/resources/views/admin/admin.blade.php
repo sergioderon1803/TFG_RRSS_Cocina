@@ -3,6 +3,7 @@
 @section('titulo', 'Administración')
 
 @section('admin')
+
     <div>
         <div class="d-flex justify-content-between mt-3 mx-5 mb-5">
             <form action="{{ route('admin') }}" method="GET" class="d-inline">
@@ -11,7 +12,7 @@
             </form>
 
             <h1 class="titulo">
-                {{ request('tipo') === 'usuarios' ? 'Usuarios' : 'Recetas' }}
+                {{ request('tipo') == 'usuarios' ? 'Usuarios' : 'Recetas' }}
             </h1>
 
             <form action="{{ route('admin') }}" method="GET" class="d-inline">
@@ -43,6 +44,7 @@
                         <th>Email</th>
                         <th>Rol</th>
                         <th>Fecha de registro</th>
+                        <th></th>
                     </tr>
                 </thead>
                     {{-- Tabla de Usuarios --}}
@@ -53,6 +55,13 @@
                                 <td>{{ $usuario->email }}</td>
                                 <td>{{ $usuario->user_type }}</td>
                                 <td>{{ $usuario->created_at ?? 'N/D' }}</td>
+                                <td class="text-center">
+                                    <form action="{{ url('usuario/admin/' . $usuario->id) }}" method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                                    </form>
+                                </td>
                             </tr>
                         @empty
                             <tr>
@@ -110,4 +119,5 @@
             @endif
         </div>
     </div>
+
 @endsection

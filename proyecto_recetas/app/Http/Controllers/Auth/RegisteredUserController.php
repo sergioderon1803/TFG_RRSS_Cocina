@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
 
         Perfil::create([
             'id_user' => $user->id,
-            'name' => "perfilPorDefecto",
+            'name' => $user->email, //Poner el nombre del usuario
             'img_perfil' => "manolo",
             'img_banner' => "nulo",
             'biografia' => "Por rellenar"

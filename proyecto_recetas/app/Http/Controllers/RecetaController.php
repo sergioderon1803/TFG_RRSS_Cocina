@@ -187,7 +187,7 @@ class RecetaController extends Controller {
         $receta = Receta::findOrFail($id);
         $receta->delete();
 
-        return redirect()->route('admin')->with('success', 'Receta eliminada.');
+        return redirect()->route('admin',array('tipo' => 'recetas'))->with('success', 'Receta eliminada.');
     }
 
 }
