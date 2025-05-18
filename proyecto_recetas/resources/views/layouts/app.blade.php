@@ -31,6 +31,8 @@
                 @yield('formularioReceta')
                 @yield('formularioEdicion')
                 @yield('admin')
+                @yield('adminRecetas')
+                @yield('adminUsuarios')
                 @yield('perfil')
                 @yield('about')
                 @yield('edicionPerfil')

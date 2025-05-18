@@ -28,7 +28,6 @@ Route::post('/perfil/{id}/actualizar', [ProfileController::class, 'actualizar'])
 Route::get('/usuarios/{id}', [UserController::class, 'mostrarPerfil'])->name('usuarios.perfil');
 
 Route::get('admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
-Route::get('admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
 Route::get('admin/recetas', [AdminController::class, 'listaRecetas'])->middleware(['auth', 'verified'])->name('admin.recetas');
 Route::get('admin/usuarios', [AdminController::class, 'listaUsuarios'])->middleware(['auth', 'verified'])->name('admin.usuarios');
 

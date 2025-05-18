@@ -181,9 +181,7 @@
 
 @section('js')
 
-    <script src="sweetalert2.all.min.js"></script>
-    <script src="sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         forms = document.querySelectorAll('.formBorrar');
@@ -193,7 +191,7 @@
                 e.preventDefault();
 
                 Swal.fire({
-                title: "¿Estás seguro de que deseas borrar este registro?",
+                title: "¿Estás seguro de que deseas borrar la receta?",
                 text: "",
                 icon: "warning",
                 showCancelButton: true,
