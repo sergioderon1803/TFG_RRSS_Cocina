@@ -95,9 +95,6 @@
                                     <form action="{{ url('recetas/' . $receta->id . '/editar') }}" method="GET" style="display:inline;">
                                         <button class="btn btn-warning mb-2">Editar</button>
                                     </form>
-                                    @php
-                                        $id = $receta->id;
-                                    @endphp
 
                                     <form action="{{ url('recetas/admin/' . $receta->id) }}" method="POST" style="display:inline-block;">
                                         <div class="modal-body">
