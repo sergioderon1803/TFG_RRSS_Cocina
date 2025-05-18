@@ -8,7 +8,14 @@
         <div class="d-flex justify-content-between mt-3 mx-5 mb-5">
             <form action="{{ route('admin') }}" method="GET" class="d-inline">
                 <input type="hidden" name="tipo" value="recetas">
-                <input type="submit" class="btn btn-hover-animate fs-2 tamañoBoton" value="Recetas">
+                <input type="submit" id="listaRecetas" class="btn btn-hover-animate fs-2 tamañoBoton" value="Recetas">
+                @if(isset($recetas))
+                    <script>
+                        inputReceta = document.getElementById('listaRecetas');
+
+                        inputReceta.setAttribute('disabled','disabled');
+                    </script>
+                @endif
             </form>
 
             <h1 class="titulo">
@@ -17,7 +24,14 @@
 
             <form action="{{ route('admin') }}" method="GET" class="d-inline">
                 <input type="hidden" name="tipo" value="usuarios">
-                <input type="submit" class="btn btn-hover-animate fs-2 tamañoBoton" value="Usuarios">
+                <input type="submit" id="listaUsuarios" class="btn btn-hover-animate fs-2 tamañoBoton" value="Usuarios">
+                @if(isset($usuarios))
+                    <script>
+                        inputUsuario = document.getElementById('listaUsuarios');
+
+                        inputUsuario.setAttribute('disabled','disabled');
+                    </script>
+                @endif
             </form>
         </div>
 
@@ -56,7 +70,7 @@
                                 <td>{{ $usuario->user_type }}</td>
                                 <td>{{ $usuario->created_at ?? 'N/D' }}</td>
                                 <td class="text-center">
-                                    <form action="{{ url('usuario/admin/' . $usuario->id) }}" method="POST" style="display:inline-block;">
+                                    <form class="formBorrar" action="{{ url('usuario/admin/' . $usuario->id) }}" method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-sm btn-danger">Eliminar</button>
@@ -96,7 +110,7 @@
                                         <button class="btn btn-warning mb-2">Editar</button>
                                     </form>
 
-                                    <form action="{{ url('recetas/admin/' . $receta->id) }}" method="POST" style="display:inline-block;">
+                                    <form class="formBorrar" action="{{ url('recetas/admin/' . $receta->id) }}" method="POST" style="display:inline-block;">
                                         <div class="modal-body">
                                             @csrf
                                             @method('DELETE')
@@ -123,4 +137,45 @@
         </div>
     </div>
 
+@endsection
+
+{{-- He creado en layouts app un yield js para crear secciones únicamente con javascript --}}
+
+@section('js')
+
+    {{-- Librería de javascript que he importado (sweetAlert2) --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        forms = document.querySelectorAll('.formBorrar'); // Cojo todos los formBorrar
+
+        forms.forEach(form => {
+            form.addEventListener('submit', (e) =>{
+                e.preventDefault(); //Cuándo le den a submit, paro el evento y muestro el pop up
+
+                Swal.fire({
+                title: "¿Estás seguro de que deseas borrar este registro?",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Eliminar"
+                }).then((result) => {
+
+                if (result.isConfirmed) { // Si se acepta, se lanza el otro popup y se hace el submit
+                    Swal.fire({
+                    title: "Registro eliminada",
+                    text: "",
+                    icon: "success"
+                    });
+                    
+                    setTimeout(() => {
+                        form.submit();
+                    }, 500);
+                }
+                });
+            })
+        })
+    </script>
 @endsection

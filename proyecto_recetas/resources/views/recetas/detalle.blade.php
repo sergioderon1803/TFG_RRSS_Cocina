@@ -14,6 +14,7 @@
 @section('titulo', 'Detalle de la receta')
 
 @section('detalle')
+
 <div class="container mt-4">
     <div class="row">
         <!-- Columna izquierda -->
@@ -29,7 +30,7 @@
                             <button type="submit" class="btn btn-warning mb-2">Editar</button>
                         </form>
 
-                        <form action="{{ route('recetas.eliminar', $receta->id) }}" method="POST" style="display:inline;">
+                        <form class="formBorrar" action="{{ route('recetas.eliminar', $receta->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger mb-3"
@@ -161,4 +162,46 @@
   </div>
 </div>
 
+@endsection
+
+{{-- Hace la doble verificación pero no sé por qué no funciona el estilo --}}
+
+@section('js')
+
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
+
+    <script>
+        forms = document.querySelectorAll('.formBorrar');
+
+        forms.forEach(form => {
+            form.addEventListener('submit', (e) =>{
+                e.preventDefault();
+
+                Swal.fire({
+                title: "¿Estás seguro de que deseas borrar este registro?",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Eliminar"
+                }).then((result) => {
+
+                if (result.isConfirmed) { // Si se acepta, se lanza el otro popup y se hace el submit
+                    Swal.fire({
+                    title: "Registro eliminada",
+                    text: "",
+                    icon: "success"
+                    });
+                    
+                    setTimeout(() => {
+                        form.submit();
+                    }, 500);
+                }
+                });
+            })
+        })
+    </script>
 @endsection

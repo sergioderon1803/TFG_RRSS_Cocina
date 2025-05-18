@@ -37,5 +37,6 @@
             </main>
             @include('layouts.footer')
         </div>
+        @yield('js')
     </body>
 </html>
