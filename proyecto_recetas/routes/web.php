@@ -7,10 +7,15 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\RespuestaController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('recetas.lista');
+    }
     return view('welcome');
-});
+})->name('home');
+
 
 Route::post('/comentarios', [ComentarioController::class, 'store'])->name('comentarios.store');
 Route::post('/respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');
@@ -23,6 +28,9 @@ Route::post('/perfil/{id}/actualizar', [ProfileController::class, 'actualizar'])
 Route::get('/usuarios/{id}', [UserController::class, 'mostrarPerfil'])->name('usuarios.perfil');
 
 Route::get('admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
+Route::get('admin', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
+Route::get('admin/recetas', [AdminController::class, 'listaRecetas'])->middleware(['auth', 'verified'])->name('admin.recetas');
+Route::get('admin/usuarios', [AdminController::class, 'listaUsuarios'])->middleware(['auth', 'verified'])->name('admin.usuarios');
 
 Route::view('/about', 'about')->name('about');
 

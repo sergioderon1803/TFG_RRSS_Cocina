@@ -33,8 +33,7 @@
                         <form class="formBorrar" action="{{ route('recetas.eliminar', $receta->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger mb-3"
-                                    onclick="return confirm('¿Estás seguro de eliminar esta receta?');">Eliminar</button>
+                            <button type="submit" class="btn btn-danger mb-3">Eliminar</button>
                         </form>
                     </div>
                 @endif

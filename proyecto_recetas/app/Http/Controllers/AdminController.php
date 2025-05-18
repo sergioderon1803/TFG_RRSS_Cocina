@@ -21,4 +21,20 @@ class AdminController extends Controller
         }
     }
 
+    public function listaRecetas(Request $request)
+    {
+        $tipo = $request->query('tipo');
+
+        $recetas = Receta::with('autor')->paginate(5);
+        return view('admin.adminRecetas', compact('recetas'));
+    }
+
+    public function listaUsuarios(Request $request)
+    {
+        $tipo = $request->query('tipo');
+
+        $usuarios = User::paginate(5);
+            return view('admin.adminUsuarios', compact('usuarios'));
+    }
+
 }

@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended('recetas');
+        return redirect()->route('recetas.lista');
         // return redirect()->intended(route('dashboard', absolute: false));
     }
 
