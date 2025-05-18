@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\SeguirUsuario;
 use App\Models\Receta;
 
 class UserController extends Controller {
@@ -25,6 +26,28 @@ class UserController extends Controller {
         $usuarios = User::paginate(5);
 
         return redirect()->route('admin',array('tipo' => 'usuarios'))->with('success', 'Usuario eliminado.');
+    }
+
+    public function SeguirUsuario($id)
+    {
+        $userId = Auth::id();
+
+        SeguirUsuario::create([
+            'id_user' => $id,
+            'id_seguidor' => $userId,
+            'f_seguimiento' => now(),
+        ]);
+
+        return back()->with('success', 'Completado');
+    }
+
+    public function DejarDeSeguir($id)
+    {
+        $userId = Auth::id();
+
+        SeguirUsuario::where('id_user', $id)->where('id_seguidor', $userId)->delete();
+
+        return back()->with('success', 'Dejado de seguir');
     }
 
 }

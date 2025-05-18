@@ -20,12 +20,28 @@
         <h3 class="mb-0">{{ $perfil->name }}</h3>
     </div>
 
+    <div class="d-flex align-items-center mb-3">
+        <h3 class="mb-0">Seguidores: {{ $seguidores}}</h3>
+    </div>
+
     {{-- Editar perfil --}}
     @auth
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarPeril">
             Editar perfil
         </button>
     @endauth
+
+    @if(Auth::id() != $perfil->id_user)
+        <form id="seguir" method="POST" action="{{ $seguido ? route('usuario.dejarSeguir', $perfil->id_user) : route('usuario.seguir', $perfil->id_user) }}">
+            @csrf
+            @if($seguido)
+                @method('DELETE')
+            @endif
+            <button type="submit" class="btn {{ $seguido ? 'btn-secondary' : 'btn-outline-primary' }}">
+                {{ $seguido ? 'Dejar de seguir' : 'Seguir' }}
+            </button>
+        </form>
+    @endif
 
     {{-- Biografía --}}
     <p><strong>Biografía:</strong> {{ $perfil->biografia ?? '¡Compartiendo recetas en WeCook!' }}</p>
@@ -57,6 +73,48 @@
 
 </div>
 
+
 {{-- Aquí incluimos el modal desde el partial --}}
 @include('profile.partials.modal-editar', ['perfil' => $perfil])
+@endsection
+
+@section('js')
+
+    {{-- Librería de javascript que he importado (sweetAlert2) --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if($seguido)
+        <script>
+            form = document.getElementById('seguir'); // Cojo todos los formBorrar
+        
+
+                form.addEventListener('submit', (e) =>{
+                    e.preventDefault(); //Cuándo le den a submit, paro el evento y muestro el pop up
+
+                    Swal.fire({
+                    title: "¿Estás seguro de que deseas dejar de seguir a este usuario?",
+                    text: "",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Dejar de seguir"
+                    }).then((result) => {
+
+                    if (result.isConfirmed) { // Si se acepta, se lanza el otro popup y se hace el submit
+                        Swal.fire({
+                        title: "Dejaste de seguir al usuario",
+                        text: "",
+                        icon: "success"
+                        });
+                        
+                        setTimeout(() => {
+                            form.submit();
+                        }, 600);
+                    }
+                    });
+                })
+            
+        </script>
+    @endif
 @endsection

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Perfil;
+use App\Models\SeguirUsuario;
 
 class ProfileController extends Controller {
 
@@ -20,7 +21,18 @@ class ProfileController extends Controller {
         // Cargar recetas del usuario relacionado
         $recetas = $perfil->user->recetas()->get();
 
-        return view('profile.perfil', compact('perfil', 'recetas'));
+        $seguidores = 0;
+
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $seguido = SeguirUsuario::where('id_user', $id)
+                                    ->where('id_seguidor', $userId)
+                                    ->exists();
+            $seguidores = SeguirUsuario::where('id_user', $id)
+                                    ->count();
+        }
+
+        return view('profile.perfil', compact('perfil', 'recetas','seguido','seguidores'));
     }
 
     public function editar($id)

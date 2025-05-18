@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+
+    // Ver de quitar, ahora mismo no es útil
     public function index(Request $request)
     {
         $tipo = $request->query('tipo');

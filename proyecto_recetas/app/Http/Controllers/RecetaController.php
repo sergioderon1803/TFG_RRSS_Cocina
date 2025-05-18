@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\GuardarReceta;
 use App\Models\GustarReceta;
+use App\Models\Comentario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Receta;
@@ -96,7 +97,13 @@ class RecetaController extends Controller {
                                 ->exists();
         }
 
-        return view('recetas.detalle', compact('receta', 'guardada', 'gustada'));
+        $meGustas = GustarReceta::where('id_receta', $id)->count();
+
+        $numComentarios = Comentario::where('id_receta', $id)->count();
+
+        $numGuardados = guardarReceta::where('id_receta', $id)->count();
+
+        return view('recetas.detalle', compact('receta', 'guardada', 'gustada', 'meGustas', 'numComentarios', 'numGuardados'));
     }
 
     // Mostrar el formulario

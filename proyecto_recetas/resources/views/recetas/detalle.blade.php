@@ -42,7 +42,7 @@
             @auth
                 @if(auth()->id() !== $receta->autor)
                     <div class="d-flex gap-2">
-                        <form method="POST" action="{{ $guardada ? route('recetas.guardar.eliminar', $receta->id) : route('recetas.guardar', $receta->id) }}">
+                        <form id="guardarReceta" method="POST" action="{{ $guardada ? route('recetas.guardar.eliminar', $receta->id) : route('recetas.guardar', $receta->id) }}">
                             @csrf
                             @if($guardada)
                                 @method('DELETE')
@@ -52,7 +52,7 @@
                             </button>
                         </form>
 
-                        <form method="POST" action="{{ $gustada ? route('recetas.gustar.eliminar', $receta->id) : route('recetas.gustar', $receta->id) }}">
+                        <form id="meGusta" method="POST" action="{{ $gustada ? route('recetas.gustar.eliminar', $receta->id) : route('recetas.gustar', $receta->id) }}">
                             @csrf
                             @if($gustada)
                                 @method('DELETE')
@@ -68,7 +68,12 @@
                     <a href="{{ route('login') }}">Inicia sesión</a> para guardar o dar me gusta a esta receta.
                 </div>
             @endauth
+            
+            <!--Cantidad de me gustas-->
+            <p>Me gusta: {{$meGustas}}</p>	
 
+            <!--Cantidad de guardados-->
+            <p>Guardados: {{$numGuardados}}</p>
         </div>
 
         <!-- Columna derecha -->
@@ -101,7 +106,7 @@
     <!-- Comentarios abajo en una fila aparte -->
     <div class="row mt-4">
         <div class="col-12">
-            <strong><h2>Comentarios</h2></strong>
+            <strong><h2>Comentarios: {{$numComentarios}} </h2></strong>
             {{-- Formulario para nuevo comentario --}}
             @auth
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#comentar">
@@ -177,11 +182,82 @@
 
 @endsection
 
-{{-- Hace la doble verificación pero no sé por qué no funciona el estilo --}}
 
 @section('js')
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!--Doble verificación dejar de gustar-->
+    @if($gustada)
+        <script>
+            meGusta = document.getElementById('meGusta'); 
+
+            meGusta.addEventListener('submit', (e) =>{
+                e.preventDefault(); 
+
+                Swal.fire({
+                title: "¿Estás seguro de que ya no te gusta esta receta?",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya no me gusta"
+                }).then((result) => {
+
+                if (result.isConfirmed) { 
+                    Swal.fire({
+                    title: "Ya no te gusta esta receta",
+                    text: "",
+                    icon: "success"
+                    });
+                    
+                    setTimeout(() => {
+                        meGusta.submit();
+                    }, 500);
+                }
+                });
+            })
+
+        </script>
+    @endif
+
+    <!--Doble verificación quitar de guardados-->
+    @if($guardada)
+        <script>
+            guardarReceta = document.getElementById('guardarReceta'); 
+
+            guardarReceta.addEventListener('submit', (e) =>{
+                e.preventDefault(); 
+
+                Swal.fire({
+                title: "¿Estás seguro de que ya no quieres guardar esta receta?",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Quitar de guardados"
+                }).then((result) => {
+
+                if (result.isConfirmed) { 
+                    Swal.fire({
+                    title: "Ya no la tienes guardada",
+                    text: "",
+                    icon: "success"
+                    });
+                    
+                    setTimeout(() => {
+                        guardarReceta.submit();
+                    }, 500);
+                }
+                });
+            })
+
+        </script>
+    @endif
+
+    <!--Doble verificación borrar-->
 
     <script>
         forms = document.querySelectorAll('.formBorrar');
