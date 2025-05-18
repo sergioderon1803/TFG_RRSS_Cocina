@@ -90,14 +90,9 @@
             <strong><h2>Comentarios</h2></strong>
             {{-- Formulario para nuevo comentario --}}
             @auth
-                <form action="{{ route('comentarios.store') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="id_receta" value="{{ $receta->id }}">
-                    <div class="mb-3">
-                        <textarea name="contenido" class="form-control" rows="3" placeholder="Escribe un comentario..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Comentar</button>
-                </form>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#comentar">
+                    Comentar
+                </button>
             @else
                 <div class="alert alert-info">
                     <a href="{{ route('login') }}">Inicia sesión</a> para comentar.
@@ -140,4 +135,30 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="comentar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Comentar receta {{$receta->id}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('comentarios.store') }}" method="POST">
+        @csrf
+        <div class="modal-body">
+            <input type="hidden" name="id_receta" value="{{ $receta->id }}">
+            <div class="mb-3">
+                <textarea name="contenido" class="form-control" rows="3" placeholder="Escribe un comentario..." required></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Comentar</button>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+
 @endsection

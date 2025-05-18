@@ -92,13 +92,19 @@
                                 <td>{{ $receta->autor->email ?? 'Desconocido' }}</td>
                                 <td>{{ $receta->created_at ?? 'N/D' }}</td>
                                 <td class="text-center">
-                                    <form action="{{ url('recetas/admin/' . $receta->id) }}" method="POST" style="display:inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-danger">Eliminar</button>
-                                    </form>
                                     <form action="{{ url('recetas/' . $receta->id . '/editar') }}" method="GET" style="display:inline;">
                                         <button class="btn btn-warning mb-2">Editar</button>
+                                    </form>
+                                    @php
+                                        $id = $receta->id;
+                                    @endphp
+
+                                    <form action="{{ url('recetas/admin/' . $receta->id) }}" method="POST" style="display:inline-block;">
+                                        <div class="modal-body">
+                                            @csrf
+                                            @method('DELETE')
+                                        </div>
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
                                     </form>
                                 </td>
                             </tr>
