@@ -70,7 +70,7 @@ class RecetaController extends Controller {
     }
     
     public function listarRecetas(){
-        $recetas = Receta::paginate(3);
+        $recetas = Receta::paginate(6);
         return view('recetas.lista', compact('recetas'));
     }
 

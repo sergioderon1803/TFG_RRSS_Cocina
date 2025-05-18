@@ -74,14 +74,28 @@
 
         <!-- Columna derecha -->
         <div class="col-md-7">
-            <h1>{{ $receta->titulo }}</h1>
-            <h4>Ingredientes</h4>
-            <p>{{ $receta->ingredientes }}</p>
-            <p>Autor: {{ $receta->autor }}</p>
-            <h5 class="text-muted">Tipo: {{ $receta->tipo }}</h5>
-            <hr>
-            <h4>Procedimiento</h4>
-            <p>{{ $receta->procedimiento }}</p>
+            <div class="card shadow rounded-4 border-0">
+                <div class="card-body p-4">
+                    <div class="mb-3">
+                        <h1 class="card-title m-0 d-inline">{{ $receta->titulo }}</h1>
+                        <span class="text-muted ms-2 small">
+                            <a href="{{ route('perfil.ver', ['id' => $receta->autor]) }}"
+                                class="text-primary fw-semibold hover-underline">
+                                de {{ $receta->autor }} </a>
+                        </span>
+                    </div>
+                    <span class="badge bg-light text-dark mb-3"> Tipo: {{ $receta->tipo }} </span>
+                    <div class="mb-4">
+                        <h4 class="text-primary">Ingredientes</h4>
+                        <p class="fs-5">{{ $receta->ingredientes }}</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-success">Procedimiento</h4>
+                        <p class="fs-5">{{ $receta->procedimiento }}</p>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 

@@ -9,7 +9,7 @@
         <div class="col-md-8">
             <div class="row ">
                 @foreach ($recetas as $receta)
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-4 mb-4">
                         <div class="card h-100 shadow-sm">
                             @if ($receta->imagen)
                                 <img src="{{ asset('storage/' . $receta->imagen) }}" class="card-img-top img-publicacion" alt="Imagen de {{ $receta->titulo }}">
