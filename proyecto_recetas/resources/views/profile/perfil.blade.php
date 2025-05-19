@@ -20,10 +20,6 @@
         <h3 class="mb-0">{{ $perfil->name }}</h3>
     </div>
 
-    <div class="d-flex align-items-center mb-3">
-        <h3 class="mb-0">Seguidores: {{ $seguidores}}</h3>
-    </div>
-
     {{-- Editar perfil --}}
     @auth
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarPeril">
@@ -31,17 +27,28 @@
         </button>
     @endauth
 
-    @if(Auth::id() != $perfil->id_user)
-        <form id="seguir" method="POST" action="{{ $seguido ? route('usuario.dejarSeguir', $perfil->id_user) : route('usuario.seguir', $perfil->id_user) }}">
-            @csrf
-            @if($seguido)
-                @method('DELETE')
-            @endif
-            <button type="submit" class="btn {{ $seguido ? 'btn-secondary' : 'btn-outline-primary' }}">
-                {{ $seguido ? 'Dejar de seguir' : 'Seguir' }}
-            </button>
-        </form>
-    @endif
+    <div class="d-flex gap-4 mb-3">
+        <div>
+            <strong><a href="{{ route('profile.seguidores', $perfil->id_user) }}">Seguidores:</a></strong> {{ $seguidores }}
+        </div>
+        <div>
+            <strong><a href="{{ route('profile.seguidos', $perfil->id_user) }}">Seguidos:</a></strong> {{ $seguidos }}
+        </div>
+    </div>
+
+    @auth
+        @if(Auth::id() != $perfil->id_user)
+            <form id="seguir" method="POST" action="{{ $seguido ? route('usuario.dejarSeguir', $perfil->id_user) : route('usuario.seguir', $perfil->id_user) }}">
+                @csrf
+                @if($seguido)
+                    @method('DELETE')
+                @endif
+                <button type="submit" class="btn {{ $seguido ? 'btn-secondary' : 'btn-outline-primary' }}">
+                    {{ $seguido ? 'Dejar de seguir' : 'Seguir' }}
+                </button>
+            </form>
+        @endif
+    @endauth
 
     {{-- Biografía --}}
     <p><strong>Biografía:</strong> {{ $perfil->biografia ?? '¡Compartiendo recetas en WeCook!' }}</p>

@@ -31,6 +31,9 @@ Route::get('/usuarios/{id}', [UserController::class, 'mostrarPerfil'])->name('us
 Route::get('recetas', [RecetaController::class, 'listarRecetas'])->name('recetas.lista');
 Route::get('receta/{id}', [RecetaController::class, 'mostrarRecetaIndividual']);
 
+Route::get('/perfil/{id}/seguidores', [ProfileController::class, 'verSeguidores'])->name('profile.seguidores');
+Route::get('/perfil/{id}/seguidos', [ProfileController::class, 'verSeguidos'])->name('profile.seguidos');
+
 // Rutas para usuarios autenticados
 Route::middleware('auth')->group(function () {
     // Comentarios y respuestas
@@ -46,10 +49,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/recetas/{id}/gustar', [RecetaController::class, 'gustarRecetaUsuario'])->name('recetas.gustar');
     Route::delete('/recetas/{id}/gustar', [RecetaController::class, 'eliminarMeGusta'])->name('recetas.gustar.eliminar');
 
-    // Edición perfil usuario (usa profile.edit, update, destroy)
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // // Edición perfil usuario (usa profile.edit, update, destroy)
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Crear receta (puedes agregar middleware si quieres)
     Route::get('recetas/crear', [RecetaController::class, 'formularioReceta'])->name('recetas.crear');

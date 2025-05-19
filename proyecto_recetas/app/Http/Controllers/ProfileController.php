@@ -15,24 +15,42 @@ class ProfileController extends Controller {
 
     public function ver($id)
     {
-        // Buscar perfil por id_user (clave primaria personalizada)
         $perfil = Perfil::where('id_user', $id)->firstOrFail();
-
-        // Cargar recetas del usuario relacionado
         $recetas = $perfil->user->recetas()->get();
 
-        $seguidores = 0;
+        $seguido = false;
+        $seguidores = SeguirUsuario::where('id_user', $id)->count();
+        $seguidos = SeguirUsuario::where('id_seguidor', $id)->count();
 
         if (Auth::check()) {
             $userId = Auth::id();
             $seguido = SeguirUsuario::where('id_user', $id)
                                     ->where('id_seguidor', $userId)
                                     ->exists();
-            $seguidores = SeguirUsuario::where('id_user', $id)
-                                    ->count();
         }
 
-        return view('profile.perfil', compact('perfil', 'recetas','seguido','seguidores'));
+        // Enviar todo a la vista
+        return view('profile.perfil', compact('perfil', 'recetas', 'seguido', 'seguidores', 'seguidos'));
+    }
+
+    public function verSeguidores($id)
+    {
+        $perfil = Perfil::where('id_user', $id)->firstOrFail();
+        $usuario = $perfil->user;
+
+        $seguidores = $usuario->seguidores()->with('perfil')->get();
+
+        return view('profile.seguidores', compact('perfil', 'seguidores'));
+    }
+
+    public function verSeguidos($id)
+    {
+        $perfil = Perfil::where('id_user', $id)->firstOrFail();
+        $usuario = $perfil->user;
+
+        $seguidos = $usuario->seguidos()->with('perfil')->get();
+
+        return view('profile.seguidos', compact('perfil', 'seguidos'));
     }
 
     public function editar($id)
