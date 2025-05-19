@@ -40,8 +40,8 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUsuario">
                         <li>
-                            <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                {{ __('Profile') }}
+                            <a class="dropdown-item" href="{{ route('perfil.ver', ['id' => $perfilId]) }}">
+                                {{ __('Perfil') }}
                             </a>
                         </li>
                         <li>
@@ -51,7 +51,7 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit" class="dropdown-item">
-                                    {{ __('Log Out') }}
+                                    {{ __('Cerrar sesión') }}
                                 </button>
                             </form>
                         </li>

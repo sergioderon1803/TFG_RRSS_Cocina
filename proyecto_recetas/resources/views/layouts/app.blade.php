@@ -46,6 +46,8 @@
                 @yield('perfil')
                 @yield('about')
                 @yield('edicionPerfil')
+                @yield('seguidores')
+                @yield('seguidos')
             </main>
             @include('layouts.footer')
         </div>
