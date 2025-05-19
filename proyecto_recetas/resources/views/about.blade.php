@@ -19,7 +19,7 @@
         <div class="col-md-4">
             <img src="{{ asset('storage/about/placeholder.jpg') }}" class="rounded-circle mb-3" alt="Jonathan Hidalgo">
             <h5>Jonathan Hidalgo</h5>
-            <p>Drogadicto a las bebidas energéticas</p>
+            <p>Catador profesional de elixires revitalizantes</p>
         </div>
         <div class="col-md-4">
             <img src="{{ asset('storage/about/placeholder.jpg') }}" class="rounded-circle mb-3" alt="Sergio Montoiro">

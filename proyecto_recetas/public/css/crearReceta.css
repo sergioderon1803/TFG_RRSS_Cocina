@@ -1,0 +1,20 @@
+.titulo{
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.letraTamaño{
+    font-size: x-large;
+}
+
+.bloquesTexto{
+    width: 350px;
+    height: 400px;
+}
+
+.imagenPrevia{
+    width: 550px;
+    height: 300px;
+    object-fit: cover;
+}

@@ -1,0 +1,154 @@
+        :root {
+            --main-color: #ff5722;
+            --success-color: #43a047;
+            --bg-light: #fff6f3;
+            --text-dark: #333;
+            --transition: all 0.3s ease;
+        }
+
+        .fondoRegistro {
+            font-family: 'Nunito', sans-serif;
+            background: url('../images/landing_bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-dark);
+            transition: var(--transition);
+            position: relative;
+            z-index: 0;
+        }
+
+        .fondoRegistro::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.6); /* efecto blanco translúcido */
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .auth-container {
+            max-width: 1000px;
+        }
+
+        .left-panel {
+            /* Fondo de color */
+            background: var(--main-color);
+            position: relative;
+            transition: var(--transition);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .left-panel::before {
+            content: "";
+            background: rgba(255, 255, 255, 0.85);
+            position: absolute;
+            inset: 0;
+            transition: var(--transition);
+            z-index: 0;
+        }
+
+        .left-panel img {
+            position: relative;
+            z-index: 1;
+            max-height: 400px;
+            width: auto;
+        }
+
+        .welcome-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--main-color);
+            text-align: center;
+        }
+
+        .form-toggle-btn.active {
+            font-weight: bold;
+            border-bottom: 3px solid var(--main-color);
+            color: var(--main-color) !important;
+        }
+
+        .btn-primary {
+            background-color: var(--main-color);
+            border: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background-color: #e64a19;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            border: none;
+            transition: var(--transition);
+        }
+
+        .btn-success:hover {
+            background-color: #388e3c;
+        }
+
+        .form-toggle-btn {
+            transition: var(--transition);
+        }
+
+        .form-section {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .form-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bloqueTexto{
+            padding: 50px;
+            width: 440px;
+            font-size: x-large;
+            object-fit: cover;
+        }
+        
+        .margenesLibroTexto{
+            margin: 20px 100px 20px 150px;
+        }
+
+        .precio {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 767px) {
+            .row.flex-column.flex-md-row {
+                flex-direction: column !important;
+            }
+
+            .left-panel {
+                order: -1 !important; /* Logo arriba en móvil */
+                min-height: 200px;
+                padding: 1.5rem;
+            }
+
+            .left-panel img {
+                max-height: 200px;
+            }
+
+            .col-md-6.p-5 {
+                padding: 2rem 1rem !important;
+            }
+
+            .form-toggle-btn {
+                font-size: 1rem;
+            }
+
+            .welcome-title {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+        }

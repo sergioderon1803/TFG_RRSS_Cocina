@@ -4,10 +4,9 @@
 @tailwind components;
 @ta1ilwind utilities;
 
-
 /* COLORES DE LA APLICACIÓN */
 .bg-peach {
-    background-color: #FFE6D4 !important;
+    background-color: #FFE6D4;
 }
 
 .bg-barraNavegacion{

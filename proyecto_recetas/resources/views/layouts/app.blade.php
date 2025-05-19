@@ -12,9 +12,19 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
         <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
         @if(Request::is('admin*'))
             <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
         @endif
+
+        @if(Request::is('perfil*'))
+            <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
+        @endif
+
+        @if(Request::is('recetas/crear*') || Request::is('recetas/*/editar'))
+            <link rel="stylesheet" href="{{ asset('css/crearReceta.css') }}">
+        @endif
+        
         <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
         <!-- Scripts -->
