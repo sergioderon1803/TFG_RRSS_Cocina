@@ -30,7 +30,9 @@
 
         {{-- Columna de filtros --}}
         <div class="col-md-3 d-flex flex-column align-items-center mt-3 ml-4">
-            <a href="{{ url('recetas/crear') }}" class="btn btn-primary mb-3 w-100 text-white fw-bold">CREAR RECETA</a>
+            @auth
+                <a href="{{ url('recetas/crear') }}" class="btn btn-primary mb-3 w-100 text-white fw-bold">CREAR RECETA</a>
+            @endauth
 
             @php
                 $filtros = ['Pasta', 'Fritos', 'Healthy', 'Primer Plato', 'Postre', 'Sin gluten'];

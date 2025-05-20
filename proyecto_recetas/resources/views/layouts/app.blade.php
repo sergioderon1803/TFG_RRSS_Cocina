@@ -32,7 +32,12 @@
     </head>
     <body class="font-sans antialiased">
         <div class="d-flex flex-column min-vh-100 bg-peach {{ Request::is('admin*') ? 'bg-body-secondary' : 'bg-peach' }}">
-            @include('layouts.navigation')
+            @auth
+                @include('layouts.navigation')
+            @endauth
+            @guest
+                @include('layouts.navigationGuest')
+            @endguest
 
             <!-- Page Content -->
             <main class="flex-grow-1">
