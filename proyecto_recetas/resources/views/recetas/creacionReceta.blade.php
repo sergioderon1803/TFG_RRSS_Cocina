@@ -51,7 +51,7 @@
             <input type="text" name="tipo" id="tipo" class="form-control" required>
         </div>
 
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between mb-4">
             <button type="submit" class="btn btn-primary">Guardar receta</button>
             <a href="{{ url('recetas') }}" class="btn btn-secondary">Volver al listado</a>
         </div>

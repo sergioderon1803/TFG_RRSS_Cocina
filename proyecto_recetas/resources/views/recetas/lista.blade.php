@@ -3,35 +3,44 @@
 @section('titulo', 'Listado de recetas')
 
 @section('listado')
-
-    <div class="container ">
-    <div class="row espaciado">
-        <div class="col-md-8">
-            <div class="row ">
+<div class="container my-5">
+    <div class="row justify-content-center gy-4">
+        <!-- Columna de recetas -->
+        <div class="col-12 col-lg-8">
+            <div class="row">
                 @foreach ($recetas as $receta)
-                    <div class="col-md-4 mb-4">
+                    <div class="col-12 col-sm-6 col-md-4 mb-4">
                         <div class="card h-100 shadow-sm">
                             @if ($receta->imagen)
-                                <img src="{{ asset('storage/' . $receta->imagen) }}" class="card-img-top img-publicacion" alt="Imagen de {{ $receta->titulo }}">
+                                <img src="{{ asset('storage/' . $receta->imagen) }}" 
+                                     class="card-img-top img-publicacion" 
+                                     alt="Imagen de {{ $receta->titulo }}">
                             @endif
                             <div class="card-body text-center">
-                                <h5 class="card-title fw-bold"><a href="{{ url('receta/' . $receta->id) }}">{{ $receta->titulo }}</a></h5>
+                                <h5 class="card-title fw-bold">
+                                    <a href="{{ url('receta/' . $receta->id) }}">
+                                        {{ $receta->titulo }}
+                                    </a>
+                                </h5>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
 
-            {{-- Paginación --}}
+            <!-- Paginación -->
             <div class="d-flex justify-content-center">
                 {{ $recetas->links('pagination::bootstrap-5') }}
             </div>
         </div>
 
-        {{-- Columna de filtros --}}
-        <div class="col-md-3 d-flex flex-column align-items-center mt-3 ml-4">
+        <!-- Columna de filtros -->
+        <div class="col-12 col-lg-3">
             @auth
-                <a href="{{ url('recetas/crear') }}" class="btn btn-primary mb-3 w-100 text-white fw-bold">CREAR RECETA</a>
+                <a href="{{ url('recetas/crear') }}" 
+                   class="btn btn-primary mb-3 w-100 text-white fw-bold">
+                   CREAR RECETA
+                </a>
             @endauth
 
             @php
@@ -40,11 +49,13 @@
 
             @foreach ($filtros as $filtro)
                 <a href="#" 
-                   class="btn mb-2 w-100 text-dark fw-bold b-1 categorias">
+                   class="btn btn-outline-success mb-2 w-100 fw-bold categorias">
                    {{ $filtro }}
                 </a>
             @endforeach
-            <div class="card shadow-sm border-info">
+
+            <!-- Receta de la semana -->
+            <div class="card shadow-sm border-info mt-4">
                 <div class="card-header bg-info text-white text-center fw-bold">
                     RECETA DE LA SEMANA
                 </div>
@@ -54,8 +65,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
-
 @endsection
