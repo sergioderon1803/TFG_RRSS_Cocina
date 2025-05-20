@@ -31,7 +31,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-            <div class="d-flex flex-column min-vh-100 bg-peach {{ Request::is('admin*') ? 'bg-body-secondary' : 'bg-peach' }}">
+        <div class="d-flex flex-column min-vh-100 bg-peach {{ Request::is('admin*') ? 'bg-body-secondary' : 'bg-peach' }}">
             @include('layouts.navigation')
 
             <!-- Page Content -->

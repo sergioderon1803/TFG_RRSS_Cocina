@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <title>WeCook - Comparte tus recetas al mundo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
 </head>
 <body class="position-relative bg-peach">
     <div class="fondoRegistro">
-            <div class="container auth-container fondoOpaco d-flex align-items-center justify-content-center min-vh-100 px-3 ">            <div class="row shadow-lg bg-white rounded overflow-hidden w-100 flex-column flex-md-row">
+        <div class="container auth-container fondoOpaco d-flex align-items-center justify-content-center min-vh-100 px-3">
+            <div class="row shadow-lg bg-white rounded overflow-hidden w-100 flex-column flex-md-row">
                 <!-- Panel izquierdo con imagen/logo -->
                 <div class="col-md-6 left-panel p-4 d-flex align-items-center justify-content-center">
                     <img src="{{ asset('images/logo.svg') }}" alt="WeCook Logo" class="img-fluid">
@@ -89,18 +93,19 @@
         </div>
     </div>
 
-<div class="container">
-  <div class="row align-items-center p-4 rounded bg-peach margenesLibroTexto">
+    <!-- Sección libro promocional -->
+    <div class="container">
+        <div class="row align-items-center p-4 rounded bg-peach margenesLibroTexto">
             <!-- Libro -->
             <div class="col-md-4 text-center mb-3 mb-md-0 bg-light p-5">
-                <img src="{{ asset('images/libroCocina.jpg') }}" alt="WeCook Logo" class="img-fluid">
+                <img src="{{ asset('images/libroCocina.jpg') }}" alt="Libro de cocina" class="img-fluid">
                 <p class="precio">14.99€</p>
                 <button class="btn btn-success">Comprar</button>
             </div>
 
             <!-- Info del libro -->
             <div class="col-md-8">
-                <div class="p-3 bg-white rounded shadow-sm bloqueTexto p-5 margenesLibroTexto">
+                <div class="bg-white rounded shadow-sm bloqueTexto p-5 margenesLibroTexto">
                     <h3 class="mb-3">Compra nuestro recetario</h3>
                     <p>Con las mejores recetas de nuestros usuarios, adaptadas y mejoradas por nuestros mejores chefs.</p>
                     <p>Adquiere este completo libro a través de nuestra tienda online.</p>
@@ -108,9 +113,8 @@
             </div>
         </div>
     </div>
-    </div>
-    
-    <!-- Bootstrap JS + Toggle Script -->
+
+    <!-- Bootstrap JS + Script de alternancia -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function showForm(type) {
@@ -133,5 +137,7 @@
             showForm('login');
         @endif
     </script>
+
+    @include('layouts.footer')
 </body>
 </html>
