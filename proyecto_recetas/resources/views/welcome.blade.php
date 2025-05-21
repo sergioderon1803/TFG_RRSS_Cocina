@@ -93,26 +93,29 @@
         </div>
     </div>
 
-    <!-- Sección libro promocional -->
-    <div class="container">
-        <div class="row align-items-center p-4 rounded bg-peach margenesLibroTexto">
-            <!-- Libro -->
-            <div class="col-md-4 text-center mb-3 mb-md-0 bg-light p-5">
-                <img src="{{ asset('images/libroCocina.jpg') }}" alt="Libro de cocina" class="img-fluid">
-                <p class="precio">14.99€</p>
-                <button class="btn btn-success">Comprar</button>
-            </div>
+<!-- Libro promocional -->
+<div class="container my-5">
+    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center min-vh-100 bg-peach p-4 rounded">
+        
+        <!-- Libro a la venta -->
+        <div class="col-12 col-lg-4 d-flex flex-column align-items-center bg-light p-4 rounded mb-4 mb-lg-0">
+            <img src="{{ asset('images/libroCocina.jpg') }}" alt="Libro de cocina" class="img-fluid mb-3">
+            <p class="precio fs-4 fw-bold">14.99€</p>
+            <button class="btn btn-success">Comprar</button>
+        </div>
 
-            <!-- Info del libro -->
-            <div class="col-md-8">
-                <div class="bg-white rounded shadow-sm bloqueTexto p-5 margenesLibroTexto">
-                    <h3 class="mb-3">Compra nuestro recetario</h3>
-                    <p>Con las mejores recetas de nuestros usuarios, adaptadas y mejoradas por nuestros mejores chefs.</p>
-                    <p>Adquiere este completo libro a través de nuestra tienda online.</p>
-                </div>
+        <!-- Info del libro -->
+        <div class="col-12 col-lg-6 d-flex align-items-center ps-lg-5">
+            <div class="bg-white rounded shadow-sm p-4 text-center text-lg-start w-100">
+                <h3 class="mb-3">Compra nuestro recetario</h3>
+                <p class="fs-4">Con las mejores recetas de nuestros usuarios, adaptadas y mejoradas por nuestros mejores chefs.</p>
+                <p class="fs-4">Adquiere este completo libro a través de nuestra tienda online.</p>
             </div>
         </div>
+
     </div>
+</div>
+
 
     <!-- Bootstrap JS + Script de alternancia -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
