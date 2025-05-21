@@ -1,0 +1,30 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+main, .container, .content {
+    margin-top: 0;
+    padding-top: 1rem;
+}
+.navbar {
+    background-color: #ff8d2f !important;
+    color: white;
+}
+.navbar .nav-link {
+    color: white;
+    font-weight: 500;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: #fff8e1;
+    text-decoration: underline;
+}
+.navbar .nav-link.active {
+    font-weight: 700;
+    text-decoration: underline;
+    color: #fff;
+}
+.navbar-brand img {
+    height: 80px;
+    margin-right: 1rem;
+}

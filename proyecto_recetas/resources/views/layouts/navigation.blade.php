@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg border-bottom" style="background-color: #ff8d2f;">
+<nav class="navbar navbar-expand-lg" style="background-color: #ff8d2f; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12); margin-bottom: 0; padding-bottom: 0.3rem;">
     <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand d-flex align-items-center" href="{{ route('recetas.lista') }}">
-            <img src="/images/logo.svg" alt="Logo WeCook" class="img-fluid" style="height: 80px;">
+            <img src="/images/logo.svg" alt="Logo WeCook" class="img-fluid" style="height: 80px; margin-right: 1rem;">
         </a>
 
         <!-- Botón hamburguesa -->

@@ -4,12 +4,26 @@
 
 @section('admin')
 
-    <div>
-        <div class="d-flex justify-content-between mt-3 mx-5 mb-5">
-            <a href="{{ url('admin/recetas') }}" class="btn btn-hover-animate fs-2 tamañoBoton">Recetas</a>
-            <h1 class="titulo">Elija el listado</h1>
-            <a href="{{ url('admin/usuarios') }}" class="btn btn-hover-animate fs-2 tamañoBoton">Usuarios</a>
+<div class="container py-5">
+    <div class="row align-items-center justify-content-between">
+        <!-- Botón Recetas -->
+        <div class="col-12 col-md-4 d-flex justify-content-center mb-4 mb-md-0">
+            <a href="{{ url('admin/recetas') }}" class="btn btn-warning btn-lg px-4 shadow-sm fs-4 btn-hover-animate">
+                Recetas
+            </a>
+        </div>
+
+        <!-- Título central -->
+        <div class="col-12 col-md-4 text-center">
+            <h1 class="fw-bold display-5 mb-0">Elija el listado</h1>
+        </div>
+
+        <!-- Botón Usuarios -->
+        <div class="col-12 col-md-4 d-flex justify-content-center mb-4 mb-md-0">
+            <a href="{{ url('admin/usuarios') }}" class="btn btn-warning btn-lg px-4 shadow-sm fs-4 btn-hover-animate">
+                Usuarios
+            </a>
         </div>
     </div>
-
+</div>
 @endsection

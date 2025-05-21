@@ -4,117 +4,99 @@
 
 @section('adminRecetas')
 
+<div class="container py-5">
 
-    <div>
-        <div class="d-flex justify-content-between mt-3 mx-5 mb-5">
-            <a href="{{ url('admin/recetas') }}" class="btn btn-hover-animate fs-2 tamañoBoton">Recetas</a>
-            <h1 class="titulo">Recetas</h1>
-            <a href="{{ url('admin/usuarios') }}" class="btn btn-hover-animate fs-2 tamañoBoton" disabled>Usuarios</a>
-        </div>
-
-        {{-- Filtros: Aún sin funcionalidad backend --}}
-        <div class="mx-2 d-flex justify-content-center">
-            <form action="" method="post">
-                @csrf
-                <input type="text" id="id" class="mx-1" placeholder="Id">
-                <input type="text" id="alias" class="mx-1" placeholder="Alias">
-                <input type="text" id="username" class="mx-1" placeholder="@Username">
-                <input type="text" id="fechaCreacion" class="mx-1" placeholder="F_Creación">
-                <input type="submit" class="btn mx-1 bg-primary" value="Filtrar">
-            </form>
-        </div>
-    
-
-        {{-- Mostrar tabla correspondiente --}}
-        <div class="mx-5 mt-5">
-            <table class="table table-bordered">
-
-                <thead>                   
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Tipo</th>
-                        <th>Autor</th>
-                        <th>Fecha de creación</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                   {{-- Tabla de Recetas --}}
-                    <tbody>
-                        @forelse($recetas as $receta)
-                            <tr>
-                                <td>{{ $receta->id }}</td>
-                                <td><a href="{{ url('receta/' . $receta->id) }}" class="btn btn-primary btn-sm">{{ $receta->titulo }}</a></td>
-                                <td>{{ $receta->tipo }}</td>
-                                <td>{{ $receta->autor->email ?? 'Desconocido' }}</td>
-                                <td>{{ $receta->created_at ?? 'N/D' }}</td>
-                                <td class="text-center">
-                                    <form action="{{ url('recetas/' . $receta->id . '/editar') }}" method="GET" style="display:inline;">
-                                        <button class="btn btn-warning mb-2">Editar</button>
-                                    </form>
-
-                                    <form class="formBorrar" action="{{ url('recetas/admin/' . $receta->id) }}" method="POST" style="display:inline-block;">
-                                        <div class="modal-body">
-                                            @csrf
-                                            @method('DELETE')
-                                        </div>
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5">No hay recetas disponibles.</td>
-                            </tr>
-                        @endforelse
-            </table>
-            
-            {{-- Paginación --}}
-            <a href="{{ url('recetas/crear') }}" class="btn btn-primary">Nueva receta</a>
-            {{ $recetas->links() }}
-        </div>
-
+    <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
+        <a href="{{ url('admin/recetas') }}" class="btn btn-warning btn-lg btn-hover-animate px-4 fs-4 disabled">Recetas</a>
+        <h1 class="fw-bold display-5 text-center flex-grow-1">Recetas</h1>
+        <a href="{{ url('admin/usuarios') }}" class="btn btn-warning btn-lg btn-hover-animate px-4 fs-4">Usuarios</a>
     </div>
+
+    {{-- Filtros --}}
+    <form action="" method="post" class="d-flex justify-content-center gap-2 flex-wrap mb-4">
+        @csrf
+        <input type="text" name="id" class="form-control form-control-sm" placeholder="Id" style="max-width: 100px;">
+        <input type="text" name="alias" class="form-control form-control-sm" placeholder="Alias" style="max-width: 150px;">
+        <input type="text" name="username" class="form-control form-control-sm" placeholder="@Username" style="max-width: 150px;">
+        <input type="text" name="fechaCreacion" class="form-control form-control-sm" placeholder="F_Creación" style="max-width: 130px;">
+        <button type="submit" class="btn btn-primary btn-sm px-4">Filtrar</button>
+    </form>
+
+    {{-- Tabla Recetas --}}
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Autor</th>
+                    <th>Fecha de creación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($recetas as $receta)
+                    <tr>
+                        <td>{{ $receta->id }}</td>
+                        <td><a href="{{ url('receta/' . $receta->id) }}" class="btn btn-primary btn-sm">{{ $receta->titulo }}</a></td>
+                        <td>{{ $receta->tipo }}</td>
+                        <td>{{ $receta->autor->email ?? 'Desconocido' }}</td>
+                        <td>{{ $receta->created_at ?? 'N/D' }}</td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-2 flex-wrap">
+                                <form action="{{ url('recetas/' . $receta->id . '/editar') }}" method="GET" style="display:inline;">
+                                    <button class="btn btn-warning btn-sm px-3">Editar</button>
+                                </form>
+
+                                <form class="formBorrar" action="{{ url('recetas/admin/' . $receta->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm px-3">Eliminar</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6">No hay recetas disponibles.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-3">
+        <a href="{{ url('recetas/crear') }}" class="btn btn-success btn-lg px-4">Nueva receta</a>
+        @if ($recetas->hasPages())
+            <div>{{ $recetas->links('pagination::bootstrap-5') }}</div>
+        @endif
+    </div>
+</div>
 
 @endsection
 
-{{-- He creado en layouts app un yield js para crear secciones únicamente con javascript --}}
-
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    {{-- Librería de javascript que he importado (sweetAlert2) --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        forms = document.querySelectorAll('.formBorrar'); // Cojo todos los formBorrar
-
-        forms.forEach(form => {
-            form.addEventListener('submit', (e) =>{
-                e.preventDefault(); //Cuándo le den a submit, paro el evento y muestro el pop up
-
-                Swal.fire({
-                title: "¿Estás seguro de que deseas borrar esta receta?",
-                text: "",
-                icon: "warning",
+<script>
+    document.querySelectorAll('.formBorrar').forEach(form => {
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro de que deseas borrar esta receta?',
+                icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Eliminar"
-                }).then((result) => {
-
-                if (result.isConfirmed) { // Si se acepta, se lanza el otro popup y se hace el submit
-                    Swal.fire({
-                    title: "Receta eliminada",
-                    text: "",
-                    icon: "success"
-                    });
-                    
-                    setTimeout(() => {
-                        form.submit();
-                    }, 500);
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Eliminar'
+            }).then(result => {
+                if (result.isConfirmed) {
+                    Swal.fire('Receta eliminada', '', 'success');
+                    setTimeout(() => form.submit(), 500);
                 }
-                });
-            })
-        })
-    </script>
+            });
+        });
+    });
+</script>
 @endsection
