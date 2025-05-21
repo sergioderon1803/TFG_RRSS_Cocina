@@ -9,23 +9,24 @@
         <div class="col-12 col-lg-8">
             <div class="row">
                 @foreach ($recetas as $receta)
-                    <div class="col-12 col-sm-6 col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm">
-                            @if ($receta->imagen)
-                                <img src="{{ asset('storage/' . $receta->imagen) }}" 
-                                     class="card-img-top img-publicacion" 
-                                     alt="Imagen de {{ $receta->titulo }}">
-                            @endif
-                            <div class="card-body text-center">
-                                <h5 class="card-title fw-bold">
-                                    <a href="{{ url('receta/' . $receta->id) }}">
-                                        {{ $receta->titulo }}
-                                    </a>
-                                </h5>
-                            </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        @if ($receta->imagen)
+                            <img src="{{ asset('storage/' . $receta->imagen) }}" 
+                                 class="card-img-top" 
+                                 alt="Imagen de {{ $receta->titulo }}" 
+                                 style="height: 180px; object-fit: cover;">
+                        @endif
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h6 class="card-title text-center">
+                                <a href="{{ url('receta/' . $receta->id) }}" class="text-decoration-none text-dark">
+                                    {{ $receta->titulo }}
+                                </a>
+                            </h6>
                         </div>
                     </div>
-                @endforeach
+                </div>
+            @endforeach
             </div>
 
             <!-- Paginación -->
