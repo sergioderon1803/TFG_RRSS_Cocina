@@ -24,6 +24,7 @@ Route::get('/dashboard', function () {
 // Rutas públicas
 Route::view('/about', 'about')->name('about');
 Route::get('/perfil/{id}', [ProfileController::class, 'ver'])->name('perfil.ver');
+Route::get('/perfil/meGustas/{id}', [ProfileController::class, 'verMeGustas'])->name('perfil.verMeGustas');
 Route::get('/perfil/{id}/editar', [ProfileController::class, 'editar'])->name('perfil.edicionPerfil');
 Route::post('/perfil/{id}/actualizar', [ProfileController::class, 'actualizar'])->name('perfil.actualizar');
 Route::get('/usuarios/{id}', [UserController::class, 'mostrarPerfil'])->name('usuarios.perfil');

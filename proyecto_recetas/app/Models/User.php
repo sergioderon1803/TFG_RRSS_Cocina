@@ -48,7 +48,7 @@ class User extends Authenticatable {
     // Relaciones
     public function recetas()
     {
-        return $this->hasMany(Receta::class, 'autor', 'id');
+        return $this->hasMany(Receta::class, 'autor_receta', 'id');
     }
     
     public function perfil()

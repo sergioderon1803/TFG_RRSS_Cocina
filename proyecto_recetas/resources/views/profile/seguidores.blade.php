@@ -5,7 +5,7 @@
     <div class="text-center mb-4">
         <h3 class="fw-bold">
             <a href="{{ route('perfil.ver', $perfil->user->id) }}" class="text-decoration-none text-dark">
-                Seguidores de {{ $perfil->user->name ?? "Indefinido" }}
+                Seguidores de {{ $perfil->name ?? "Indefinido" }}
             </a>
         </h3>
     </div>
@@ -32,6 +32,7 @@
                     {{-- Nombre --}}
                     <div>
                         <h6 class="mb-0 fw-bold text-dark">{{ '@' . $seguidor->perfil->name ?? "Indefinido" }}</h6>
+                        <p>{{ $seguidor->perfil->biografia }}</p>
                     </div>
                 </a>
             @endforeach

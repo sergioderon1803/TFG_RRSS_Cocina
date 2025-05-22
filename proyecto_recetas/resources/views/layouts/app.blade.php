@@ -49,6 +49,7 @@
                 @yield('adminRecetas')
                 @yield('adminUsuarios')
                 @yield('perfil')
+                @yield('perfilMeGustas')
                 @yield('about')
                 @yield('edicionPerfil')
                 @yield('seguidores')

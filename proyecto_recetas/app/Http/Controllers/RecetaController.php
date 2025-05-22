@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\GuardarReceta;
 use App\Models\GustarReceta;
 use App\Models\Comentario;
+use App\Models\Perfil;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Receta;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class RecetaController extends Controller {
 
@@ -97,6 +99,8 @@ class RecetaController extends Controller {
                                 ->exists();
         }
 
+        // Estas tres cosas se pueden cambiar por la relación
+
         $meGustas = GustarReceta::where('id_receta', $id)->count();
 
         $numComentarios = Comentario::where('id_receta', $id)->count();
@@ -132,8 +136,9 @@ class RecetaController extends Controller {
             'ingredientes' => $request->input('ingredientes'),
             'procedimiento' => $request->input('procedimiento'),
             'imagen' => $rutaImagen,
-            'autor' => Auth::id(),
-            'estado' => 0
+            'autor_receta' => Auth::id(),
+            'estado' => 0,
+            'created_at' => now()
         ]);
 
         return redirect()->route('recetas.lista')->with('success', 'Receta creada exitosamente.');
@@ -142,7 +147,7 @@ class RecetaController extends Controller {
     // Mostrar formulario con datos actuales
     public function editarReceta($id) {
         $receta = Receta::findOrFail($id);
-        if (Auth::id() !== $receta->autor) {
+        if (Auth::id() !== $receta->autor_receta) {
             abort(403, 'No autorizado.');
         }
         return view('recetas.edicionReceta', compact('receta'));
@@ -159,7 +164,7 @@ class RecetaController extends Controller {
         ]);
 
         $receta = Receta::findOrFail($id);
-        if (Auth::id() !== $receta->autor) {
+        if (Auth::id() !== $receta->autor_receta) {
             abort(403, 'No autorizado.');
         }
 
@@ -181,7 +186,7 @@ class RecetaController extends Controller {
     // Eliminar receta
     public function eliminarReceta($id) {
         $receta = Receta::findOrFail($id);
-        if (Auth::id() !== $receta->autor) {
+        if (Auth::id() !== $receta->autor_receta) {
             abort(403, 'No autorizado.');
         }
         $receta->delete();

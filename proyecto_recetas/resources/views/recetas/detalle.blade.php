@@ -24,7 +24,7 @@
             @endif
 
             @auth
-                @if (auth()->id() === $receta->autor)
+                @if (auth()->id() === $receta->autor_receta)
                     <div class="d-flex gap-2">
                         <form action="{{ route('recetas.editar', $receta->id) }}" method="GET" style="display:inline;">
                             <button type="submit" class="btn btn-warning mb-2">Editar</button>
@@ -40,7 +40,7 @@
             @endauth
 
             @auth
-                @if(auth()->id() !== $receta->autor)
+                @if(auth()->id() !== $receta->autor_receta)
                     <div class="d-flex gap-2">
                         <form id="guardarReceta" method="POST" action="{{ $guardada ? route('recetas.guardar.eliminar', $receta->id) : route('recetas.guardar', $receta->id) }}">
                             @csrf
@@ -83,9 +83,9 @@
                     <div class="mb-3">
                         <h1 class="card-title m-0 d-inline">{{ $receta->titulo }}</h1>
                         <span class="text-muted ms-2 small">
-                            <a href="{{ route('perfil.ver', ['id' => $receta->autor]) }}"
+                            <a href="{{ route('perfil.ver', ['id' => $receta->autor_receta]) }}"
                                 class="text-primary fw-semibold hover-underline">
-                                de {{ $receta->autor }} </a>
+                                de {{ $receta->autor->perfil->name }} </a> <!--Cojo el autor, del autor, cojo el perfil y, de su perfil, el nombre-->
                         </span>
                     </div>
                     <span class="badge bg-light text-dark mb-3"> Tipo: {{ $receta->tipo }} </span>

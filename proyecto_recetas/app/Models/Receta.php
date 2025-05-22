@@ -13,7 +13,7 @@ class Receta extends Model {
         'tipo',
         'ingredientes',
         'procedimiento',
-        'autor',
+        'autor_receta',
         'imagen',
         'estado',
         'created_at'
@@ -22,7 +22,7 @@ class Receta extends Model {
     // Relaciones
     public function autor()
     {
-        return $this->belongsTo(User::class, 'autor', 'id');
+        return $this->belongsTo(User::class, 'autor_receta', 'id');
     }
     
     public function comentarios()

@@ -41,7 +41,7 @@
                         <td>{{ $receta->id }}</td>
                         <td><a href="{{ url('receta/' . $receta->id) }}" class="btn btn-primary btn-sm">{{ $receta->titulo }}</a></td>
                         <td>{{ $receta->tipo }}</td>
-                        <td>{{ $receta->autor->email ?? 'Desconocido' }}</td>
+                        <td>{{ $receta->autor->email }}</td>
                         <td>{{ $receta->created_at ?? 'N/D' }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2 flex-wrap">

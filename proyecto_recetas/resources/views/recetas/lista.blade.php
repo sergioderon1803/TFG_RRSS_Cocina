@@ -23,6 +23,8 @@
                                     {{ $receta->titulo }}
                                 </a>
                             </h6>
+                            <p>Me gusta: {{$receta->usuariosQueGustaron->count()}}</p>
+                            <p>Com: {{$receta->comentarios->count()}}</p>
                         </div>
                     </div>
                 </div>

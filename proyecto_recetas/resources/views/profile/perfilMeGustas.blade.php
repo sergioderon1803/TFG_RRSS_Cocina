@@ -2,7 +2,7 @@
 
 @section('titulo', 'Perfil de ' . $perfil->name)
 
-@section('perfil')
+@section('perfilMeGustas')
 <div class="position-relative mb-5">
     {{-- Banner de usuario --}}
     <div class="w-100" style="height: 250px; background: url('{{ asset('storage/' . $perfil->img_banner) }}') no-repeat center center; background-size: cover;">
@@ -79,12 +79,12 @@
 
 {{-- Recetas del usuario --}}
 <div class="px-4">
-    <h5 class="fw-bold mb-3"><strong>Recetas publicadas</strong> | <a href="{{ route('perfil.verMeGustas', $perfil->id_user) }}">Me gustas</a></h5>
+    <h5 class="fw-bold mb-3"><a href="{{ route('perfil.ver', $perfil->id_user) }}">Recetas publicadas</a> | <strong>Me gustas</strong></h5>
 
 
-@if ($recetas->count() > 0)
+@if ($perfil->user->recetasGustadas->count() > 0)
     <div class="row">
-        @foreach ($recetas as $receta)
+        @foreach ($perfil->user->recetasGustadas as $receta)
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="card h-100 shadow-sm">
                     @if ($receta->imagen)
@@ -108,7 +108,7 @@
         @endforeach
     </div>
 @else
-    <p class="text-muted">Este usuario aún no ha publicado ninguna receta.</p>
+    <p class="text-muted">A este usuario no le gusta ninguna receta de momento.</p>
 @endif
 </div>
 

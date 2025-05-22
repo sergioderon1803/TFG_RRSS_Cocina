@@ -53,6 +53,25 @@ class ProfileController extends Controller {
         return view('profile.seguidos', compact('perfil', 'seguidos'));
     }
 
+    public function verMegustas($id)
+    {
+        $perfil = Perfil::where('id_user', $id)->firstOrFail();
+
+        $seguido = false;
+        $seguidores = SeguirUsuario::where('id_user', $id)->count();
+        $seguidos = SeguirUsuario::where('id_seguidor', $id)->count();
+
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $seguido = SeguirUsuario::where('id_user', $id)
+                                    ->where('id_seguidor', $userId)
+                                    ->exists();
+        }
+
+
+        return view('profile.perfilMeGustas', compact('perfil', 'seguido', 'seguidores', 'seguidos'));
+    }
+
     public function editar($id)
     {
         $perfil = Perfil::where('id_user', $id)->firstOrFail();

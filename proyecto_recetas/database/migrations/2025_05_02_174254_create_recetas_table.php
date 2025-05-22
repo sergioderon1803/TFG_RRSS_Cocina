@@ -11,8 +11,8 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('recetas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('autor'); // campo que almacena el id del autor
-            $table->foreign('autor')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('autor_receta'); // campo que almacena el id del autor
+            $table->foreign('autor_receta')->references('id')->on('users')->onDelete('cascade');
             $table->string('titulo');
             $table->string('imagen')->nullable();
             $table->string('tipo');
