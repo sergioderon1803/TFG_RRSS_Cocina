@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class GustarReceta extends Pivot
 {
+    use HasFactory;
+    
     protected $table = 'gustar_receta';
     public $incrementing = false;
     public $timestamps = false;

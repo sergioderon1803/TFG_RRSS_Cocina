@@ -35,6 +35,8 @@ composer install
 
 5. Migrar tablas de la BBDD
 php artisan migrate
+Opcional si se quieren crear registros de prueba en la BBDD
+php artisan migrate:fresh --seed
 
 6. Arrancar aplicación
 php artisan serve
