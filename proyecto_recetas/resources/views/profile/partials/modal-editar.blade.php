@@ -33,9 +33,8 @@
 
             <div class="col-md-6">
               <label for="img_perfil" class="form-label">Nueva imagen de perfil</label>
-              <br/>
               <img id="preview" style="max-width: 200px; max-height:200px;" class="mt-2 imagenPrevia" src="{{asset('images/pantallaGris.jpg')}}" alt="Imagen previa">
-              <input id="imgInput" type="file" name="img_perfil" class="form-control my-auto">
+              <input id="img_perfil" type="file" name="img_perfil" class="form-control my-auto">
             </div>
           </div>
 
@@ -51,9 +50,8 @@
 
             <div class="col-md-6">
               <label for="img_banner" class="form-label m-auto">Nuevo banner</label>
-              <br/>
               <img id="previewBanner" style="max-width: 200px; max-height:150px;" class="mt-2 imagenPrevia" src="{{asset('images/pantallaGris.jpg')}}" alt="Imagen previa">
-              <input id="imgInputBanner" type="file" name="img_perfil" class="form-control my-auto">
+              <input id="img_banner" type="file" name="img_banner" class="form-control my-auto">
             </div>
           </div>
 

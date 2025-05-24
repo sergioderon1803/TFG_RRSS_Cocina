@@ -230,7 +230,7 @@
 @endif
 
     <script>
-        document.getElementById('imgInput').addEventListener('change', function(event) {
+        document.getElementById('img_perfil').addEventListener('change', function(event) {
             const file = event.target.files[0];
             const preview = document.getElementById('preview');
 
@@ -245,7 +245,7 @@
     </script>
 
     <script>
-  document.getElementById('imgInputBanner').addEventListener('change', function(event) {
+  document.getElementById('img_banner').addEventListener('change', function(event) {
     const file = event.target.files[0];
     const preview = document.getElementById('previewBanner');
 

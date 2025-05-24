@@ -96,9 +96,8 @@
                     </div>
                     <div class="justify-center">
                         <label for="imagen" class="form-label">Imagen:</label>
-                        <br/>
                         <img id="preview" class="mt-2 imagenPrevia" style="max-width: 250px; max-height: 250px;" src="{{asset('images/pantallaGris.jpg')}}" alt="Imagen previa">
-                        <input type="file" accept="image/*" id="imgInput" name="imagen" class="form-control" required>
+                        <input type="file" accept="image/*" id="imagen" name="imagen" class="form-control" required>
                     </div>
                     <div class="row g-3">
                         <!-- Ingredientes -->
@@ -125,7 +124,7 @@
 </div>
 
 <script>
-  document.getElementById('imgInput').addEventListener('change', function(event) {
+  document.getElementById('imagen').addEventListener('change', function(event) {
     const file = event.target.files[0];
     const preview = document.getElementById('preview');
 
