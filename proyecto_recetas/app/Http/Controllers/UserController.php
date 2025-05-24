@@ -21,11 +21,13 @@ class UserController extends Controller {
     // Eliminar usuario
     public function eliminarUsuarioAdmin($id) {
         $usuario = User::findOrFail($id);
-        $usuario->delete();
-        
-        $usuarios = User::paginate(5);
 
-        return redirect()->route('admin',array('tipo' => 'usuarios'))->with('success', 'Usuario eliminado.');
+        if($usuario){
+            $usuario->delete();
+            return response()->json(['status' => 'success', 'message' => 'Se ha eliminado el usuario']);
+        }
+        
+        return response()->json(['status' => 'failed', 'message' => 'Ha ocurrido un error']);
     }
 
     public function SeguirUsuario($id)

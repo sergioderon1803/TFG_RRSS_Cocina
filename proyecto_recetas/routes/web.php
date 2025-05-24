@@ -72,6 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
     Route::get('admin/recetas', [AdminController::class, 'listaRecetas'])->name('admin.recetas');
     Route::get('admin/usuarios', [AdminController::class, 'listaUsuarios'])->name('admin.usuarios');
+    Route::get('admin/usuariosAjax', [AdminController::class, 'listaUsuariosAjax'])->name('admin.usuariosAjax');
 
     // Eliminaciones admin
     Route::delete('recetas/admin/{id}', [RecetaController::class, 'eliminarRecetaAdmin'])->name('recetas.eliminarAdmin');

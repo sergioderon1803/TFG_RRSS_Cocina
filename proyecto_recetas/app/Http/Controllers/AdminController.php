@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Receta;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 class AdminController extends Controller
 {
@@ -37,6 +39,25 @@ class AdminController extends Controller
 
         $usuarios = User::paginate(5);
             return view('admin.adminUsuarios', compact('usuarios'));
+    }
+
+    public function listaUsuariosAjax(Request $request)
+    {
+        $usuarios = User::query();
+
+        return Datatables::eloquent($usuarios)
+        
+        ->addColumn('created_at', function($user){
+            return Carbon::parse($user->created_at)->format('d-m-Y');
+        })
+        
+        ->addColumn('action', function($user){
+            return '<button data-id="'.$user->id.'" class="btn btn-danger btn-sm delete-user">Eliminar</button>';
+        })
+
+        ->rawColumns(['action'])
+
+        ->make(true);
     }
 
 }
