@@ -26,9 +26,7 @@
             @auth
                 @if (auth()->id() === $receta->autor_receta)
                     <div class="d-flex gap-2">
-                        <form action="{{ route('recetas.editar', $receta->id) }}" method="GET" style="display:inline;">
-                            <button type="submit" class="btn btn-warning mb-2">Editar</button>
-                        </form>
+                        <button type="submit" class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#editarReceta">Editar</button>
 
                         <form class="formBorrar" action="{{ route('recetas.eliminar', $receta->id) }}" method="POST" style="display:inline;">
                             @csrf
@@ -70,10 +68,10 @@
             @endauth
             
             <!--Cantidad de me gustas-->
-            <p>Me gusta: {{$meGustas}}</p>	
+            <p>Me gusta: {{$receta->usuariosQueGustaron->count()}}</p>	
 
             <!--Cantidad de guardados-->
-            <p>Guardados: {{$numGuardados}}</p>
+            <p>Guardados: {{$receta->usuariosQueGuardaron->count()}}</p>
         </div>
 
         <!-- Columna derecha -->
@@ -106,7 +104,7 @@
     <!-- Comentarios abajo en una fila aparte -->
     <div class="row mt-4">
         <div class="col-12">
-            <strong><h2>Comentarios: {{$numComentarios}} </h2></strong>
+            <strong><h2>Comentarios: {{$receta->comentarios->count()}} </h2></strong>
             {{-- Formulario para nuevo comentario --}}
             @auth
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#comentar">
@@ -176,6 +174,60 @@
             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Comentar</button>
         </div>
     </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Receta-->
+<div class="modal fade" id="editarReceta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Receta</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{{ route('recetas.actualizar', $receta->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="modal-body">
+                <div class="row g-3">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="titulo" class="form-label">Título:</label>
+                            <input type="text" name="titulo" id="titulo" value="{{$receta->titulo}}" class="form-control" placeholder="Título" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="tipo" class="form-label">Tipo:</label>
+                            <input type="text" name="tipo" value="{{$receta->tipo}}" id="tipo" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="justify-center">
+                        <label for="imagen" class="form-label">Imagen:</label>
+                        <br/>
+                        <img id="preview" class="mt-2 imagenPrevia" style="max-width: 250px; max-height: 250px;" src="{{ asset('storage/' . $receta->imagen) }}" alt="Imagen previa">
+                        <input type="file" accept="image/*" id="imgInput" name="imagen" class="form-control">
+                    </div>
+                    <div class="row g-3">
+                        <!-- Ingredientes -->
+                        <div class="col-md-6">
+                            <label for="ingredientes" class="form-label">Ingredientes:</label>
+                            <textarea name="ingredientes" id="ingredientes" class="form-control" rows="6" required>{{$receta->ingredientes}}</textarea>
+                        </div>
+
+                        <!-- Procedimiento -->
+                        <div class="col-md-6">
+                            <label for="procedimiento" class="form-label">Procedimiento:</label>
+                            <textarea name="procedimiento" id="procedimiento" class="form-control" rows="6" required>{{$receta->procedimiento}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Editar receta</button>
+            </div>
+        </form>
     </div>
   </div>
 </div>

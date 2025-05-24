@@ -99,15 +99,8 @@ class RecetaController extends Controller {
                                 ->exists();
         }
 
-        // Estas tres cosas se pueden cambiar por la relación
 
-        $meGustas = GustarReceta::where('id_receta', $id)->count();
-
-        $numComentarios = Comentario::where('id_receta', $id)->count();
-
-        $numGuardados = guardarReceta::where('id_receta', $id)->count();
-
-        return view('recetas.detalle', compact('receta', 'guardada', 'gustada', 'meGustas', 'numComentarios', 'numGuardados'));
+        return view('recetas.detalle', compact('receta', 'guardada', 'gustada'));
     }
 
     // Mostrar el formulario
@@ -150,7 +143,7 @@ class RecetaController extends Controller {
         if (Auth::id() !== $receta->autor_receta) {
             abort(403, 'No autorizado.');
         }
-        return view('recetas.edicionReceta', compact('receta'));
+        return view('recetas.detalle', compact('receta'));
     }
 
     // Actualizar receta en BD

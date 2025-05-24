@@ -19,8 +19,6 @@ class ProfileController extends Controller {
         $recetas = $perfil->user->recetas()->get();
 
         $seguido = false;
-        $seguidores = SeguirUsuario::where('id_user', $id)->count();
-        $seguidos = SeguirUsuario::where('id_seguidor', $id)->count();
 
         if (Auth::check()) {
             $userId = Auth::id();
@@ -30,7 +28,7 @@ class ProfileController extends Controller {
         }
 
         // Enviar todo a la vista
-        return view('profile.perfil', compact('perfil', 'recetas', 'seguido', 'seguidores', 'seguidos'));
+        return view('profile.perfil', compact('perfil', 'recetas', 'seguido'));
     }
 
     public function verSeguidores($id)
@@ -58,8 +56,7 @@ class ProfileController extends Controller {
         $perfil = Perfil::where('id_user', $id)->firstOrFail();
 
         $seguido = false;
-        $seguidores = SeguirUsuario::where('id_user', $id)->count();
-        $seguidos = SeguirUsuario::where('id_seguidor', $id)->count();
+        $meGustas = true;
 
         if (Auth::check()) {
             $userId = Auth::id();
@@ -69,7 +66,7 @@ class ProfileController extends Controller {
         }
 
 
-        return view('profile.perfilMeGustas', compact('perfil', 'seguido', 'seguidores', 'seguidos'));
+        return view('profile.perfil', compact('perfil', 'seguido','meGustas'));
     }
 
     public function editar($id)
