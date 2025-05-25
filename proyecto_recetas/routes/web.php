@@ -70,8 +70,8 @@ Route::middleware('auth')->group(function () {
 // Rutas para usuarios autenticados y verificados
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
-    Route::get('admin/recetas', [AdminController::class, 'listaRecetas'])->name('admin.recetas');
-    Route::get('admin/usuarios', [AdminController::class, 'listaUsuarios'])->name('admin.usuarios');
+    // Rutas Ajax para los listados de admin
+    Route::get('admin/recetasAjax', [AdminController::class, 'listaRecetasAjax'])->name('admin.recetasAjax');
     Route::get('admin/usuariosAjax', [AdminController::class, 'listaUsuariosAjax'])->name('admin.usuariosAjax');
 
     // Eliminaciones admin

@@ -187,12 +187,17 @@ class RecetaController extends Controller {
         return redirect()->route('recetas.lista')->with('success', 'Receta eliminada.');
     }
 
-    // Eliminar receta
+    // Eliminar admin receta
     public function eliminarRecetaAdmin($id) {
-        $receta = Receta::findOrFail($id);
-        $receta->delete();
 
-        return redirect()->route('admin',array('tipo' => 'recetas'))->with('success', 'Receta eliminada.');
+        $receta = Receta::findOrFail($id);
+
+        if($receta){
+            $receta->delete();
+            return response()->json(['status' => 'success', 'message' => 'Se ha eliminado la receta']);
+        }
+        
+        return response()->json(['status' => 'failed', 'message' => 'Ha ocurrido un error']);
     }
 
 }

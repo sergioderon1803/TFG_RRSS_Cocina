@@ -14,31 +14,33 @@ class AdminController extends Controller
     // Ver de quitar, ahora mismo no es útil
     public function index(Request $request)
     {
-        $tipo = $request->query('tipo');
-
-        if ($tipo === 'usuarios') {
-            $usuarios = User::paginate(5);
-            return view('admin.admin', compact('usuarios'));
-        } else {
-            $recetas = Receta::with('autor')->paginate(5);
-            return view('admin.admin', compact('recetas'));
-        }
+        return view('admin.admin');
     }
 
-    public function listaRecetas(Request $request)
+    public function listaRecetasAjax(Request $request)
     {
-        $tipo = $request->query('tipo');
+        $recetas = Receta::query();
 
-        $recetas = Receta::with('autor')->paginate(5);
-        return view('admin.adminRecetas', compact('recetas'));
-    }
+        return Datatables::eloquent($recetas) // Le mando la query al Datatable
+        
+        // Hago que la columna de fecha se muestre como yo quiero
+        ->addColumn('created_at', function($receta){
+            return Carbon::parse($receta->created_at)->format('d-m-Y');
+        })
 
-    public function listaUsuarios(Request $request)
-    {
-        $tipo = $request->query('tipo');
+        // Hago que en vez del id me muestre el autor
+        ->addColumn('autor_receta', function($receta){
+            return $receta->autor->perfil->name;
+        })
+        
+        // Añado una columna de acciones y creo los botones que quiera
+        ->addColumn('action', function($receta){
+            return '<button data-id="'.$receta->id.'" class="btn btn-danger btn-sm delete-receta">Eliminar</button>';
+        })
 
-        $usuarios = User::paginate(5);
-            return view('admin.adminUsuarios', compact('usuarios'));
+        ->rawColumns(['action'])
+
+        ->make(true);
     }
 
     public function listaUsuariosAjax(Request $request)
