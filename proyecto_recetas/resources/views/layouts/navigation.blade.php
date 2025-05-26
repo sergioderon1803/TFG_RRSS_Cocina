@@ -35,8 +35,6 @@
         </li>
     </ul>
 
-    <hr>
-
     <!-- Área del usuario al fondo -->
     <div class="mt-auto">
         <form method="POST" action="{{ route('logout') }}">

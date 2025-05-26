@@ -30,7 +30,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
-    <div class="d-flex flex-column min-vh-100 {{ Request::is('admin*') ? 'bg-body-secondary' : 'bg-peach' }}">
+    <div class="d-flex flex-column min-vh-100">
         @auth
             <!-- Sidebar -->
             <aside>
@@ -45,18 +45,7 @@
         <!-- Contenido principal -->
         <main class="flex-grow-1 main-content">
             <div class="container">
-                @yield('listado')
-                @yield('detalle')
-                @yield('formularioReceta')
-                @yield('formularioEdicion')
-                @yield('admin')
-                @yield('adminRecetas')
-                @yield('adminUsuarios')
-                @yield('perfil')
-                @yield('about')
-                @yield('edicionPerfil')
-                @yield('seguidores')
-                @yield('seguidos')
+                @yield('content')
             </div>
         </main>
     </div>

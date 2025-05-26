@@ -8,7 +8,7 @@
  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
 @endsection
 
-@section('admin')
+@section('content')
 
 
 <div class="container py-5">

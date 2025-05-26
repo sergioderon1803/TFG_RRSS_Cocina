@@ -13,7 +13,7 @@
 
 @section('titulo', 'Detalle de la receta')
 
-@section('detalle')
+@section('content')
 
 <div class="container mt-4">
     <div class="row">

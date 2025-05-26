@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('seguidores')
+@section('content')
 <div class="container py-4">
     <div class="text-center mb-4">
         <h3 class="fw-bold">

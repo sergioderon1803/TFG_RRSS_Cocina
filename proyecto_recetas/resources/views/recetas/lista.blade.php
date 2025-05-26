@@ -2,7 +2,7 @@
 
 @section('titulo', 'Listado de recetas')
 
-@section('listado')
+@section('content')
 <div class="container-fluid my-3 px-3">
     <div class="row gx-2 gy-4 justify-content-between">
         <!-- Columna de recetas -->

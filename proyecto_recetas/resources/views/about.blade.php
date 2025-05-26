@@ -19,7 +19,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased d-flex flex-column min-vh-100 bg-peach">
+<body class="font-sans antialiased d-flex flex-column min-vh-100">
     @auth
         @include('layouts.navigation')
     @endauth

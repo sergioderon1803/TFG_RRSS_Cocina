@@ -11,7 +11,7 @@
 </style>
 @endsection
 
-@section('perfil')
+@section('content')
 <div class="position-relative mb-5">
     {{-- Banner de usuario --}}
     <div class="w-100" style="height: 250px; background: url('{{ asset('storage/' . $perfil->img_banner) }}') no-repeat center center; background-size: cover;">
