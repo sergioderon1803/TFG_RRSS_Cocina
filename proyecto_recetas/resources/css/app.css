@@ -1,35 +1,52 @@
+/* RESET Y BASE */
 body, html {
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
 }
-main, .container, .content {
-    margin-top: 0;
-    padding-top: 1rem;
+
+.main-content {
+    margin-left: 250px; /* espacio para sidebar */
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
 }
+
+/* LAYOUT GENERAL */
+.container, .content {
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* NAVBAR */
 .navbar {
-    background-color: #ff8d2f !important;
+    background-color: #F07B3F !important;
     color: white;
 }
+
 .navbar .nav-link {
     color: white;
     font-weight: 500;
 }
-.navbar .nav-link:hover,
-.navbar .nav-link:focus {
-    color: #fff8e1;
-    text-decoration: underline;
-}
-.navbar .nav-link.active {
-    font-weight: 700;
-    text-decoration: underline;
-    color: #fff;
-}
+
 .navbar-brand img {
     height: 80px;
     margin-right: 1rem;
 }
 
-/* ABOUT US */
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #F07B3F;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 0 6px rgba(0, 0, 0, 0.12);
+    z-index: 1040;
+}
+
+/* ABOUT US / PERFILES */
 .profile-img {
     width: 300px;
     height: 300px;
@@ -52,4 +69,10 @@ main, .container, .content {
 .profile-desc {
     font-style: italic;
     color: #555;
+}
+
+/* UTILIDADES */
+.text-white-bold {
+    color: white;
+    font-weight: bold;
 }

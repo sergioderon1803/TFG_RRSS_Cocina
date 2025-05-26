@@ -3,32 +3,32 @@
 @section('titulo', 'Listado de recetas')
 
 @section('listado')
-<div class="container my-5">
-    <div class="row justify-content-center gy-4">
+<div class="container-fluid my-3 px-3">
+    <div class="row gx-2 gy-4 justify-content-between">
         <!-- Columna de recetas -->
-        <div class="col-12 col-lg-8">
+        <div class="col-12 col-xl-8">
             <div class="row">
                 @foreach ($recetas as $receta)
-                <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        @if ($receta->imagen)
-                            <img src="{{ asset('storage/' . $receta->imagen) }}" 
-                                 class="card-img-top" 
-                                 alt="Imagen de {{ $receta->titulo }}" 
-                                 style="height: 180px; object-fit: cover;">
-                        @endif
-                        <div class="card-body d-flex flex-column justify-content-between">
-                            <h6 class="card-title text-center">
-                                <a href="{{ url('receta/' . $receta->id) }}" class="text-decoration-none text-dark">
-                                    {{ $receta->titulo }}
-                                </a>
-                            </h6>
-                            <p>Me gusta: {{$receta->usuariosQueGustaron->count()}}</p>
-                            <p>Com: {{$receta->comentarios->count()}}</p>
+                    <div class="col-12 col-sm-6 col-md-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            @if ($receta->imagen)
+                                <img src="{{ asset('storage/' . $receta->imagen) }}" 
+                                     class="card-img-top" 
+                                     alt="Imagen de {{ $receta->titulo }}" 
+                                     style="height: 180px; object-fit: cover;">
+                            @endif
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <h6 class="card-title text-center">
+                                    <a href="{{ url('receta/' . $receta->id) }}" class="text-decoration-none text-dark">
+                                        {{ $receta->titulo }}
+                                    </a>
+                                </h6>
+                                <p>Me gusta: {{ $receta->usuariosQueGustaron->count() }}</p>
+                                <p>Com: {{ $receta->comentarios->count() }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
             </div>
 
             <!-- Paginación -->
@@ -38,11 +38,13 @@
         </div>
 
         <!-- Columna de filtros -->
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-xl-4">
             @auth
                 <button
-                   class="btn btn-primary mb-3 w-100 text-white fw-bold" data-bs-toggle="modal" data-bs-target="#crearReceta">
-                   CREAR RECETA
+                    class="btn btn-primary mb-3 w-100 text-white fw-bold"
+                    data-bs-toggle="modal"
+                    data-bs-target="#crearReceta">
+                    CREAR RECETA
                 </button>
             @endauth
 
@@ -71,54 +73,54 @@
     </div>
 </div>
 
-<!-- Modal Crear Receta-->
+<!-- Modal Crear Receta -->
 <div class="modal fade" id="crearReceta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Receta</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{ route('recetas.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="modal-body">
+      </div>
+      <form action="{{ route('recetas.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="modal-body">
+            <div class="row g-3">
                 <div class="row g-3">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="titulo" class="form-label">Título:</label>
-                            <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Título" required>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="tipo" class="form-label">Tipo:</label>
-                            <input type="text" name="tipo" id="tipo" class="form-control" required>
-                        </div>
+                    <div class="col-md-6">
+                        <label for="titulo" class="form-label">Título:</label>
+                        <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Título" required>
                     </div>
-                    <div class="justify-center">
-                        <label for="imagen" class="form-label">Imagen:</label>
-                        <img id="preview" class="mt-2 imagenPrevia" style="max-width: 250px; max-height: 250px;" src="{{asset('images/pantallaGris.jpg')}}" alt="Imagen previa">
-                        <input type="file" accept="image/*" id="imagen" name="imagen" class="form-control" required>
-                    </div>
-                    <div class="row g-3">
-                        <!-- Ingredientes -->
-                        <div class="col-md-6">
-                            <label for="ingredientes" class="form-label">Ingredientes:</label>
-                            <textarea name="ingredientes" id="ingredientes" class="form-control" rows="6" required></textarea>
-                        </div>
 
-                        <!-- Procedimiento -->
-                        <div class="col-md-6">
-                            <label for="procedimiento" class="form-label">Procedimiento:</label>
-                            <textarea name="procedimiento" id="procedimiento" class="form-control" rows="6" required></textarea>
-                        </div>
+                    <div class="col-md-6">
+                        <label for="tipo" class="form-label">Tipo:</label>
+                        <input type="text" name="tipo" id="tipo" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="justify-center">
+                    <label for="imagen" class="form-label">Imagen:</label>
+                    <img id="preview" class="mt-2 imagenPrevia" style="max-width: 250px; max-height: 250px;" src="{{ asset('images/pantallaGris.jpg') }}" alt="Imagen previa">
+                    <input type="file" accept="image/*" id="imagen" name="imagen" class="form-control" required>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="ingredientes" class="form-label">Ingredientes:</label>
+                        <textarea name="ingredientes" id="ingredientes" class="form-control" rows="6" required></textarea>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="procedimiento" class="form-label">Procedimiento:</label>
+                        <textarea name="procedimiento" id="procedimiento" class="form-control" rows="6" required></textarea>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar receta</button>
-            </div>
-        </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar receta</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -137,5 +139,4 @@
     }
   });
 </script>
-
 @endsection

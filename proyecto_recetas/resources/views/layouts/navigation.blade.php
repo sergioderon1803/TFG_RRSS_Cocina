@@ -1,63 +1,49 @@
-<nav class="navbar navbar-expand-lg" style="background-color: #ff8d2f; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12); margin-bottom: 0; padding-bottom: 0.3rem;">
-    <div class="container-fluid">
-        <!-- Logo -->
-        <a class="navbar-brand d-flex align-items-center" href="{{ route('recetas.lista') }}">
-            <img src="/images/logo.svg" alt="Logo WeCook" class="img-fluid" style="height: 80px; margin-right: 1rem;">
-        </a>
+<nav class="d-flex flex-column flex-shrink-0 p-3 text-white" style="width: 250px; height: 100vh; background-color: #F07B3F; position: fixed; top: 0; left: 0; box-shadow: 3px 0 6px rgba(0, 0, 0, 0.12); z-index: 1040;">
+    @php
+        $perfilId = auth()->check() && auth()->user()->perfil ? auth()->user()->perfil->id_user : (auth()->check() ? auth()->id() : null);
+    @endphp
 
-        <!-- Botón hamburguesa -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido" aria-controls="navbarContenido" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <!-- Logo -->
+    <a href="{{ route('recetas.lista') }}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <img src="/images/logo.svg" alt="Logo WeCook" class="img-fluid" style="height: 80px; margin-right: 1rem;">
+        <span class="fs-4 d-none d-md-inline">WeCook</span>
+    </a>
 
-        <!-- Contenido del nav -->
-        <div class="collapse navbar-collapse justify-content-between" id="navbarContenido">
-            <!-- Links de navegación -->
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('recetas.lista') ? 'active' : '' }}" href="{{ route('recetas.lista') }}">
-                        {{ __('Principal') }}
-                    </a>
-                </li>
-                @php
-                    $perfilId = auth()->check() && auth()->user()->perfil ? auth()->user()->perfil->id_user : (auth()->check() ? auth()->id() : null);
-                @endphp
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('perfil.ver') ? 'active' : '' }}" href="{{ route('perfil.ver', ['id' => $perfilId]) }}">
-                        {{ __('Perfil') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin') ? 'active' : '' }}" href="{{ route('admin') }}">
-                        {{ __('Admin') }}
-                    </a>
-                </li>
+    <hr>
 
-                <!-- Dropdown del usuario -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarUsuario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ Auth::user()->name }}
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUsuario">
-                        <li>
-                            <a class="dropdown-item" href="{{ route('perfil.ver', ['id' => $perfilId]) }}">
-                                {{ __('Perfil') }}
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="dropdown-item">
-                                    {{ __('Cerrar sesión') }}
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+    <!-- Enlaces de navegación -->
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="{{ route('recetas.lista') }}" class="nav-link text-white {{ request()->routeIs('recetas.lista') ? 'active bg-dark' : '' }}">
+                {{ __('Principal') }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('perfil.ver', ['id' => $perfilId]) }}" class="nav-link text-white {{ request()->routeIs('perfil.ver') ? 'active bg-dark' : '' }}">
+                {{ __('Perfil') }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('about') }}" class="nav-link text-white {{ request()->routeIs('about') ? 'active bg-dark' : '' }}">
+                {{ __('About') }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin') }}" class="nav-link text-white {{ request()->routeIs('admin') ? 'active bg-dark' : '' }}">
+                {{ __('Admin') }}
+            </a>
+        </li>
+    </ul>
+
+    <hr>
+
+    <!-- Área del usuario al fondo -->
+    <div class="mt-auto">
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="btn btn-outline-light btn-sm w-100">
+                {{ __('Cerrar sesión') }}
+            </button>
+        </form>
     </div>
 </nav>
