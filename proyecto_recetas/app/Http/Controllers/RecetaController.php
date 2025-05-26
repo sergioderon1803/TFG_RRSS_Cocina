@@ -77,6 +77,22 @@ class RecetaController extends Controller {
         return view('recetas.lista', compact('recetas'));
     }
 
+    // Listado recetas del usuario
+
+    public function listarRecetasAjax(Request $request){
+        $recetas = Receta::where('autor_receta', $request->id)->get();
+        return response(json_encode($recetas),200)->header('Content-type','text/plain');
+    }
+
+    // Listado recetas que le gustan al usuario
+
+    public function listarMeGustaAjax(Request $request){
+
+        $meGustas = GustarReceta::where('id_user',$request->id)->select('id_receta')->get();
+        $recetas = Receta::whereIn('id', $meGustas)->get();
+        return response(json_encode($recetas),200)->header('Content-type','text/plain');
+    }
+
     public function mostrarRecetaIndividual($id)
     {
         $receta = Receta::with([

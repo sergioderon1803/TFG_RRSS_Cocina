@@ -2,6 +2,15 @@
 
 @section('titulo', 'Perfil de ' . $perfil->name)
 
+@section('css')
+<style>
+        .clickar {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+</style>
+@endsection
+
 @section('perfil')
 <div class="position-relative mb-5">
     {{-- Banner de usuario --}}
@@ -71,78 +80,11 @@
 
 <hr class="mt-4">
 
-{{-- Recetas del usuario --}}
-<div class="px-4">    
+<h5 class="fw-bold mb-3"><span class="clickar" style="color:#F07B3F;" id="clickRecetas">Recetas publicadas</span> | <span class="clickar" id="clickMeGustas">Me gustas</span></h5>
 
-@if(isset($meGustas))
-
-    <h5 class="fw-bold mb-3"><a href="{{ route('perfil.ver', $perfil->id_user) }}">Recetas publicadas</a> | <strong>Me gustas</strong></h5>
-
-    @if ($perfil->user->recetasGustadas->count() > 0)
-        <div class="row">
-            @foreach ($perfil->user->recetasGustadas as $receta)
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        @if ($receta->imagen)
-                            <img src="{{ asset('storage/' . $receta->imagen) }}" 
-                                    class="card-img-top" 
-                                    alt="Imagen de {{ $receta->titulo }}" 
-                                    style="height: 180px; object-fit: cover;">
-                        @endif
-                        <div class="card-body d-flex flex-column justify-content-between">
-                            <h6 class="card-title">
-                                <a href="{{ url('receta/' . $receta->id) }}" class="text-decoration-none text-dark">
-                                    {{ $receta->titulo }}
-                                </a>
-                            </h6>
-                            <p class="card-text">
-                                <small class="text-muted">Publicado por {{ $receta->autor->perfil->name }}</small>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @else
-        <p class="text-muted">A este usuario no le gusta ninguna receta de momento.</p>
-    @endif
+<!-- Donde se van a listar las recetas -->
+<div class="row" id="listado">
 </div>
-@else
-
-    {{-- Recetas del usuario --}}
-
-    <h5 class="fw-bold mb-3"><strong>Recetas publicadas</strong> | <a id="meGustas" href="{{ route('perfil.verMeGustas', $perfil->id_user) }}">Me gustas</a></h5>
-
-    @if ($recetas->count() > 0)
-        <div class="row">
-            @foreach ($recetas as $receta)
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        @if ($receta->imagen)
-                            <img src="{{ asset('storage/' . $receta->imagen) }}" 
-                                    class="card-img-top" 
-                                    alt="Imagen de {{ $receta->titulo }}" 
-                                    style="height: 180px; object-fit: cover;">
-                        @endif
-                        <div class="card-body d-flex flex-column justify-content-between">
-                            <h6 class="card-title">
-                                <a href="{{ url('receta/' . $receta->id) }}" class="text-decoration-none text-dark">
-                                    {{ $receta->titulo }}
-                                </a>
-                            </h6>
-                            <p class="card-text">
-                                <small class="text-muted">Publicado por {{ $receta->autor->perfil->name }}</small>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @else
-        <p class="text-muted">Este usuario aún no ha publicado ninguna receta.</p>
-    @endif
-    </div>
-@endif
 
 <!-- Modal Recetas Guardadas-->
 <div class="modal fade" id="recetasGuardadas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -188,10 +130,13 @@
 </div>
 
 
+
+
 @include('profile.partials.modal-editar', ['perfil' => $perfil])
 @endsection
 
 @section('js')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if($seguido)
@@ -230,6 +175,214 @@
 @endif
 
     <script>
+
+        // Recojo la URL y pillo el ID del usuario
+        const url = window.location.href.split("/");
+        const idUsuario = parseInt(url[url.length-1]);
+
+        // Por defecto, pillo las recetas publicadas
+
+        $(document).ready(function(){
+
+            $.ajax({
+                url:"{{route('recetas.listaRecetasAjax')}}",
+                method: 'POST',
+                data:{
+                    id: idUsuario,
+                    _token: '{{csrf_token()}}',
+                }
+            }).done(function(res){
+                var arreglo = JSON.parse(res);
+
+                // Impresión del listado de recetas
+
+                var listado = `<div class="row" id="recetasListadas">`;
+
+                if(arreglo.length == 0){
+
+                    listado += `<p class="text-muted">Este usuario aún no ha publicado ninguna receta.</p>`;
+
+                }else{ 
+
+                    for(var x = 0; x<arreglo.length;x++){
+
+                        listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
+                            <div class="card h-100 shadow-sm">
+                                    <img src="{{ asset('storage/` + arreglo[x].imagen +`') }}" 
+                                            class="card-img-top" 
+                                            alt="Imagen de `+ arreglo[x].titulo + `" 
+                                            style="height: 180px; object-fit: cover;">
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <h6 class="card-title">
+                                        <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
+                                            `+arreglo[x].titulo+`
+                                        </a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>`;
+
+                    }
+                }
+
+                listado += `</div>`;
+
+                $("#listado").append(listado);
+
+                // Le meto el onclick al otro listado, borro todo el div que acabo de crear
+
+                $('#clickMeGustas').on('click',function(){
+                
+                    $('#clickMeGustas').off('click');
+
+                    document.getElementById('recetasListadas').remove();
+
+                    document.getElementById("clickMeGustas").setAttribute('style','color:#F07B3F');
+                    document.getElementById("clickRecetas").removeAttribute('style');
+
+                    crearListadoMeGustas();
+                });
+
+            })
+        });
+
+// A partir de aquí, es la misma lógica para los dos listados, guardo en funciones lo que hacen para poder gestionar los eventos
+
+//-----------------------------------------------LISTADO ME GUSTAS-----------------------------------------------
+
+        function crearListadoMeGustas(){
+
+            $(document).ready(function(){
+
+                $.ajax({
+                    url:"{{route('recetas.listarMeGustaAjax')}}",
+                    method: 'POST',
+                    data:{
+                        id: idUsuario,
+                        _token: '{{csrf_token()}}',
+                    }
+                }).done(function(res){
+                    var arreglo = JSON.parse(res);
+
+                    var listado = `<div class="row" id="recetasListadas">`;
+
+                    if(arreglo.length == 0){
+
+                        listado += `<p class="text-muted">A este usuario no le gusta ninguna receta de momento.</p>`;
+
+                    }else{ 
+
+                        for(var x = 0; x<arreglo.length;x++){
+
+                            listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
+                            <div class="card h-100 shadow-sm">
+                                    <img src="{{ asset('storage/` + arreglo[x].imagen +`') }}" 
+                                            class="card-img-top" 
+                                            alt="Imagen de `+ arreglo[x].titulo + `" 
+                                            style="height: 180px; object-fit: cover;">
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <h6 class="card-title">
+                                        <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
+                                            `+arreglo[x].titulo+`
+                                        </a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>`;
+
+                        }
+                    }
+
+                    listado += `</div>`;
+
+                    $("#listado").append(listado);
+
+                    $('#clickRecetas').on('click',function(){
+                
+                        $('#clickRecetas').off('click');
+                        
+                        document.getElementById('recetasListadas').remove();
+
+                        document.getElementById("clickRecetas").setAttribute('style','color:#F07B3F');
+                        document.getElementById("clickMeGustas").removeAttribute('style');
+
+
+                        crearListadoRecetasPublicadas();
+                    });
+
+                })
+            });
+
+        }
+
+        //--------------------------------------------------------------------------------------------------------------------
+
+
+        function crearListadoRecetasPublicadas(){
+
+            $(document).ready(function(){
+
+                $.ajax({
+                    url:"{{route('recetas.listaRecetasAjax')}}",
+                    method: 'POST',
+                    data:{
+                        id: idUsuario,
+                        _token: '{{csrf_token()}}',
+                    }
+                }).done(function(res){
+                    var arreglo = JSON.parse(res);
+
+                    var listado = `<div class="row" id="recetasListadas">`;
+
+                    if(arreglo.length == 0){
+
+                        listado += `<p class="text-muted">Este usuario aún no ha publicado ninguna receta.</p>`;
+
+                    }else{ 
+
+                        for(var x = 0; x<arreglo.length;x++){
+
+                            listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
+                            <div class="card h-100 shadow-sm">
+                                    <img src="{{ asset('storage/` + arreglo[x].imagen +`') }}" 
+                                            class="card-img-top" 
+                                            alt="Imagen de `+ arreglo[x].titulo + `" 
+                                            style="height: 180px; object-fit: cover;">
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <h6 class="card-title">
+                                        <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
+                                            `+arreglo[x].titulo+`
+                                        </a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>`;
+
+                        }
+                    }
+
+                    listado += `</div>`;
+
+                    $("#listado").append(listado);
+
+                    $('#clickMeGustas').on('click',function(){
+                    
+                        $('#clickMeGustas').off('click');
+
+                        document.getElementById('recetasListadas').remove();
+
+                        document.getElementById("clickMeGustas").setAttribute('style','color:#F07B3F');
+                        document.getElementById("clickRecetas").removeAttribute('style');
+
+                        crearListadoMeGustas();
+                    });
+
+                    })
+                });
+        }
+    </script>
+
+    <script>
         document.getElementById('img_perfil').addEventListener('change', function(event) {
             const file = event.target.files[0];
             const preview = document.getElementById('preview');
@@ -242,20 +395,18 @@
             preview.style.display = 'none';
             }
         });
+
+        document.getElementById('img_banner').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('previewBanner');
+
+            if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'flex';
+            } else {
+            preview.src = '';
+            preview.style.display = 'none';
+            }
+        });
     </script>
-
-    <script>
-  document.getElementById('img_banner').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    const preview = document.getElementById('previewBanner');
-
-    if (file) {
-      preview.src = URL.createObjectURL(file);
-      preview.style.display = 'flex';
-    } else {
-      preview.src = '';
-      preview.style.display = 'none';
-    }
-  });
-</script>
 @endsection

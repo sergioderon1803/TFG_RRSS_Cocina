@@ -30,6 +30,10 @@ Route::post('/perfil/{id}/actualizar', [ProfileController::class, 'actualizar'])
 Route::get('/usuarios/{id}', [UserController::class, 'mostrarPerfil'])->name('usuarios.perfil');
 
 Route::get('recetas', [RecetaController::class, 'listarRecetas'])->name('recetas.lista');
+
+Route::post('recetas/listarAjax', [RecetaController::class, 'listarRecetasAjax'])->name('recetas.listaRecetasAjax');
+Route::post('recetas/listarMeGustaAjax', [RecetaController::class, 'listarMeGustaAjax'])->name('recetas.listarMeGustaAjax');
+
 Route::get('receta/{id}', [RecetaController::class, 'mostrarRecetaIndividual']);
 
 Route::get('/perfil/{id}/seguidores', [ProfileController::class, 'verSeguidores'])->name('profile.seguidores');
