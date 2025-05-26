@@ -1,154 +1,190 @@
 @extends('layouts.app')
 
-@push('css')
-    <style>
-        body {
-            background-color: bisque;
-        }
-        p {
-            color: teal;
-        }
-    </style>
-@endpush
-
 @section('titulo', 'Detalle de la receta')
 
 @section('content')
 
-<div class="container mt-4">
-    <div class="row">
-        <!-- Columna izquierda -->
-        <div class="col-md-5">
-            @if ($receta->imagen)
-                <img src="{{ asset('storage/' . $receta->imagen) }}" class="img-fluid mb-3" alt="Imagen de {{ $receta->titulo }}">
-            @endif
+<div class="container mt-5">
+    <div class="row justify-content-center">
 
-            @auth
-                @if (auth()->id() === $receta->autor_receta)
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#editarReceta">Editar</button>
+        <!-- Tarjeta principal -->
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
+                <div class="row">
 
-                        <form class="formBorrar" action="{{ route('recetas.eliminar', $receta->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger mb-3">Eliminar</button>
-                        </form>
+                    <!-- Columna izquierda: Imagen + botones -->
+                    <div class="col-md-5 position-relative">
+                        @if ($receta->imagen)
+                            <img src="{{ asset('storage/' . $receta->imagen) }}"
+                                 class="img-fluid mb-3 rounded-4 shadow-sm w-100"
+                                 alt="Imagen de {{ $receta->titulo }}">
+                        
+                            <!-- Botones para autor: posición absoluta encima de la imagen -->
+                            @auth
+                                @if (auth()->id() === $receta->autor_receta)
+                                    <div class="position-absolute top-0 end-0 m-3 d-flex gap-2">
+
+                                        <!-- Botón editar -->
+                                        <button type="button" class="btn p-0 border-0 bg-white bg-opacity-75 rounded-circle shadow" data-bs-toggle="modal" data-bs-target="#editarReceta" title="Editar receta" style="width: 36px; height: 36px;">
+                                            <i class="bi bi-pencil-square fs-5 text-warning d-flex justify-content-center align-items-center w-100 h-100"></i>
+                                        </button>
+
+                                        <!-- Botón eliminar -->
+                                        <form class="formBorrar" action="{{ route('recetas.eliminar', $receta->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn p-0 border-0 bg-white bg-opacity-75 rounded-circle shadow" title="Eliminar receta" style="width: 36px; height: 36px;">
+                                                <i class="bi bi-trash-fill fs-5 text-danger d-flex justify-content-center align-items-center w-100 h-100"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                @endif
+                            @endauth
+                        @endif
+
+                        <div class="d-flex gap-3 align-items-center flex-wrap mb-3">
+                            @auth
+                                @if(auth()->id() !== $receta->autor_receta)
+
+                                    <!-- Botón me gusta -->
+                                    <form method="POST" action="{{ $gustada ? route('recetas.gustar.eliminar', $receta->id) : route('recetas.gustar', $receta->id) }}" class="d-flex align-items-center gap-2">
+                                        @csrf
+                                        @if($gustada) @method('DELETE') @endif
+                                        <button type="submit" class="btn btn-sm p-0 border-0 bg-transparent" title="{{ $gustada ? 'Quitar me gusta' : 'Dar me gusta' }}">
+                                            <i class="bi bi-heart{{ $gustada ? '-fill' : '' }} fs-5" style="color: #F07B3F;"></i>
+                                        </button>
+                                        <span>{{ $receta->usuariosQueGustaron->count() }}</span>
+                                    </form>
+
+                                    <!-- Botón guardar -->
+                                    <form method="POST" action="{{ $guardada ? route('recetas.guardar.eliminar', $receta->id) : route('recetas.guardar', $receta->id) }}" class="d-flex align-items-center gap-2">
+                                        @csrf
+                                        @if($guardada) @method('DELETE') @endif
+                                        <button type="submit" class="btn btn-sm p-0 border-0 bg-transparent" title="{{ $guardada ? 'Quitar de guardadas' : 'Guardar receta' }}">
+                                            <i class="bi bi-bookmark{{ $guardada ? '-fill' : '' }} fs-5" style="color: #2A9D8F;"></i>
+                                        </button>
+                                        <span>{{ $receta->usuariosQueGuardaron->count() }}</span>
+                                    </form>
+                                    
+                                @else
+
+                                    <!-- Solo conteo para el autor -->
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="d-flex align-items-center gap-1">
+                                            <i class="bi bi-heart-fill fs-5" style="color: #F07B3F;"></i>
+                                            <span>{{ $receta->usuariosQueGustaron->count() }}</span>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <i class="bi bi-bookmark-fill fs-5" style="color: #2A9D8F;"></i>
+                                            <span>{{ $receta->usuariosQueGuardaron->count() }}</span>
+                                        </div>
+                                    </div>
+                                @endif
+                            @else
+
+                                <!-- Solo conteo para invitados -->
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-heart-fill text-danger fs-5" style="color: #F07B3F;"></i>
+                                        <span>{{ $receta->usuariosQueGustaron->count() }}</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-bookmark-fill text-primary fs-5" style="color: #2A9D8F;"></i>
+                                        <span>{{ $receta->usuariosQueGuardaron->count() }}</span>
+                                    </div>
+                                </div>
+                            @endauth
+                        </div>
+
+                        <!-- Ingredientes -->
+                        <div class="card mt-4 shadow-sm border-0">
+                            <div class="card-header bg-white border-0">
+                                <strong>Ingredientes</strong>
+                            </div>
+                            <div class="card-body">
+                                <ul class="mb-0">
+                                    @foreach(explode("\n", $receta->ingredientes) as $ingrediente)
+                                        <li>{{ $ingrediente }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                @endif
-            @endauth
 
-            @auth
-                @if(auth()->id() !== $receta->autor_receta)
-                    <div class="d-flex gap-2">
-                        <form id="guardarReceta" method="POST" action="{{ $guardada ? route('recetas.guardar.eliminar', $receta->id) : route('recetas.guardar', $receta->id) }}">
-                            @csrf
-                            @if($guardada)
-                                @method('DELETE')
-                            @endif
-                            <button type="submit" class="btn {{ $guardada ? 'btn-outline-secondary' : 'btn-outline-primary' }}">
-                                {{ $guardada ? 'Quitar de guardadas' : 'Guardar' }}
-                            </button>
-                        </form>
-
-                        <form id="meGusta" method="POST" action="{{ $gustada ? route('recetas.gustar.eliminar', $receta->id) : route('recetas.gustar', $receta->id) }}">
-                            @csrf
-                            @if($gustada)
-                                @method('DELETE')
-                            @endif
-                            <button type="submit" class="btn {{ $gustada ? 'btn-danger' : 'btn-outline-success' }}">
-                                {{ $gustada ? 'Quitar me gusta' : 'Me gusta' }}
-                            </button>
-                        </form>
-                    </div>
-                @endif
-            @else
-                <div class="alert alert-info mt-3">
-                    <a href="{{ route('login') }}">Inicia sesión</a> para guardar o dar me gusta a esta receta.
-                </div>
-            @endauth
-            
-            <!--Cantidad de me gustas-->
-            <p>Me gusta: {{$receta->usuariosQueGustaron->count()}}</p>	
-
-            <!--Cantidad de guardados-->
-            <p>Guardados: {{$receta->usuariosQueGuardaron->count()}}</p>
-        </div>
-
-        <!-- Columna derecha -->
-        <div class="col-md-7">
-            <div class="card shadow rounded-4 border-0">
-                <div class="card-body p-4">
-                    <div class="mb-3">
-                        <h1 class="card-title m-0 d-inline">{{ $receta->titulo }}</h1>
-                        <span class="text-muted ms-2 small">
+                    <!-- Columna derecha: Información de la receta -->
+                    <div class="col-md-7">
+                        <div class="mb-2 text-muted">
                             <a href="{{ route('perfil.ver', ['id' => $receta->autor_receta]) }}"
-                                class="text-primary fw-semibold hover-underline">
-                                de {{ $receta->autor->perfil->name }} </a> <!--Cojo el autor, del autor, cojo el perfil y, de su perfil, el nombre-->
-                        </span>
-                    </div>
-                    <span class="badge bg-light text-dark mb-3"> Tipo: {{ $receta->tipo }} </span>
-                    <div class="mb-4">
-                        <h4 class="text-primary">Ingredientes</h4>
-                        <p class="fs-5">{{ $receta->ingredientes }}</p>
-                    </div>
-                    <div class="mb-4">
-                        <h4 class="text-success">Procedimiento</h4>
-                        <p class="fs-5">{{ $receta->procedimiento }}</p>
-                    </div>
+                               class="text-decoration-none text-primary fw-semibold">
+                               {{ '@' . Str::slug($receta->autor->perfil->name) }}
+                            </a>
+                        </div>
 
+                        <h2 class="fw-bold mb-3">{{ $receta->titulo }}</h2>
+
+                        <p class="mb-3">
+                            <span class="badge bg-secondary">Tipo: {{ $receta->tipo }}</span>
+                        </p>
+
+                        <div>
+                            <h5 class="text-success">Procedimiento</h5>
+                            <p class="fs-6" style="white-space: pre-line;">{{ $receta->procedimiento }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Comentarios abajo en una fila aparte -->
-    <div class="row mt-4">
-        <div class="col-12">
-            <strong><h2>Comentarios: {{$receta->comentarios->count()}} </h2></strong>
-            {{-- Formulario para nuevo comentario --}}
-            @auth
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#comentar">
-                    Comentar
-                </button>
-            @else
-                <div class="alert alert-info">
-                    <a href="{{ route('login') }}">Inicia sesión</a> para comentar.
-                </div>
-            @endauth
-            <br>
-            @foreach ($receta->comentarios as $comentario)
-                <div class="mb-3 border p-2 rounded">
-                    <strong>{{ $comentario->user->perfil->name ?? $comentario->user->email }}:</strong>
-                    <p>{{ $comentario->contenido }}</p>
+    <!-- COMENTARIOS -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-10">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+                <h3 class="mb-4">Comentarios ({{ $receta->comentarios->count() }})</h3>
 
-                    {{-- Formulario para responder al comentario --}}
-                    @auth
-                    <form action="{{ route('respuestas.store') }}" method="POST" class="mb-2">
-                        @csrf
-                        <input type="hidden" name="id_receta" value="{{ $receta->id }}">
-                        <input type="hidden" name="id_comentario" value="{{ $comentario->id }}">
-                        <input type="hidden" name="id_user_respondido" value="{{ $comentario->id_user }}">
-                        <div class="input-group">
-                            <input type="text" name="contenido" class="form-control" placeholder="Responder a {{ $comentario->user->perfil->name ?? $comentario->user->email }}" required>
-                            <button type="submit" class="btn btn-outline-primary">Responder</button>
-                        </div>
-                    </form>
-                    @endauth
+                @auth
+                    <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#comentar">
+                        Comentar
+                    </button>
+                @else
+                    <div class="alert alert-info">
+                        <a href="{{ route('login') }}">Inicia sesión</a> para comentar.
+                    </div>
+                @endauth
 
-                    {{-- Mostrar respuestas --}}
-                    @if ($comentario->respuestas->count())
-                        <div class="ms-3">
-                            @foreach ($comentario->respuestas as $respuesta)
-                                <div class="border-start ps-2 mb-2">
-                                    <strong>{{ $respuesta->user->perfil->name ?? $respuesta->user->email }}:</strong>
-                                    <p>{{ $respuesta->contenido }}</p>
+                @foreach ($receta->comentarios as $comentario)
+                    <div class="border rounded p-3 mb-3 bg-light">
+                        <strong>{{ $comentario->user->perfil->name ?? $comentario->user->email }}:</strong>
+                        <p>{{ $comentario->contenido }}</p>
+
+                        @auth
+                            <form action="{{ route('respuestas.store') }}" method="POST" class="mb-2">
+                                @csrf
+                                <input type="hidden" name="id_receta" value="{{ $receta->id }}">
+                                <input type="hidden" name="id_comentario" value="{{ $comentario->id }}">
+                                <input type="hidden" name="id_user_respondido" value="{{ $comentario->id_user }}">
+                                <div class="input-group">
+                                    <input type="text" name="contenido" class="form-control"
+                                           placeholder="Responder a {{ $comentario->user->perfil->name ?? $comentario->user->email }}"
+                                           required>
+                                    <button type="submit" class="btn btn-outline-primary">Responder</button>
                                 </div>
-                            @endforeach
-                        </div>
-                    @endif
-                </div>
-            @endforeach
+                            </form>
+                        @endauth
 
+                        @if ($comentario->respuestas->count())
+                            <div class="ms-3 mt-2">
+                                @foreach ($comentario->respuestas as $respuesta)
+                                    <div class="border-start ps-3 mb-2">
+                                        <strong>{{ $respuesta->user->perfil->name ?? $respuesta->user->email }}:</strong>
+                                        <p>{{ $respuesta->contenido }}</p>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 </div>

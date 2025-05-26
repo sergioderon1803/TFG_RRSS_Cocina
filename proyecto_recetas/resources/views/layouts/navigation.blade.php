@@ -15,21 +15,31 @@
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
             <a href="{{ route('recetas.lista') }}" class="nav-link text-white {{ request()->routeIs('recetas.lista') ? 'active bg-dark' : '' }}">
+                <i class="bi bi-house-door-fill me-2"></i>
                 {{ __('Principal') }}
             </a>
         </li>
         <li>
             <a href="{{ route('perfil.ver', ['id' => $perfilId]) }}" class="nav-link text-white {{ request()->routeIs('perfil.ver') ? 'active bg-dark' : '' }}">
+                <i class="bi bi-person-fill me-2"></i>
                 {{ __('Perfil') }}
             </a>
         </li>
         <li>
+            <a href="#" class="nav-link text-white {{ request()->routeIs('#') ? 'active bg-dark' : '' }}">
+                <i class="bi bi-bookmarks-fill me-2"></i>
+                {{ __('Guardados') }}
+            </a>
+        </li>
+        <li>
             <a href="{{ route('about') }}" class="nav-link text-white {{ request()->routeIs('about') ? 'active bg-dark' : '' }}">
+                <i class="bi bi-info-circle-fill me-2"></i>
                 {{ __('About') }}
             </a>
         </li>
         <li>
             <a href="{{ route('admin') }}" class="nav-link text-white {{ request()->routeIs('admin') ? 'active bg-dark' : '' }}">
+                <i class="bi bi-gear-fill me-2"></i>
                 {{ __('Admin') }}
             </a>
         </li>
@@ -39,7 +49,9 @@
     <div class="mt-auto">
         <form method="POST" action="{{ route('logout') }}">
             @csrf
+            
             <button type="submit" class="btn btn-outline-light btn-sm w-100">
+                <i class="bi bi-power me-2"></i>
                 {{ __('Cerrar sesión') }}
             </button>
         </form>
