@@ -48,24 +48,27 @@
                 <span class="link-text"> {{ __('About') }} </span>
             </a>
         </li>
-        <li>
-            <a href="{{ route('admin') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('admin') ? 'active bg-dark' : '' }}">
-                <i class="bi bi-gear-fill me-2 fs-4"></i>
-                <span class="link-text"> {{ __('Admin') }} </span>
-            </a>
-        </li>
     </ul>
 
     <!-- Área del usuario al fondo -->
     <div class="mt-auto">
+        <ul class="nav nav-pills flex-column mb-auto" id="sidebarMenu">
+            <li>
+                <a href="{{ route('admin') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('admin') ? 'active bg-dark' : '' }}">
+                    <i class="bi bi-gear-fill me-2 fs-4"></i>
+                    <span class="link-text"> {{ __('Admin') }} </span>
+                </a>
+            </li>
+        
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             
-            <button type="submit" class="btn btn-sm w-100 d-flex align-items-center justify-content-center">
+            <button type="submit" class="nav-link text-white d-flex align-items-center">
                 <i class="bi bi-power me-2 fs-4"></i>
                 <span class="logout-text"> {{ __('Cerrar sesión') }} </span>
             </button>
         </form>
+        
     </div>
 </nav>
 

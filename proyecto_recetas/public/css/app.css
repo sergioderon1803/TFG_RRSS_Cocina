@@ -60,36 +60,36 @@ body, html {
 }
 
 /* Estado colapsado */
-    #sidebarNav.collapsed {
-        width: 60px !important;
-        overflow-x: hidden;
-    }
+#sidebarNav.collapsed {
+    width: 60px !important;
+    overflow-x: hidden;
+}
 
-    /* Ocultar texto cuando está colapsado */
-    #sidebarNav.collapsed #sidebarLogo img {
-        height: 40px !important;
-        margin-right: 0 !important;
-    }
+/* Ocultar texto cuando está colapsado */
+#sidebarNav.collapsed #sidebarLogo img {
+    height: 40px !important;
+    margin-right: 0 !important;
+}
 
-    #sidebarNav.collapsed #sidebarLogoText,
-    #sidebarNav.collapsed .link-text,
-    #sidebarNav.collapsed .logout-text {
-        display: none !important;
-    }
+#sidebarNav.collapsed #sidebarLogoText,
+#sidebarNav.collapsed .link-text,
+#sidebarNav.collapsed .logout-text {
+    display: none !important;
+}
 
-    /* Centrar iconos cuando colapsado */
-    #sidebarNav.collapsed .nav-link {
-        justify-content: center !important;
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
-    }
+/* Centrar iconos */
+#sidebarNav.collapsed .nav-link {
+    justify-content: center !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
 
-    /* Ajustar botón cerrar sesión al centro cuando colapsado */
-    #sidebarNav.collapsed form button {
-        justify-content: center !important;
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
-    }
+/* Ajuste del botón cerrar sesión */
+#sidebarNav.collapsed form button {
+    justify-content: center !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
 
 /* ABOUT US / PERFILES */
 .profile-img {
