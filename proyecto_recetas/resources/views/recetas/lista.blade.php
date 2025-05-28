@@ -9,7 +9,7 @@
         <div class="col-12 col-xl-8">
             <div class="row">
                 @foreach ($recetas as $receta)
-                    <div class="col-12 col-sm-6 col-md-4 mb-4">
+                    <div class="col-12 col-sm-4 col-md-4 mb-4">
                         <div class="card h-100 shadow-sm">
                             @if ($receta->imagen)
                                 <img src="{{ asset(Str::startsWith($receta->imagen, 'recetas/') ? 'storage/' . $receta->imagen : $receta->imagen) }}"
@@ -23,8 +23,10 @@
                                         {{ $receta->titulo }}
                                     </a>
                                 </h6>
-                                <p>Me gusta: {{ $receta->usuariosQueGustaron->count() }}</p>
-                                <p>Com: {{ $receta->comentarios->count() }}</p>
+                                <div class="d-flex justify-content-between">
+                                    <h6><i class="bi bi-heart text-danger me-2"></i>{{ $receta->usuariosQueGustaron->count() }}</h6>
+                                    <h6><i class="bi bi-bookmark text-success me-2"></i>{{ $receta->usuariosQueGuardaron->count() }}</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -38,7 +40,7 @@
         </div>
 
         <!-- Columna de filtros -->
-        <div class="col-12 col-xl-4">
+        <div class="col-12 col-xl-3">
             @auth
                 <button
                     class="btn btn-primary mb-3 w-100 text-white fw-bold"

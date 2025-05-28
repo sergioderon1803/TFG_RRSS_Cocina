@@ -32,9 +32,14 @@
 <body class="font-sans antialiased">
     <div class="d-flex flex-column min-vh-100">
         @auth
-            <!-- Sidebar -->
-            <aside>
+            <!-- Sidebar de ordenador y tablet -->
+            <aside class="d-none d-lg-block">
                 @include('layouts.navigation')
+            </aside>
+
+            <!-- Sidebar de móvil -->
+            <aside class="d-block d-lg-none">
+                @include('layouts.navigationGuest')
             </aside>
         @endauth
 
@@ -43,7 +48,7 @@
         @endguest
 
         <!-- Contenido principal -->
-        <main class="flex-grow-1 main-content">
+        <main class="flex-grow-1 d-flex justify-content-center align-items-center vh-100">
             <div class="container">
                 @yield('content')
             </div>

@@ -4,31 +4,120 @@
 @tailwind components;
 @ta1ilwind utilities;
 
-/* COLORES DE LA APLICACIÓN */
-.bg-peach {
-    background-color: #FFE6D4;
+/* RESET Y BASE */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
 }
 
-.bg-barraNavegacion{
-    background-color: #FFB871 !important;
+.main-content {
+    margin-left: 250px; /* espacio para sidebar */
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
 }
 
-/* BARRA DE NAVEGACIÓN */
-.nav-height {
-    height: 85px; /* Alto de la barra de navegación */
+/* LAYOUT GENERAL */
+.container, .content {
+    width: 100%;
+    max-width: 1200px;
 }
 
-/*Principal*/
-.espaciado{
-    margin: 20px 0px 10px 30px;
+/* NAVBAR */
+.navbar {
+    background-color: #F07B3F !important;
+    color: white;
 }
 
-.categorias{
-    background-color: #92FB00;
-    border: 2px solid black;
+.navbar .nav-link {
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-.img-publicacion{
-    height: 200px;
+.nav-link:hover {
+    background-color: #212529;
+    color: white;
+    transform: scale(1.00);
+}
+
+.navbar-brand img {
+    height: 80px;
+    margin-right: 1rem;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #F07B3F;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 0 6px rgba(0, 0, 0, 0.12);
+    z-index: 1040;
+}
+
+/* Estado colapsado */
+    #sidebarNav.collapsed {
+        width: 60px !important;
+        overflow-x: hidden;
+    }
+
+    /* Ocultar texto cuando está colapsado */
+    #sidebarNav.collapsed #sidebarLogo img {
+        height: 40px !important;
+        margin-right: 0 !important;
+    }
+
+    #sidebarNav.collapsed #sidebarLogoText,
+    #sidebarNav.collapsed .link-text,
+    #sidebarNav.collapsed .logout-text {
+        display: none !important;
+    }
+
+    /* Centrar iconos cuando colapsado */
+    #sidebarNav.collapsed .nav-link {
+        justify-content: center !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    /* Ajustar botón cerrar sesión al centro cuando colapsado */
+    #sidebarNav.collapsed form button {
+        justify-content: center !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+/* ABOUT US / PERFILES */
+.profile-img {
+    width: 300px;
+    height: 300px;
     object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+}
+
+.profile-name {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+.profile-desc {
+    font-style: italic;
+    color: #555;
+}
+
+/* UTILIDADES */
+.text-white-bold {
+    color: white;
+    font-weight: bold;
 }
