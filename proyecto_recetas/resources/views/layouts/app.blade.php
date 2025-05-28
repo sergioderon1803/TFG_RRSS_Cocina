@@ -30,7 +30,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
-    <div class="d-flex flex-column min-vh-100">
+    <div class="d-flex min-vh-100 flex-column flex-lg-row">
         @auth
             <!-- Sidebar de ordenador y tablet -->
             <aside class="d-none d-lg-block">
@@ -39,16 +39,16 @@
 
             <!-- Sidebar de móvil -->
             <aside class="d-block d-lg-none">
-                @include('layouts.navigationGuest')
+                @include('layouts.navigationResponsive')
             </aside>
         @endauth
 
-        @guest
+        {{-- @guest
             @include('layouts.navigationGuest')
-        @endguest
+        @endguest --}}
 
         <!-- Contenido principal -->
-        <main class="flex-grow-1 d-flex justify-content-center align-items-center vh-100">
+        <main id="mainContent" class="main-content expanded flex-grow-1 py-4">
             <div class="container">
                 @yield('content')
             </div>

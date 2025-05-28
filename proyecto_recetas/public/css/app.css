@@ -1,14 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 
-@tailwind base;
-@tailwind components;
-@ta1ilwind utilities;
-
 /* RESET Y BASE */
 body, html {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    overflow-x: hidden;
 }
 
 .main-content {
@@ -17,6 +14,14 @@ body, html {
     display: flex;
     justify-content: center;
 }
+
+@media (max-width: 991.98px) {
+    .main-content {
+        margin-left: 0 !important;
+        padding: 1rem;
+    }
+}
+
 
 /* LAYOUT GENERAL */
 .container, .content {
@@ -140,4 +145,11 @@ body, html {
 
 .fondoExito:hover{
     background-color: #1b675e;
+}
+
+/* MODALS */
+@media (max-width: 576px) {
+  .modal-content {
+    padding: 1rem;
+  }
 }
