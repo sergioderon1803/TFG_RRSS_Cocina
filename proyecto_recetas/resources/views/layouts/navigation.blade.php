@@ -3,7 +3,7 @@
 
     <!-- Botón toggle dentro del nav -->
     <button id="sidebarToggle"
-            class="btn align-self-start mb-3"
+            class="btn align-self-start mb-3 text-white"
             style="width: 40px; height: 40px;">
         <i class="bi bi-list"></i>
     </button>
@@ -82,6 +82,9 @@
         
     </div>
 </nav>
+
+<!-- Modal Crear Receta -->
+@include('modals.crear-receta')
 
 <script>
     const toggleBtn = document.getElementById('sidebarToggle');
