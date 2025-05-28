@@ -10,7 +10,7 @@ class RecetaFactory extends Factory
     {
         return [
             'titulo' => $this->faker->sentence(),
-            'imagen' => 'receta_default.jpg',
+            'imagen' => 'images/default-img.jpg',
             'tipo' => $this->faker->randomElement(['Desayuno', 'Almuerzo', 'Cena', 'Postre']),
             'ingredientes' => $this->faker->paragraph(),
             'procedimiento' => $this->faker->text(500),

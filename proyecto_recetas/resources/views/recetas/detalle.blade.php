@@ -15,7 +15,7 @@
                     <!-- Columna izquierda: Imagen + botones -->
                     <div class="col-md-5 position-relative">
                         @if ($receta->imagen)
-                            <img src="{{ asset('storage/' . $receta->imagen) }}"
+                            <img src="{{ asset(Str::startsWith($receta->imagen, 'recetas/') ? 'storage/' . $receta->imagen : $receta->imagen) }}"
                                  class="img-fluid mb-3 rounded-4 shadow-sm w-100"
                                  alt="Imagen de {{ $receta->titulo }}">
                         

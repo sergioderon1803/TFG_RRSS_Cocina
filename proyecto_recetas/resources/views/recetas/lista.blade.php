@@ -12,7 +12,7 @@
                     <div class="col-12 col-sm-6 col-md-4 mb-4">
                         <div class="card h-100 shadow-sm">
                             @if ($receta->imagen)
-                                <img src="{{ asset('storage/' . $receta->imagen) }}" 
+                                <img src="{{ asset(Str::startsWith($receta->imagen, 'recetas/') ? 'storage/' . $receta->imagen : $receta->imagen) }}"
                                      class="card-img-top" 
                                      alt="Imagen de {{ $receta->titulo }}" 
                                      style="height: 180px; object-fit: cover;">

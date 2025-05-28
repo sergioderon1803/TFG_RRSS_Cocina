@@ -46,9 +46,9 @@ class RegisteredUserController extends Controller
         Perfil::create([
             'id_user' => $user->id,
             'name' => $user->email, //Poner el nombre del usuario
-            'img_perfil' => "manolo",
-            'img_banner' => "nulo",
-            'biografia' => "Por rellenar"
+            'img_perfil' => "images/default-profile.jpg",
+            'img_banner' => "images/default-banner.jpg",
+            'biografia' => "¡Cocinando en WeCook!"
         ]);
 
         event(new Registered($user));

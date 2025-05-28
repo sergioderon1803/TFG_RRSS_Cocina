@@ -12,17 +12,28 @@
 @endsection
 
 @section('content')
+@php
+    // Comprobar si hay imagen de perfil y banner y si no, se ponen las imagenes por defecto
+    $imgPerfil = Str::startsWith($perfil->img_perfil, 'perfiles/')
+        ? asset('storage/' . $perfil->img_perfil)
+        : asset($perfil->img_perfil);
+
+    $imgBanner = Str::startsWith($perfil->img_banner, 'perfiles/')
+        ? asset('storage/' . $perfil->img_banner)
+        : asset($perfil->img_banner);
+@endphp
+
 <div class="position-relative mb-5">
-    {{-- Banner de usuario --}}
-    <div class="w-100" style="height: 250px; background: url('{{ asset('storage/' . $perfil->img_banner) }}') no-repeat center center; background-size: cover;">
+    {{-- Banner --}}
+    <div class="w-100" style="height: 250px; background: url('{{ $imgBanner }}') no-repeat center center; background-size: cover;">
     </div>
 
-    {{-- Imagen de perfil (superpuesta) --}}
+    {{-- Imagen de perfil --}}
     <div class="position-absolute top-100 start-0 translate-middle-y ps-4">
-        <img src="{{ asset('storage/' . $perfil->img_perfil) }}" 
-                class="rounded-circle border border-white shadow" 
-                style="width: 120px; height: 120px; object-fit: cover;" 
-                alt="Perfil de {{ $perfil->name }}">
+        <img src="{{ $imgPerfil }}"
+            class="rounded-circle border border-white shadow"
+            style="width: 120px; height: 120px; object-fit: cover;"
+            alt="Perfil de {{ $perfil->name }}">
     </div>
 
     {{-- Botón de editar o seguir, según el caso --}}
