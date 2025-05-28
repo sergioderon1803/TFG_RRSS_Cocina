@@ -1,8 +1,5 @@
 <!-- Sidebar -->
-<nav id="sidebarNav" class="d-flex flex-column p-3 text-white"
-     style="width: 250px; height: 100vh; background-color: #F07B3F;
-            position: fixed; top: 0; left: 0; box-shadow: 3px 0 6px rgba(0,0,0,0.12);
-            z-index: 1040; transition: width 0.3s ease; overflow-x: hidden;">
+<nav id="sidebarNav" class="d-flex flex-column p-3 text-white barraNavegacion">
 
     <!-- Botón toggle dentro del nav -->
     <button id="sidebarToggle"
@@ -48,6 +45,20 @@
                 <span class="link-text"> {{ __('About') }} </span>
             </a>
         </li>
+        <br>
+        @if (!request()->routeIs('about'))
+        <li>
+            @auth
+                <button
+                    class="btn fondoExito mb-3 w-100 text-white d-flex align-items-center fw-bold"
+                    data-bs-toggle="modal"
+                    data-bs-target="#crearReceta">
+                    <i class="bi bi-plus-circle me-2 fs-4"></i>
+                    <span class="link-text">CREAR RECETA</span>
+                </button>
+            @endauth
+        </li>
+        @endif
     </ul>
 
     <!-- Área del usuario al fondo -->

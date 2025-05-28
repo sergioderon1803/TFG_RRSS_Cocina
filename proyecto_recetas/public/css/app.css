@@ -25,6 +25,18 @@ body, html {
 }
 
 /* NAVBAR */
+.barraNavegacion{
+    width: 250px;
+    height: 100vh;
+    background-color: #F07B3F;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 0 6px rgba(0,0,0,0.12);
+    z-index: 1040;
+    transition: width 0.3s ease;
+    overflow-x: hidden;
+}
 .navbar {
     background-color: #F07B3F !important;
     color: white;
@@ -37,7 +49,7 @@ body, html {
 }
 
 .nav-link:hover {
-    background-color: #212529;
+    background-color: #cf5e13;
     color: white;
     transform: scale(1.00);
 }
@@ -120,4 +132,12 @@ body, html {
 .text-white-bold {
     color: white;
     font-weight: bold;
+}
+
+.fondoExito{
+    background-color: #2A9D8F;
+}
+
+.fondoExito:hover{
+    background-color: #1b675e;
 }

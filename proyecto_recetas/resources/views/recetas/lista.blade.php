@@ -3,18 +3,18 @@
 @section('titulo', 'Listado de recetas')
 
 @section('content')
-<div class="container-fluid my-3 px-3">
+<div class="container-fluid my-3 px-3 mb-5">
     <div class="row gx-2 gy-4 justify-content-between">
         <!-- Columna de recetas -->
         <div class="col-12 col-xl-8">
-            <div class="row">
+            <div class="row row-cols-1 row-cols-sm-3 g-3">
                 @foreach ($recetas as $receta)
-                    <div class="col-12 col-sm-4 col-md-4 mb-4">
+                    <div class="col">
                         <div class="card h-100 shadow-sm">
                             @if ($receta->imagen)
                                 <img src="{{ asset(Str::startsWith($receta->imagen, 'recetas/') ? 'storage/' . $receta->imagen : $receta->imagen) }}"
-                                     class="card-img-top" 
-                                     alt="Imagen de {{ $receta->titulo }}" 
+                                     class="card-img-top"
+                                     alt="Imagen de {{ $receta->titulo }}"
                                      style="height: 180px; object-fit: cover;">
                             @endif
                             <div class="card-body d-flex flex-column justify-content-between">
@@ -34,46 +34,46 @@
             </div>
 
             <!-- Paginación -->
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center mt-4">
                 {{ $recetas->links('pagination::bootstrap-5') }}
             </div>
         </div>
 
         <!-- Columna de filtros -->
-        <div class="col-12 col-xl-3">
-            @auth
-                <button
-                    class="btn btn-primary mb-3 w-100 text-white fw-bold"
-                    data-bs-toggle="modal"
-                    data-bs-target="#crearReceta">
-                    CREAR RECETA
-                </button>
-            @endauth
-
-            @php
-                $filtros = ['Pasta', 'Fritos', 'Healthy', 'Primer Plato', 'Postre', 'Sin gluten'];
-            @endphp
-
-            @foreach ($filtros as $filtro)
-                <a href="#" 
-                   class="btn btn-outline-success mb-2 w-100 fw-bold categorias">
-                   {{ $filtro }}
-                </a>
-            @endforeach
-
-            <!-- Receta de la semana -->
-            <div class="card shadow-sm border-info mt-4">
-                <div class="card-header bg-info text-white text-center fw-bold">
-                    RECETA DE LA SEMANA
+        <div class="col-12 col-xl-4">
+            <div class="card mb-3">
+                <div class="card-header bg-light">
+                    <strong>Filtrar por categoría</strong>
                 </div>
-                <img src="#" class="card-img-top" alt="Receta de la semana" style="height: 200px; object-fit: cover;">
-                <div class="card-body text-center">
-                    <h6 class="card-title fw-bold">Garbanzos con espinacas</h6>
+                <div class="card-body">
+                    <!-- Contenido del filtro 1 -->
+                    <select class="form-select">
+                        <option selected>Selecciona categoría</option>
+                        <option value="1">Entrantes</option>
+                        <option value="2">Postres</option>
+                        <!-- etc -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-light">
+                    <strong>Filtrar por dificultad</strong>
+                </div>
+                <div class="card-body">
+                    <!-- Contenido del filtro 2 -->
+                    <select class="form-select">
+                        <option selected>Selecciona dificultad</option>
+                        <option value="fácil">Fácil</option>
+                        <option value="media">Media</option>
+                        <option value="difícil">Difícil</option>
+                    </select>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Modal Crear Receta -->
 <div class="modal fade" id="crearReceta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
