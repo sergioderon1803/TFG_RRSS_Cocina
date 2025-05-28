@@ -47,7 +47,7 @@
                                 @if(auth()->id() !== $receta->autor_receta)
 
                                     <!-- Botón me gusta -->
-                                    <form method="POST" action="{{ $gustada ? route('recetas.gustar.eliminar', $receta->id) : route('recetas.gustar', $receta->id) }}" class="d-flex align-items-center gap-2">
+                                    <form id="meGusta" method="POST" action="{{ $gustada ? route('recetas.gustar.eliminar', $receta->id) : route('recetas.gustar', $receta->id) }}" class="d-flex align-items-center gap-2">
                                         @csrf
                                         @if($gustada) @method('DELETE') @endif
                                         <button type="submit" class="btn btn-sm p-0 border-0 bg-transparent" title="{{ $gustada ? 'Quitar me gusta' : 'Dar me gusta' }}">
@@ -57,7 +57,7 @@
                                     </form>
 
                                     <!-- Botón guardar -->
-                                    <form method="POST" action="{{ $guardada ? route('recetas.guardar.eliminar', $receta->id) : route('recetas.guardar', $receta->id) }}" class="d-flex align-items-center gap-2">
+                                    <form id="guardarReceta" method="POST" action="{{ $guardada ? route('recetas.guardar.eliminar', $receta->id) : route('recetas.guardar', $receta->id) }}" class="d-flex align-items-center gap-2">
                                         @csrf
                                         @if($guardada) @method('DELETE') @endif
                                         <button type="submit" class="btn btn-sm p-0 border-0 bg-transparent" title="{{ $guardada ? 'Quitar de guardadas' : 'Guardar receta' }}">
