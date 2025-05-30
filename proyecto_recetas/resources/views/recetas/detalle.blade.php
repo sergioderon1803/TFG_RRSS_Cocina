@@ -9,7 +9,7 @@
 
         <!-- Tarjeta principal -->
         <div class="col-lg-10">
-            <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
+            <div class="card shadow-sm border-0 rounded-4 p-4 bg-white">
                 <div class="row">
 
                     <!-- Columna izquierda: Imagen + botones -->

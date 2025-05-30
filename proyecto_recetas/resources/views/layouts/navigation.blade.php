@@ -1,6 +1,5 @@
 <!-- Sidebar -->
-<nav id="sidebarNav" class="d-flex flex-column p-3 text-white barraNavegacion">
-
+<nav id="sidebarNav" class="d-flex flex-column p-3 text-white barraNavegacion rounded-end-3">
     <!-- Botón toggle dentro del nav -->
     <button id="sidebarToggle"
             class="btn align-self-start mb-3 text-white"

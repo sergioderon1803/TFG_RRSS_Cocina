@@ -4,13 +4,24 @@
 
 @section('content')
 <div class="container-fluid my-3 px-3 mb-5">
-    <div class="row gx-2 gy-4 justify-content-between">
+    <div class="d-flex flex-column align-items-center mb-4">
+        <div class="d-flex align-items-center">
+            <img src="/images/logo.svg" alt="Logo WeCook" class="img-fluid" style="height: 80px;">
+            <span class="fs-4 d-none d-md-inline ms-2" id="sidebarLogoText">WeCook</span>
+        </div>
+        <p class="text-center text-muted mt-2" style="font-size: 0.8rem; max-width: 600px;">
+            Explora nuestras deliciosas recetas y encuentra tu próxima inspiración culinaria.
+        </p>
+    </div>
+    <div class="row gx-5 gy-4">
         <!-- Columna de recetas -->
         <div class="col-12 col-xl-8">
             <div class="row row-cols-1 row-cols-sm-3 g-3">
                 @foreach ($recetas as $receta)
                     <div class="col">
-                        <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3">
+                        <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3" 
+                            style="cursor: pointer;" onclick="window.location='{{ url('receta/' . $receta->id) }}'">
+
                             @if ($receta->imagen)
                                 <img src="{{ asset(Str::startsWith($receta->imagen, 'recetas/') ? 'storage/' . $receta->imagen : $receta->imagen) }}"
                                     class="card-img-top"
@@ -19,19 +30,20 @@
                             @endif
 
                             <div class="card-body d-flex flex-column justify-content-between p-2">
-                                <div class="mb-2 text-center">
-                                    <h6 class="card-title mb-1" style="font-size: 0.95rem;">
-                                        <a href="{{ url('receta/' . $receta->id) }}" class="text-decoration-none text-dark">
-                                            {{ Str::limit($receta->titulo, 40) }}
+                                <div class="mb-2 text">
+                                    <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
+                                        <a href="{{ url('usuario/' . ($receta->user->id ?? '#')) }}" 
+                                        class="text-decoration-none text-muted">
+                                            <img src="{{ asset('images/default-profile.jpg') }}"
+                                                alt="Imagen de perfil"
+                                                class="rounded-circle me-2"
+                                                style="width: 25px; height: 25px; object-fit: cover;">
+                                            {{ $receta->user->name ?? 'usuario' }}
                                         </a>
-                                    </h6>
-                                    <div class="d-flex align-items-center justify-content-center text-muted" style="font-size: 0.85rem;">
-                                        <img src="{{ asset('img/default-profile.png') }}"
-                                            alt="Imagen de perfil"
-                                            class="rounded-circle me-2"
-                                            style="width: 25px; height: 25px; object-fit: cover;">
-                                        <span>{{ $receta->user->name ?? 'Usuario' }}</span>
                                     </div>
+                                    <h6 class="card-title mb-1" style="font-size: 0.95rem;">
+                                        <strong>{{ Str::limit($receta->titulo, 40) }}</strong>
+                                    </h6>
                                 </div>
 
                                 <div class="d-flex justify-content-between mt-auto pt-2 px-1">
@@ -47,7 +59,6 @@
                             </div>
                         </div>
                     </div>
-
                 @endforeach
             </div>
 

@@ -1,7 +1,7 @@
 @php
     $perfilId = auth()->check() && auth()->user()->perfil ? auth()->user()->perfil->id_user : (auth()->check() ? auth()->id() : null);
 @endphp
-<nav class="d-block d-lg-none navbar navbar-light bg-dark border-top fixed-bottom">
+<nav class="d-block d-lg-none navbar navbar-light bg-dark border-top fixed-bottom rounded-top-3 shadow-sm">
     <ul class="nav justify-content-around w-100 text-white">
         <li class="nav-item">
             <a href="{{ route('recetas.lista') }}" class="nav-link text-center {{ request()->routeIs('recetas.lista') ? 'text-black' : 'text-white' }}">
