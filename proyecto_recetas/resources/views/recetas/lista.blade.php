@@ -10,26 +10,44 @@
             <div class="row row-cols-1 row-cols-sm-3 g-3">
                 @foreach ($recetas as $receta)
                     <div class="col">
-                        <div class="card h-100 shadow-sm">
+                        <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3">
                             @if ($receta->imagen)
                                 <img src="{{ asset(Str::startsWith($receta->imagen, 'recetas/') ? 'storage/' . $receta->imagen : $receta->imagen) }}"
-                                     class="card-img-top"
-                                     alt="Imagen de {{ $receta->titulo }}"
-                                     style="height: 180px; object-fit: cover;">
+                                    class="card-img-top"
+                                    alt="Imagen de {{ $receta->titulo }}"
+                                    style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;">
                             @endif
-                            <div class="card-body d-flex flex-column justify-content-between">
-                                <h6 class="card-title text-center">
-                                    <a href="{{ url('receta/' . $receta->id) }}" class="text-decoration-none text-dark">
-                                        {{ $receta->titulo }}
-                                    </a>
-                                </h6>
-                                <div class="d-flex justify-content-between">
-                                    <h6><i class="bi bi-heart text-danger me-2"></i>{{ $receta->usuariosQueGustaron->count() }}</h6>
-                                    <h6><i class="bi bi-bookmark text-success me-2"></i>{{ $receta->usuariosQueGuardaron->count() }}</h6>
+
+                            <div class="card-body d-flex flex-column justify-content-between p-2">
+                                <div class="mb-2 text-center">
+                                    <h6 class="card-title mb-1" style="font-size: 0.95rem;">
+                                        <a href="{{ url('receta/' . $receta->id) }}" class="text-decoration-none text-dark">
+                                            {{ Str::limit($receta->titulo, 40) }}
+                                        </a>
+                                    </h6>
+                                    <div class="d-flex align-items-center justify-content-center text-muted" style="font-size: 0.85rem;">
+                                        <img src="{{ asset('img/default-profile.png') }}"
+                                            alt="Imagen de perfil"
+                                            class="rounded-circle me-2"
+                                            style="width: 25px; height: 25px; object-fit: cover;">
+                                        <span>{{ $receta->user->name ?? 'Usuario' }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between mt-auto pt-2 px-1">
+                                    <button class="btn p-0 border-0 bg-transparent" title="Me gusta">
+                                        <i class="bi bi-heart text-danger"></i>
+                                        <small>{{ $receta->usuariosQueGustaron->count() }}</small>
+                                    </button>
+
+                                    <button class="btn p-0 border-0 bg-transparent" title="Guardar receta">
+                                        <i class="bi bi-bookmark text-success"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 @endforeach
             </div>
 
