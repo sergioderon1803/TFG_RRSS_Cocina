@@ -7,6 +7,7 @@ use App\Models\GustarReceta;
 use App\Models\Comentario;
 use App\Models\Perfil;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Receta;
 use Symfony\Component\HttpKernel\Profiler\Profile;
@@ -38,6 +39,18 @@ class RecetaController extends Controller {
         GuardarReceta::where('id_receta', $id)->where('id_user', $userId)->delete();
 
         return back()->with('success', 'Guardado eliminado.');
+    }
+
+    public function eliminarGuardadoAjax($id)
+    {
+        $receta = GuardarReceta::where('id_receta', $id)->where('id_user', Auth::id());
+
+        if($receta){
+            $receta->delete();
+            return response()->json(['status' => 'success', 'message' => 'Se ha eliminado la receta']);
+        }
+
+        return response()->json(['status' => 'failed', 'message' => 'Ha ocurrido un error']);
     }
 
     public function gustarRecetaUsuario($id)
@@ -126,6 +139,14 @@ class RecetaController extends Controller {
 
     public function recetasGuardadasVista(){
         return view('recetas.recetasGuardadas');
+    }
+
+    public function listarRecetasGuardadasAjax(Request $request){
+
+        $guardadas = GuardarReceta::where('id_user',Auth::id())->select('id_receta')->get();
+        $recetas = Receta::whereIn('id', $guardadas)->get();
+
+        return response(json_encode($recetas),200)->header('Content-type','text/plain');
     }
 
     // Guardar la receta en la base de datos
