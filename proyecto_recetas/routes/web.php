@@ -34,6 +34,7 @@ Route::get('recetas', [RecetaController::class, 'listarRecetas'])->name('recetas
 Route::post('recetas/listarAjax', [RecetaController::class, 'listarRecetasAjax'])->name('recetas.listaRecetasAjax');
 Route::post('recetas/listarMeGustaAjax', [RecetaController::class, 'listarMeGustaAjax'])->name('recetas.listarMeGustaAjax');
 
+Route::get('/receta/recetasGuardadas', [RecetaController::class, 'recetasGuardadasVista'])->name('recetas.recetasGuardadas');
 Route::get('receta/{id}', [RecetaController::class, 'mostrarRecetaIndividual']);
 
 Route::get('/perfil/{id}/seguidores', [ProfileController::class, 'verSeguidores'])->name('profile.seguidores');
@@ -72,7 +73,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Rutas para usuarios autenticados y verificados
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
     // Rutas Ajax para los listados de admin
     Route::get('admin/recetasAjax', [AdminController::class, 'listaRecetasAjax'])->name('admin.recetasAjax');

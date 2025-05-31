@@ -33,7 +33,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('#') ? 'active bg-dark' : '' }}">
+            <a href="{{ route('recetas.recetasGuardadas') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('recetas.recetasGuardadas') ? 'active bg-dark' : '' }}">
                 <i class="bi bi-bookmarks-fill me-2 fs-4"></i>
                 <span class="link-text"> {{ __('Guardados') }} </span>
             </a>

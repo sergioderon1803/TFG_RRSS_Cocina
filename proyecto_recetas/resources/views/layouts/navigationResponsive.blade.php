@@ -9,7 +9,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link text-center text-white">
+            <a href="{{ route('recetas.recetasGuardadas') }}" class="nav-link text-center {{ request()->routeIs('recetas.recetasGuardadas') ? 'text-black' : 'text-white' }}">
                 <i class="bi bi-bookmarks-fill fs-3"></i> <!-- GUARDADOS -->
             </a>
         </li>

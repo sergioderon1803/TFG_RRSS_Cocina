@@ -124,6 +124,10 @@ class RecetaController extends Controller {
         return view('recetas.creacionReceta');
     }
 
+    public function recetasGuardadasVista(){
+        return view('recetas.recetasGuardadas');
+    }
+
     // Guardar la receta en la base de datos
     public function guardarReceta(Request $request){
         $request->validate([
