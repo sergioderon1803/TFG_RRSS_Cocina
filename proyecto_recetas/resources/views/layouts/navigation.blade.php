@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<nav id="sidebarNav" class="d-flex flex-column p-3 text-white barraNavegacion rounded-end-3">
+<nav id="sidebarNav" class="sidebar d-flex flex-column p-3 text-white rounded-end-3">
     <!-- Botón toggle dentro del nav -->
     <button id="sidebarToggle"
             class="btn align-self-start mb-3 text-white"
@@ -23,25 +23,25 @@
         <li class="nav-item">
             <a href="{{ route('recetas.lista') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('recetas.lista') ? 'active bg-dark' : '' }}">
                 <i class="bi bi-house-door-fill me-2 fs-4"></i>
-                <span class="link-text"> {{ __('Principal') }} </span>
+                <span class="link-wrapper"><span class="link-text"> {{ __('Principal') }} </span></span>
             </a>
         </li>
         <li>
             <a href="{{ route('perfil.ver', ['id' => $perfilId]) }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('perfil.ver') ? 'active bg-dark' : '' }}">
                 <i class="bi bi-person-fill me-2 fs-4"></i>
-                <span class="link-text"> {{ __('Perfil') }} </span>
+                <span class="link-wrapper"><span class="link-text"> {{ __('Perfil') }} </span></span>
             </a>
         </li>
         <li>
             <a href="{{ route('recetas.recetasGuardadas') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('recetas.recetasGuardadas') ? 'active bg-dark' : '' }}">
                 <i class="bi bi-bookmarks-fill me-2 fs-4"></i>
-                <span class="link-text"> {{ __('Guardados') }} </span>
+                <span class="link-wrapper"><span class="link-text"> {{ __('Guardados') }} </span></span>
             </a>
         </li>
         <li>
             <a href="{{ route('about') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('about') ? 'active bg-dark' : '' }}">
                 <i class="bi bi-info-circle-fill me-2 fs-4"></i>
-                <span class="link-text"> {{ __('About') }} </span>
+                <span class="link-wrapper"><span class="link-text"> {{ __('About') }} </span></span>
             </a>
         </li>
         <br>
@@ -85,11 +85,24 @@
 <!-- Modal Crear Receta -->
 @include('modals.crear-receta')
 
+
 <script>
-    const toggleBtn = document.getElementById('sidebarToggle');
+    // Script para el toggle del sidebar
     const sidebar = document.getElementById('sidebarNav');
+    const toggleBtn = document.getElementById('sidebarToggle');
+    const body = document.body;
+
+    // Restaurar estado desde localStorage
+    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+    if (isCollapsed) {
+        sidebar.classList.add('collapsed');
+        body.classList.add('sidebar-collapsed');
+    }
 
     toggleBtn.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
+        const collapsed = sidebar.classList.contains('collapsed');
+        localStorage.setItem('sidebarCollapsed', collapsed);
+        body.classList.toggle('sidebar-collapsed', collapsed);
     });
 </script>

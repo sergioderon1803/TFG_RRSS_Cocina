@@ -48,7 +48,7 @@
         @endguest --}}
 
         <!-- Contenido principal -->
-        <main id="mainContent" class="main-content expanded bg-light flex-grow-1 py-4">
+        <main id="mainContent" class="main-content bg-light d-flex justify-content-center align-items-start py-4 flex-grow-1">
             <div class="container rounded-3 shadow-sm p-3 bg-white">
                 @yield('content')
             </div>

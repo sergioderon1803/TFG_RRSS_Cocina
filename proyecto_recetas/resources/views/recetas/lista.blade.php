@@ -16,7 +16,7 @@
     <div class="row gx-5 gy-4">
         <!-- Columna de recetas -->
         <div class="col-12 col-xl-8">
-            <div class="row row-cols-1 row-cols-sm-3 g-3">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
                 @foreach ($recetas as $receta)
                     <div class="col">
                         <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3" 

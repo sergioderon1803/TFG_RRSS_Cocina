@@ -1,18 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 
-/* RESET Y BASE */
-body, html {
+/*==============================
+=            RESET            =
+==============================*/
+* {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Acme', sans-serif;
     overflow-x: hidden;
 }
 
+/*==============================
+=          LAYOUT             =
+==============================*/
 .main-content {
-    margin-left: 250px; /* espacio para sidebar */
+    margin-left: 250px;
     padding: 2rem 1rem;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    flex-grow: 1;
 }
 
 @media (max-width: 991.98px) {
@@ -22,26 +33,15 @@ body, html {
     }
 }
 
-
-/* LAYOUT GENERAL */
 .container, .content {
     width: 100%;
-    max-width: 1200px;
+    max-width: 900px;
 }
 
-/* NAVBAR */
-.barraNavegacion{
-    width: 250px;
-    height: 100vh;
-    background-color: #F07B3F;
-    position: fixed;
-    top: 0;
-    left: 0;
-    box-shadow: 3px 0 6px rgba(0,0,0,0.12);
-    z-index: 1040;
-    transition: width 0.3s ease;
-    overflow-x: hidden;
-}
+
+/*==============================
+=           NAVBAR            =
+==============================*/
 .navbar {
     background-color: #F07B3F !important;
     color: white;
@@ -56,15 +56,17 @@ body, html {
 .nav-link:hover {
     background-color: #CF5E13;
     color: white;
-    transform: scale(1.00);
 }
 
+/* Logo */
 .navbar-brand img {
     height: 80px;
     margin-right: 1rem;
 }
 
-/* SIDEBAR */
+/*==============================
+=           SIDEBAR           =
+==============================*/
 .sidebar {
     width: 250px;
     height: 100vh;
@@ -72,17 +74,18 @@ body, html {
     position: fixed;
     top: 0;
     left: 0;
-    box-shadow: 3px 0 6px rgba(0, 0, 0, 0.12);
     z-index: 1040;
+    box-shadow: 3px 0 6px rgba(0, 0, 0, 0.12);
+    overflow-x: hidden;
+    transition: width 0.3s ease, padding 0.3s ease;
 }
 
-/* Estado colapsado */
+/* Colapsado */
 #sidebarNav.collapsed {
     width: 60px !important;
-    overflow-x: hidden;
+    padding: 0 0.3rem !important;
 }
 
-/* Ocultar texto cuando está colapsado */
 #sidebarNav.collapsed #sidebarLogo img {
     height: 40px !important;
     margin-right: 0 !important;
@@ -94,21 +97,82 @@ body, html {
     display: none !important;
 }
 
-/* Centrar iconos */
-#sidebarNav.collapsed .nav-link {
-    justify-content: center !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-}
-
-/* Ajuste del botón cerrar sesión */
+#sidebarNav.collapsed .nav-link,
 #sidebarNav.collapsed form button {
     justify-content: center !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
+    padding: 0 0.5rem !important;
 }
 
-/* ABOUT US / PERFILES */
+/* Ajuste para main-content cuando el sidebar está colapsado */
+body.sidebar-collapsed .main-content {
+    margin-left: 60px; /* igual que el ancho del sidebar colapsado */
+    transition: margin-left 0.3s ease;
+}
+
+/* Centrado y ajuste general */
+.main-content {
+    transition: margin-left 0.3s ease;
+}
+
+/* En pantallas pequeñas el sidebar desaparece, así que no margin */
+@media (max-width: 991.98px) {
+    .main-content {
+        margin-left: 0 !important;
+    }
+}
+
+/* Transiciones suaves para colapsar el texto */
+.link-wrapper {
+    display: inline-block;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#sidebarNav.collapsed .link-wrapper {
+    opacity: 0;
+    visibility: hidden;
+    transition-delay: 0s;
+}
+
+#sidebarNav:not(.collapsed) .link-wrapper {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0.1s;
+}
+
+/* Logo también animado */
+#sidebarLogoText {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#sidebarNav.collapsed #sidebarLogoText {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#sidebarNav:not(.collapsed) #sidebarLogoText {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Logout text */
+.logout-text {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#sidebarNav.collapsed .logout-text {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#sidebarNav:not(.collapsed) .logout-text {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/*==============================
+=        ABOUT / PERFIL       =
+==============================*/
 .profile-img {
     width: 300px;
     height: 300px;
@@ -133,23 +197,31 @@ body, html {
     color: #555;
 }
 
-/* UTILIDADES */
+/*==============================
+=         UTILIDADES          =
+==============================*/
 .text-white-bold {
     color: white;
     font-weight: bold;
 }
 
-.fondoExito{
+.fondoExito {
     background-color: #2A9D8F;
 }
 
-.fondoExito:hover{
+.fondoExito:hover {
     background-color: #1b675e;
 }
 
-/* MODALS */
+/*==============================
+=           MODALS            =
+==============================*/
 @media (max-width: 576px) {
-  .modal-content {
-    padding: 1rem;
-  }
+    .modal-dialog {
+        margin: 1rem;
+    }
+    .modal-content {
+        padding: 1rem;
+        font-size: 0.95rem;
+    }
 }
