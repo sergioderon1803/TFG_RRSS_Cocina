@@ -35,7 +35,7 @@ Route::post('recetas/listarAjax', [RecetaController::class, 'listarRecetasAjax']
 Route::post('recetas/listarMeGustaAjax', [RecetaController::class, 'listarMeGustaAjax'])->name('recetas.listarMeGustaAjax');
 Route::post('recetas/listarRecetasGuardadasAjax', [RecetaController::class, 'listarRecetasGuardadasAjax'])->name('recetas.listarRecetasGuardadasAjax');
 
-Route::get('/receta/recetasGuardadas', [RecetaController::class, 'recetasGuardadasVista'])->name('recetas.recetasGuardadas');
+Route::get('recetasGuardadas', [RecetaController::class, 'recetasGuardadasVista'])->name('recetas.recetasGuardadas');
 Route::get('receta/{id}', [RecetaController::class, 'mostrarRecetaIndividual']);
 
 Route::get('/perfil/{id}/seguidores', [ProfileController::class, 'verSeguidores'])->name('profile.seguidores');
@@ -55,6 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/recetas/{id}/guardar', [RecetaController::class, 'eliminarGuardado'])->name('recetas.guardar.eliminar');
 
     Route::delete('/recetas/quitarGuardado/{id}', [RecetaController::class, 'eliminarGuardadoAjax'])->name('recetas.quitarGuardadoAjax');
+
+    Route::post('/recetas/darMeGusta/{id}', [RecetaController::class, 'gustarRecetaUsuario'])->name('recetas.darMeGustaAjax');
+    Route::delete('/recetas/quitarMeGusta/{id}', [RecetaController::class, 'eliminarMeGustaAjax'])->name('recetas.eliminarMeGustaAjax');
 
     Route::post('/recetas/{id}/gustar', [RecetaController::class, 'gustarRecetaUsuario'])->name('recetas.gustar');
     Route::delete('/recetas/{id}/gustar', [RecetaController::class, 'eliminarMeGusta'])->name('recetas.gustar.eliminar');

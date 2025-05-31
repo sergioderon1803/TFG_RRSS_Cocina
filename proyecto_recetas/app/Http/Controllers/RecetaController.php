@@ -71,6 +71,26 @@ class RecetaController extends Controller {
         return back()->with('success', 'Te ha gustado la receta.');
     }
 
+    public function gustarRecetaUsuarioAjax($id)
+    {
+        $userId = Auth::id();
+
+        // Verificar si ya le dio me gusta
+        $yaExiste = GustarReceta::where('id_receta', $id)->where('id_user', $userId)->exists();
+
+        if (!$yaExiste) {
+            GustarReceta::create([
+                'id_receta' => $id,
+                'id_user' => $userId,
+                'f_gustar' => now(),
+            ]);
+
+            return response()->json(['status' => 'success', 'message' => 'Dado me gusta']);
+        }
+
+        return response()->json(['status' => 'failed', 'message' => 'Ha ocurrido un error']);
+    }
+
     public function eliminarMeGusta($id)
     {
         $userId = Auth::id();
@@ -78,6 +98,18 @@ class RecetaController extends Controller {
         GustarReceta::where('id_receta', $id)->where('id_user', $userId)->delete();
 
         return back()->with('success', 'Ya no te gusta esta receta.');
+    }
+
+    public function eliminarMeGustaAjax($id)
+    {
+        $receta = GustarReceta::where('id_receta', $id)->where('id_user', Auth::id());
+
+        if($receta){
+            $receta->delete();
+            return response()->json(['status' => 'success', 'message' => 'Se ha eliminado el me gusta']);
+        }
+
+        return response()->json(['status' => 'failed', 'message' => 'Ha ocurrido un error']);
     }
 
     public function mostrarComentario($id) {
@@ -145,6 +177,22 @@ class RecetaController extends Controller {
 
         $guardadas = GuardarReceta::where('id_user',Auth::id())->select('id_receta')->get();
         $recetas = Receta::whereIn('id', $guardadas)->get();
+
+        foreach($recetas as $r){
+
+            $r['meGustas'] = count($r->usuariosQueGustaron);
+            $r['vecesGuardados'] = count($r->usuariosQueGuardaron);
+
+            if(GustarReceta::where('id_receta',$r->id)->where('id_user',Auth::id())->exists()){
+
+                $r['like'] = true;
+
+            }
+            else
+            {
+                $r['like'] = false;
+            }
+        }
 
         return response(json_encode($recetas),200)->header('Content-type','text/plain');
     }
