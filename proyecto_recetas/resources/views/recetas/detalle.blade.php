@@ -61,12 +61,12 @@
                                         <span id="contMeGusta">{{ $receta->usuariosQueGustaron->count() }}</span>
 
                                         <!-- Botón guardar -->
-                                            <button id="btnGuardar" type="submit" class="btn btn-sm p-0 border-0 bg-transparent"
-                                                title="{{ $guardada ? 'Quitar de guardadas' : 'Guardar receta' }}">
-                                                <i data-id="{{ $receta->id }}" id="guardarReceta" class="bi bi-bookmark{{ $guardada ? '-fill' : '' }} fs-5"
-                                                    style="color: #2A9D8F;"></i>
-                                            </button>
-                                            <span id="contGuardado">{{ $receta->usuariosQueGuardaron->count() }}</span>
+                                        <button id="btnGuardar" type="submit" class="btn btn-sm p-0 border-0 bg-transparent"
+                                            title="{{ $guardada ? 'Quitar de guardadas' : 'Guardar receta' }}">
+                                            <i data-id="{{ $receta->id }}" id="guardarReceta" class="bi bi-bookmark{{ $guardada ? '-fill' : '' }} fs-5"
+                                                style="color: #2A9D8F;"></i>
+                                        </button>
+                                        <span id="contGuardado">{{ $receta->usuariosQueGuardaron->count() }}</span>
                                     @else
                                         <!-- Solo conteo para el autor -->
                                         <div class="d-flex align-items-center gap-3">
@@ -312,7 +312,7 @@
             } else {
 
                 Swal.fire({
-                    title: "¿Estás seguro de que ya no te gusta esta receta",
+                    title: "¿Estás seguro de que ya no te gusta esta receta?",
                     text: "",
                     icon: "warning",
                     showCancelButton: true,
@@ -461,7 +461,6 @@
         });
     </script>
 
-    
 
     <!--Doble verificación borrar-->
 

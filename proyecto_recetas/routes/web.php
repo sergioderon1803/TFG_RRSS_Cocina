@@ -95,6 +95,9 @@ Route::middleware(['auth'])->group(function () {
     //Seguir usuario
     Route::post('usuario/{id}/seguir', [UserController::class, 'SeguirUsuario'])->middleware('auth')->name('usuario.seguir');
     Route::delete('usuario/{id}/dejarSeguir', [UserController::class, 'DejarDeSeguir'])->middleware('auth')->name('usuario.dejarSeguir');
+
+    Route::post('usuario/seguirUsuario/{id}', [UserController::class, 'SeguirUsuarioAjax'])->middleware('auth')->name('usuario.seguirAjax');
+    Route::delete('usuario/dejarSeguirUsuario/{id}', [UserController::class, 'dejarSeguirUsuarioAjax'])->middleware('auth')->name('usuario.dejarSeguirAjax');
 });
 
 // Autenticación

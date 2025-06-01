@@ -43,6 +43,19 @@ class UserController extends Controller {
         return back()->with('success', 'Completado');
     }
 
+    public function SeguirUsuarioAjax($id)
+    {
+        $userId = Auth::id();
+
+        SeguirUsuario::create([
+            'id_user' => $id,
+            'id_seguidor' => $userId,
+            'f_seguimiento' => now(),
+        ]);
+
+        return response()->json(['status' => 'success', 'message' => 'Usuario seguido']);
+    }
+
     public function DejarDeSeguir($id)
     {
         $userId = Auth::id();
@@ -50,6 +63,15 @@ class UserController extends Controller {
         SeguirUsuario::where('id_user', $id)->where('id_seguidor', $userId)->delete();
 
         return back()->with('success', 'Dejado de seguir');
+    }
+
+    public function dejarSeguirUsuarioAjax($id)
+    {
+        $userId = Auth::id();
+
+        SeguirUsuario::where('id_user', $id)->where('id_seguidor', $userId)->delete();
+
+        return response()->json(['status' => 'success', 'message' => 'Dejado de seguir']);
     }
 
 }

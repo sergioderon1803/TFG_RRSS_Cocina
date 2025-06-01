@@ -142,7 +142,7 @@
                     if ($(this).hasClass('bi-heart-fill')) {
 
                         Swal.fire({
-                            title: "¿Estás seguro de que ya no te gusta esta receta",
+                            title: "¿Estás seguro de que ya no te gusta esta receta?",
                             text: "",
                             icon: "warning",
                             showCancelButton: true,
@@ -357,7 +357,7 @@
                         if ($(this).hasClass('bi-heart-fill')) {
 
                             Swal.fire({
-                                title: "¿Estás seguro de que ya no te gusta esta receta",
+                                title: "¿Estás seguro de que ya no te gusta esta receta?",
                                 text: "",
                                 icon: "warning",
                                 showCancelButton: true,

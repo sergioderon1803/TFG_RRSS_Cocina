@@ -44,16 +44,7 @@
                     Editar perfil
                 </button>
             @else
-                <form id="seguir" method="POST" 
-                    action="{{ $seguido ? route('usuario.dejarSeguir', $perfil->id_user) : route('usuario.seguir', $perfil->id_user) }}">
-                    @csrf
-                    @if ($seguido)
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Dejar de seguir</button>
-                    @else
-                        <button type="submit" class="btn btn-success btn-sm">Seguir</button>
-                    @endif
-                </form>
+                <button data-id="{{$perfil->id_user}}" id="seguirUsuario" type="submit" class="btn btn-{{$seguido ? "danger" : "success"}} btn-sm">{{$seguido ? "Dejar de seguir" : "Seguir"}}</button>
             @endif
         </div>
     @endauth
@@ -71,7 +62,7 @@
     {{-- Seguidores / Seguidos (alineado a la derecha) --}}
     <div class="d-flex gap-4 text-center">
         <div class="d-flex flex-column">
-            <strong class="text-dark">{{ $perfil->user->seguidores->count() }}</strong>
+            <strong id="contSeguidores" class="text-dark">{{ $perfil->user->seguidores->count() }}</strong>
             <a href="{{ route('profile.seguidores', $perfil->id_user) }}" class="text-decoration-none text-muted">Seguidores</a>
         </div>
         <div class="d-flex flex-column">
@@ -107,8 +98,93 @@
 
 {{-- HAY QUE REFACTORIZAR ESTO Y PONERLO EN UN JS EXTERNO A SER POSIBLE --}}
 @section('js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{{-- Seguir usuario--}}
+
+    <script>
+        $('#seguirUsuario').on('click', function(){
+
+            let numSeguidores = parseInt($('#contSeguidores').text());
+
+            const idUsuario = $(this).data('id');
+
+            if($(this).hasClass('btn-success')){
+                $.ajax({
+                    url: `{{ url('usuario/seguirUsuario/') }}/${idUsuario}`, // Llamo al controlador y le paso el ID
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                    }
+                })
+
+                numSeguidores++;
+
+                $(this).removeClass('btn-success');
+                $(this).addClass('btn-danger');
+
+                $(this).text("Dejar de seguir");
+                $('#contSeguidores').text(numSeguidores.toString());
+
+            }
+            else
+            {
+                Swal.fire({
+                    title: "¿Estás seguro de que deseas dejar de seguir a este usuario?",
+                    text: "",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Dejar de seguir"
+                }).then((result) => {
+
+                    if (result.isConfirmed) { // Si acepta borrarla, hago un ajax
+
+                        $.ajax({
+                            url: `{{ url('usuario/dejarSeguirUsuario/') }}/${idUsuario}`, // Llamo al controlador y le paso el ID
+                            method: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                            },
+
+                            // Si acepta y la respuesta es la que mando en el controlador, lanzo un pop up
+                            success: function(response) {
+                                if (response.status === 'success') {
+
+                                    Swal.fire({
+                                        title: "Dejaste a este usuario",
+                                        text: "",
+                                        icon: "success"
+                                    });
+
+                                } else {
+                                    Swal.fire(
+                                        'No se ha podido completar la solicitud',
+                                        '', 'warning');
+                                }
+                            },
+                            error: function(error) {
+                                Swal.fire('Se ha producido un error',
+                                    '', 'error');
+                            }
+                        })
+
+                        numSeguidores--;
+
+                        $(this).removeClass('btn-danger');
+                        $(this).addClass('btn-success');
+
+                        $(this).text("Seguir");
+                        $('#contSeguidores').text(numSeguidores.toString());
+                    }
+
+
+                });
+            }
+        });
+    </script>
 
 @if($seguido)
     <script>
