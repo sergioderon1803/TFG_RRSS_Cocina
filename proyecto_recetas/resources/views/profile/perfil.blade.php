@@ -186,41 +186,6 @@
         });
     </script>
 
-@if($seguido)
-    <script>
-        const form = document.getElementById('seguir');
-
-        if(form != null){  // ESTA COMPROBACIÓN ES NECESARIA, SI SE QUITA, DA ERROR CUANDO ENTRAS A TU PROPIO PERFIL, NO PETA LA PÁGINA PERO EL ERROR LO DA
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-
-                Swal.fire({
-                title: "¿Estás seguro de que deseas dejar de seguir a este usuario?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Dejar de seguir"
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                    title: "Dejaste de seguir al usuario",
-                    icon: "success",
-                    showConfirmButton: false,
-                    timer: 1500
-                    });
-
-                    setTimeout(() => {
-                    form.submit();
-                    }, 600);
-                }
-                });
-            });
-        }
-    </script>
-@endif
-
     <script>
 
         // Recojo la URL y pillo el ID del usuario
