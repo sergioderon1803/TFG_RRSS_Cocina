@@ -32,6 +32,26 @@ class RecetaController extends Controller {
         return back()->with('success', 'Receta guardada.');
     }
 
+    public function guardarRecetaUsuarioAjax($id)
+    {
+        $userId = Auth::id();
+
+        // Verificar si ya está guardada
+        $yaExiste = GuardarReceta::where('id_receta', $id)->where('id_user', $userId)->exists();
+
+        if (!$yaExiste) {
+            GuardarReceta::create([
+                'id_receta' => $id,
+                'id_user' => $userId,
+                'f_guardar' => now(),
+            ]);
+
+            return response()->json(['status' => 'success', 'message' => 'Guardada']);
+        }
+
+        return response()->json(['status' => 'failed', 'message' => 'Ha ocurrido un error']);
+    }
+
     public function eliminarGuardado($id)
     {
         $userId = Auth::id();

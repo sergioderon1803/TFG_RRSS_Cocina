@@ -34,7 +34,7 @@
 
                 } else {
 
-//--------------------------------------------------------------------------IMPRESIÓN DEL CADA RECETA-------------------------------------------------------------------------------
+                    //--------------------------------------------------------------------------IMPRESIÓN DEL CADA RECETA-------------------------------------------------------------------------------
 
                     for (var x = 0; x < arreglo.length; x++) {
 
@@ -71,7 +71,7 @@
 
                 $("#listado").append(listado);
 
-//-------------------------------------------------------------------------------------GUARDADOS--------------------------------------------------------------------------------------------------
+                //-------------------------------------------------------------------------------------GUARDADOS--------------------------------------------------------------------------------------------------
 
                 $(".guardados").on("click", function() {
 
@@ -106,15 +106,18 @@
                                             icon: "success"
                                         });
 
-                                        document.getElementById('recetasListadas').remove();
+                                        document.getElementById(
+                                            'recetasListadas').remove();
                                         imprimirRecetasGuardadas();
                                     } else {
                                         Swal.fire(
-                                            'No se ha podido completar la solicitud','', 'warning');
+                                            'No se ha podido completar la solicitud',
+                                            '', 'warning');
                                     }
                                 },
                                 error: function(error) {
-                                    Swal.fire('Se ha producido un error', '','error');
+                                    Swal.fire('Se ha producido un error', '',
+                                        'error');
                                 }
                             })
                         }
@@ -126,7 +129,7 @@
 
                 });
 
-//-------------------------------------------------------------------------------------ME GUSTAS--------------------------------------------------------------------------------------------------
+                //-------------------------------------------------------------------------------------ME GUSTAS--------------------------------------------------------------------------------------------------
 
                 $(".darLike").on("click", function() {
 
@@ -169,14 +172,16 @@
 
                                         } else {
                                             Swal.fire(
-                                                'No se ha podido completar la solicitud','', 'warning');
+                                                'No se ha podido completar la solicitud',
+                                                '', 'warning');
                                         }
                                     },
                                     error: function(error) {
-                                        Swal.fire('Se ha producido un error','', 'error');
+                                        Swal.fire('Se ha producido un error',
+                                            '', 'error');
                                     }
                                 })
-                                
+
                                 // Le quito una clase y le pongo la otra
 
                                 $(this).removeClass('bi-heart-fill');
@@ -186,12 +191,14 @@
 
                                 valorMegusta--;
 
-                                document.getElementById(`${recetaId}`).innerHTML = valorMegusta.toString();
+                                document.getElementById(`${recetaId}`).innerHTML =
+                                    valorMegusta.toString();
                             }
 
 
                         });
                     } else {
+                        
                         $.ajax({
                             url: `{{ url('/recetas/darMeGusta/') }}/${recetaId}`, // Llamo al controlador y le paso el ID
                             method: 'POST',
@@ -217,7 +224,7 @@
             })
         });
 
-//------------------------------------------------------------------------FUNCIÓN PARA IMPRIMIR EL LISTADO AL RECARGAR------------------------------------------------------------------
+        //------------------------------------------------------------------------FUNCIÓN PARA IMPRIMIR EL LISTADO AL RECARGAR------------------------------------------------------------------
 
         function imprimirRecetasGuardadas() {
             $(document).ready(function() {
@@ -232,7 +239,7 @@
 
                     console.log(arreglo);
 
-// Impresión del listado de recetas
+                    // Impresión del listado de recetas
 
                     var listado = `<div class="row" id="recetasListadas">`;
 
@@ -242,7 +249,7 @@
 
                     } else {
 
-//--------------------------------------------------------------------------IMPRESIÓN DEL CADA RECETA-------------------------------------------------------------------------------
+                        //--------------------------------------------------------------------------IMPRESIÓN DEL CADA RECETA-------------------------------------------------------------------------------
 
                         for (var x = 0; x < arreglo.length; x++) {
 
@@ -279,7 +286,7 @@
 
                     $("#listado").append(listado);
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------
+                    //------------------------------------------------------------------------------------------------------------------------------------------------------------
 
                     $(".guardados").on("click", function() {
 
@@ -314,15 +321,18 @@
                                                 icon: "success"
                                             });
 
-                                            document.getElementById('recetasListadas').remove();
+                                            document.getElementById(
+                                                'recetasListadas').remove();
                                             imprimirRecetasGuardadas();
                                         } else {
                                             Swal.fire(
-                                                'No se ha podido completar la solicitud','', 'warning');
+                                                'No se ha podido completar la solicitud',
+                                                '', 'warning');
                                         }
                                     },
                                     error: function(error) {
-                                        Swal.fire('Se ha producido un error','', 'error');
+                                        Swal.fire('Se ha producido un error',
+                                            '', 'error');
                                     }
                                 })
                             }
@@ -334,7 +344,7 @@
 
                     });
 
-//-------------------------------------------------------------------------------------ME GUSTAS--------------------------------------------------------------------------------------------------
+                    //-------------------------------------------------------------------------------------ME GUSTAS--------------------------------------------------------------------------------------------------
 
                     $(".darLike").on("click", function() {
 
