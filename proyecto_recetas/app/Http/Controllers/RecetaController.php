@@ -202,6 +202,7 @@ class RecetaController extends Controller {
 
             $r['meGustas'] = count($r->usuariosQueGustaron);
             $r['vecesGuardados'] = count($r->usuariosQueGuardaron);
+            $r['nombreAutor'] = $r->autor->perfil->name;
 
             if(GustarReceta::where('id_receta',$r->id)->where('id_user',Auth::id())->exists()){
 

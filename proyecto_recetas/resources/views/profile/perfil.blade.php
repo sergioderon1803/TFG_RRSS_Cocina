@@ -145,7 +145,7 @@
                                 if (response.status === 'success') {
 
                                     Swal.fire({
-                                        title: "Dejaste a este usuario",
+                                        title: "Dejaste de seguir a este usuario",
                                         text: "",
                                         icon: "success"
                                     });
