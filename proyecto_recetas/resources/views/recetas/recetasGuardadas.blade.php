@@ -62,7 +62,7 @@
                                                 `+arreglo[x].nombreAutor+`
                                             </a>
                                         </div>
-                                        <h6 class="card-title mb-1" style="font-size: 0.95rem;">
+                                        <h6 class="card-title mb-1" style="font-size: 0.95rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`')}}'">
                                             <strong>`+arreglo[x].titulo.substring(0,40)+`</strong>
                                         </h6>
                                     </div>
