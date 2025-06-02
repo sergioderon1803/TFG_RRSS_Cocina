@@ -20,7 +20,7 @@
 
         <!-- Título central -->
         <div class="col-12 col-md-4 text-center">
-            <h1 class="fw-bold display-5 mb-0" id="titulo">Elija el listado</h1>
+            <h1 id="tituloAdmin" class="fw-bold display-5 mb-0">Elija el listado</h1>
         </div>
 
         <!-- Botón Usuarios -->
@@ -66,7 +66,8 @@
 
 
         function crearTablaReceta(){
-            document.getElementById("titulo").innerHTML = "Recetas";
+
+            $('#tituloAdmin').text("Recetas");
 
             // Les quito sus eventos si no se los he quitado ya
             if(eventos){
@@ -198,7 +199,7 @@
         // Exactamente el mismo funcionamiento pero al revés
         function crearTablaUsuarios(){
 
-            document.getElementById("titulo").innerHTML = "Usuarios";
+            $('#tituloAdmin').text("Usuarios");
 
             // Les quito sus eventos
             if(eventos){
