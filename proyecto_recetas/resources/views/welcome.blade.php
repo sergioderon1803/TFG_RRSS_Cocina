@@ -10,22 +10,27 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 </head>
 <body class="position-relative bg-peach">
     <div class="fondoRegistro">
         <div class="container auth-container fondoOpaco d-flex align-items-center justify-content-center min-vh-100 px-3">
-            <div class="row shadow-lg bg-white rounded overflow-hidden w-100 flex-column flex-md-row">
+            <div class="row shadow-lg bg-white rounded-4 overflow-hidden w-100 flex-column flex-md-row">
                 <!-- Panel izquierdo con imagen/logo -->
-                <div class="col-md-6 left-panel p-4 d-flex align-items-center justify-content-center">
-                    <img src="{{ asset('images/logo.svg') }}" alt="WeCook Logo" class="img-fluid">
+                <div class="col-md-6 left-panel p-5 d-flex flex-column align-items-center justify-content-center">
+                    <img src="{{ asset('images/logo.svg') }}" alt="WeCook Logo" class="img-fluid mb-4">
+                    <h2 class="text-white text-center mb-3">Comparte tus recetas</h2>
+                    <p class="text-white text-center opacity-75">Únete a nuestra comunidad de amantes de la cocina</p>
                 </div>
 
                 <!-- Panel derecho con formularios -->
-                <div class="col-md-6 p-5 position-relative d-flex flex-column justify-content-start">
+                <div class="col-md-6 p-5 position-relative">
                     <div class="welcome-title">Bienvenido a WeCook</div>
 
                     <!-- Botones de selección -->
@@ -34,60 +39,77 @@
                         <button class="btn btn-link form-toggle-btn" onclick="showForm('register')">Registrarse</button>
                     </div>
 
-                    <!-- Formulario Login -->
-                    <form id="login-form" method="POST" action="{{ route('login') }}" class="form-section show">
-                        @csrf
-                        <h3 class="mb-3">Bienvenido de nuevo</h3>
+                    <div class="auth-form-container">
+                        <!-- Formulario Login -->
+                        <form id="login-form" method="POST" action="{{ route('login') }}" class="form-section show">
+                            @csrf
+                            <h3 class="mb-3">Bienvenido de nuevo</h3>
 
-                        <div class="mb-3">
-                            <label for="login-email" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="login-email" name="email" value="{{ old('email') }}" required>
-                            @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                        </div>
+                            <div class="mb-3">
+                                <label for="login-email" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="login-email" name="email" value="{{ old('email') }}" required>
+                                @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="login-password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="login-password" name="password" required>
-                            @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                        </div>
+                            <div class="mb-3">
+                                <label for="login-password" class="form-label">Contraseña</label>
+                                <div class="position-relative">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="login-password" name="password" required>
+                                    <button type="button" class="btn-toggle-password" onclick="togglePassword('login-password', this)">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
 
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="remember_me" name="remember">
-                            <label class="form-check-label" for="remember_me">Recordarme</label>
-                        </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="remember_me" name="remember">
+                                <label class="form-check-label" for="remember_me">Recordarme</label>
+                            </div>
 
-                        <div class="mb-3 text-end">
-                            <a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
-                        </div>
+                            <div class="mb-3 text-end">
+                                <a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
+                            </div>
 
-                        <button type="submit" class="btn btn-primary w-100">Entrar</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                        </form>
 
-                    <!-- Formulario Registro -->
-                    <form id="register-form" method="POST" action="{{ route('register') }}" class="form-section" style="display: none;">
-                        @csrf
-                        <h3 class="mb-3">Únete a WeCook</h3>
+                        <!-- Formulario Registro -->
+                        <form id="register-form" method="POST" action="{{ route('register') }}" class="form-section">
+                            @csrf
+                            <h3 class="mb-3">Únete a WeCook</h3>
 
-                        <div class="mb-3">
-                            <label for="register-email" class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="register-email" name="email" value="{{ old('email') }}" required>
-                            @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                        </div>
+                            <div class="mb-3">
+                                <label for="register-email" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="register-email" name="email" value="{{ old('email') }}" required>
+                                @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="register-password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="register-password" name="password" required>
-                            @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                        </div>
+                            <div class="mb-3">
+                                <label for="register-password" class="form-label">Contraseña</label>
+                                <div class="position-relative">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="register-password" name="password" required>
+                                    <button type="button" class="btn-toggle-password" onclick="togglePassword('register-password', this)">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
-                            <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" required>
-                            @error('password_confirmation')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                        </div>
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
+                                <div class="position-relative">
+                                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" required>
+                                    <button type="button" class="btn-toggle-password" onclick="togglePassword('password_confirmation', this)">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    @error('password_confirmation')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
 
-                        <button type="submit" class="btn btn-success w-100">Crear cuenta</button>
-                    </form>
+                            <button type="submit" class="btn btn-success w-100">Crear cuenta</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,16 +143,40 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function showForm(type) {
-            document.getElementById('login-form').style.display = type === 'login' ? 'block' : 'none';
-            document.getElementById('register-form').style.display = type === 'register' ? 'block' : 'none';
-
-            document.querySelectorAll('.form-toggle-btn').forEach(btn => btn.classList.remove('active'));
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            
+            if (type === 'login') {
+                registerForm.classList.remove('show');
+                registerForm.classList.add('hide-left');
+                loginForm.classList.add('show');
+                loginForm.classList.remove('hide-left');
+            } else {
+                loginForm.classList.remove('show');
+                loginForm.classList.add('hide-left');
+                registerForm.classList.add('show');
+                registerForm.classList.remove('hide-left');
+            }
+            
+            document.querySelectorAll('.form-toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
             document.querySelector(`.form-toggle-btn[onclick="showForm('${type}')"]`).classList.add('active');
+        }
 
-            document.querySelectorAll('.form-section').forEach(form => form.classList.remove('show'));
-            setTimeout(() => {
-                document.getElementById(`${type}-form`).classList.add('show');
-            }, 50);
+        function togglePassword(inputId, button) {
+            const input = document.getElementById(inputId);
+            const icon = button.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
         }
 
         // Mostrar formulario correcto si hay errores

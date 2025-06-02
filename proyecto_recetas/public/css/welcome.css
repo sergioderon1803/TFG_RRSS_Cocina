@@ -1,154 +1,203 @@
-        :root {
-            --main-color: #ff5722;
-            --success-color: #43a047;
-            --bg-light: #fff6f3;
-            --text-dark: #333;
-            --transition: all 0.3s ease;
-        }
+:root {
+    --main-color: #ff5e62;
+    --main-gradient: linear-gradient(135deg, #ff934b, #ff5e62);
+    --text-dark: #2d3748;
+    --text-muted: #718096;
+    --border-color: #e2e8f0;
+    --transition: all 0.3s ease-in-out;
+}
 
-        .fondoRegistro {
-            font-family: 'Nunito', sans-serif;
-            background: url('../images/landing_bg.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: var(--text-dark);
-            transition: var(--transition);
-            position: relative;
-            z-index: 0;
-        }
+.fondoRegistro {
+    font-family: 'Nunito', sans-serif;
+    background: url('../images/landing_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--text-dark);
+    transition: var(--transition);
+    position: relative;
+    z-index: 0;
+}
 
-        .fondoRegistro::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.6); /* efecto blanco translúcido */
-            z-index: -1;
-            pointer-events: none;
-        }
+.fondoRegistro::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.6); /* efecto blanco translúcido */
+    z-index: -1;
+    pointer-events: none;
+}
 
-        .auth-container {
-            max-width: 1000px;
-        }
+.auth-container {
+    max-width: 1000px;
+}
 
-        .left-panel {
-            /* Fondo de color */
-            background: var(--main-color);
-            position: relative;
-            transition: var(--transition);
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
+.left-panel {
+    background: var(--main-gradient);
+    position: relative;
+    overflow: hidden;
+}
 
-        .left-panel::before {
-            content: "";
-            background: rgba(255, 255, 255, 0.85);
-            position: absolute;
-            inset: 0;
-            transition: var(--transition);
-            z-index: 0;
-        }
+.left-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.1;
+}
 
-        .left-panel img {
-            position: relative;
-            z-index: 1;
-            max-height: 400px;
-            width: auto;
-        }
+.auth-form-container {
+    min-height: 460px;
+    position: relative;
+    overflow: hidden;
+}
 
-        .welcome-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--main-color);
-            text-align: center;
-        }
+.welcome-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    text-align: center;
+}
 
-        .form-toggle-btn.active {
-            font-weight: bold;
-            border-bottom: 3px solid var(--main-color);
-            color: var(--main-color) !important;
-        }
+.form-toggle-btn {
+    color: var(--text-muted);
+    font-weight: 600;
+    border: none;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: var(--transition);
+    text-decoration: none;
+}
 
-        .btn-primary {
-            background-color: var(--main-color);
-            border: none;
-            transition: var(--transition);
-        }
+.form-toggle-btn::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--main-color);
+    transition: var(--transition);
+    transform: translateX(-50%);
+}
 
-        .btn-primary:hover {
-            background-color: #e64a19;
-        }
+.form-toggle-btn:hover,
+.form-toggle-btn.active {
+    color: var(--main-color);
+}
 
-        .btn-success {
-            background-color: var(--success-color);
-            border: none;
-            transition: var(--transition);
-        }
+.form-toggle-btn.active::after {
+    width: 100%;
+}
 
-        .btn-success:hover {
-            background-color: #388e3c;
-        }
+.form-control {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: var(--transition);
+}
 
-        .form-toggle-btn {
-            transition: var(--transition);
-        }
+.form-control:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 2px rgba(255, 94, 98, 0.1);
+}
 
-        .form-section {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
+.form-label {
+    font-weight: 600;
+    color: var(--text-dark);
+}
 
-        .form-section.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
+.btn-primary {
+    background: var(--main-gradient);
+    border: none;
+    padding: 0.75rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
 
-        .bloqueTexto{
-            padding: 50px;
-            width: 440px;
-            font-size: x-large;
-            object-fit: cover;
-        }
-        
-        .margenesLibroTexto{
-            margin: 20px 100px 20px 150px;
-        }
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 94, 98, 0.2);
+}
 
-        .precio {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+.form-section {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100%);
+    transition: var(--transition);
+}
 
-        /* Responsive */
-        @media (max-width: 767px) {
-            .row.flex-column.flex-md-row {
-                flex-direction: column !important;
-            }
+.form-section.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
 
-            .left-panel {
-                order: -1 !important; /* Logo arriba en móvil */
-                min-height: 200px;
-                padding: 1.5rem;
-            }
+.form-section.hide-left {
+    transform: translateX(-100%);
+}
 
-            .left-panel img {
-                max-height: 200px;
-            }
+.bloqueTexto{
+    padding: 50px;
+    width: 440px;
+    font-size: x-large;
+    object-fit: cover;
+}
 
-            .col-md-6.p-5 {
-                padding: 2rem 1rem !important;
-            }
+.margenesLibroTexto{
+    margin: 20px 100px 20px 150px;
+}
 
-            .form-toggle-btn {
-                font-size: 1rem;
-            }
+.precio {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-            .welcome-title {
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-            }
-        }
+.btn-toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    padding: 0;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-toggle-password:hover {
+    color: var(--main-color);
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .row.flex-column.flex-md-row {
+        flex-direction: column !important;
+    }
+
+    .left-panel {
+        order: -1 !important; /* Logo arriba en móvil */
+        min-height: 200px;
+        padding: 1.5rem;
+    }
+
+    .left-panel img {
+        max-height: 200px;
+    }
+
+    .col-md-6.p-5 {
+        padding: 2rem 1rem !important;
+    }
+
+    .form-toggle-btn {
+        font-size: 1rem;
+    }
+
+    .welcome-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+}
