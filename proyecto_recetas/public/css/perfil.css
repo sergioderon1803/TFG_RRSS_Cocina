@@ -4,8 +4,31 @@ body {
 .letraSeguir{
     font-size: x-large;
 }
-.seleccionado{
-    color:#000000;
+.tamañoSecciones{
+    padding: 5px 132px;
+    border: 1px solid #000000;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
     cursor: pointer;
-    text-decoration: underline;
+}
+
+/* Pantalla tablet*/
+@media (max-width: 991px) {
+  .tamañoSecciones {
+    padding: 5px 105px;
+  }
+}
+
+/* Pantalla movil*/
+@media (max-width: 767px) {
+  .tamañoSecciones {
+    padding: 5px 48px;
+  }
+}
+
+/* Pantallas muy pequeñas (móviles, <576px) */
+@media (max-width: 424px) {
+  .tamañoSecciones {
+    padding: 5px 40px;
+  }
 }

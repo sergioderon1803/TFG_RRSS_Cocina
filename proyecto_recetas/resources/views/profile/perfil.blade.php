@@ -73,7 +73,11 @@
 
 <hr class="mt-4">
 
-<h5 class="fw-bold mb-3"><span class="seleccionado bi bi-person-fill" id="clickRecetas">Recetas publicadas</span> | <span class="seleccionado bi bi-heart-fill" id="clickMeGustas">Me gustas</span></h5>
+<h5 class="fw-bold mb-3">
+    <i class="bi bi-person-fill tamañoSecciones" id="clickRecetas"></i>
+    <i class="bi bi-heart tamañoSecciones" id="clickMeGustas"></i>
+    <i class="bi bi-bookmark tamañoSecciones" id="clickGuardados"></i>
+</h5>
 
 <!-- Donde se van a listar las recetas -->
 <div class="row" id="listado">
@@ -240,8 +244,17 @@
 
                     document.getElementById('recetasListadas').remove();
 
-                    document.getElementById("clickMeGustas").setAttribute('class','seleccionado');
-                    document.getElementById("clickRecetas").removeAttribute('class', 'seleccionado');
+                    document.getElementById("clickMeGustas").classList.add('seleccionado');
+                    document.getElementById("clickMeGustas").classList.remove('bi-heart');
+                    document.getElementById("clickMeGustas").classList.add('bi-heart-fill');
+
+                    document.getElementById("clickRecetas").classList.remove('seleccionado');
+                    document.getElementById("clickRecetas").classList.remove('bi-person-fill');
+                    document.getElementById("clickRecetas").classList.add('bi-person');
+
+                    document.getElementById("clickGuardados").classList.remove('seleccionado');
+                    document.getElementById("clickGuardados").classList.remove('bi-bookmark-fill');
+                    document.getElementById("clickGuardados").classList.add('bi-bookmark');
 
                     crearListadoMeGustas();
                 });
@@ -306,8 +319,17 @@
                         
                         document.getElementById('recetasListadas').remove();
                         
-                        document.getElementById("clickRecetas").setAttribute('class','seleccionado');
-                        document.getElementById("clickMeGustas").removeAttribute('class', 'seleccionado');
+                        document.getElementById("clickMeGustas").classList.add('seleccionado');
+                        document.getElementById("clickMeGustas").classList.remove('bi-heart-fill');
+                        document.getElementById("clickMeGustas").classList.add('bi-heart');
+
+                        document.getElementById("clickRecetas").classList.remove('seleccionado');
+                        document.getElementById("clickRecetas").classList.remove('bi-person');
+                        document.getElementById("clickRecetas").classList.add('bi-person-fill');
+
+                        document.getElementById("clickGuardados").classList.remove('seleccionado');
+                        document.getElementById("clickGuardados").classList.remove('bi-bookmark-fill');
+                        document.getElementById("clickGuardados").classList.add('bi-bookmark');
 
                         crearListadoRecetasPublicadas();
                     });
@@ -373,8 +395,17 @@
 
                         document.getElementById('recetasListadas').remove();
 
-                        document.getElementById("clickMeGustas").setAttribute('class','seleccionado');
-                        document.getElementById("clickRecetas").removeAttribute('class', 'seleccionado');
+                        document.getElementById("clickMeGustas").classList.add('seleccionado');
+                        document.getElementById("clickMeGustas").classList.remove('bi-heart');
+                        document.getElementById("clickMeGustas").classList.add('bi-heart-fill');
+
+                        document.getElementById("clickRecetas").classList.remove('seleccionado');
+                        document.getElementById("clickRecetas").classList.remove('bi-person-fill');
+                        document.getElementById("clickRecetas").classList.add('bi-person');
+
+                        document.getElementById("clickGuardados").classList.remove('seleccionado');
+                        document.getElementById("clickGuardados").classList.remove('bi-bookmark-fill');
+                        document.getElementById("clickGuardados").classList.add('bi-bookmark');
 
                         crearListadoMeGustas();
                     });
