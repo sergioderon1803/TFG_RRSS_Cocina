@@ -54,6 +54,7 @@
 
                                     <button class="btn p-0 border-0 bg-transparent" title="Guardar receta">
                                         <i class="bi bi-bookmark text-success"></i>
+                                        <small >{{ $receta->usuariosQueGuardaron->count() }}</small>
                                     </button>
                                 </div>
                             </div>

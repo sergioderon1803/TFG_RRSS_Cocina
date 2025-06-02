@@ -17,7 +17,7 @@
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['public/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased d-flex flex-column min-vh-100">
     @auth

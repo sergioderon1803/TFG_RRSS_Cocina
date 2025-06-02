@@ -4,3 +4,8 @@ body {
 .letraSeguir{
     font-size: x-large;
 }
+.seleccionado{
+    color:#000000;
+    cursor: pointer;
+    text-decoration: underline;
+}

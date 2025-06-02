@@ -2,15 +2,6 @@
 
 @section('titulo', 'Perfil de ' . $perfil->name)
 
-@section('css')
-<style>
-        .clickar {
-            cursor: pointer;
-            text-decoration: underline;
-        }
-</style>
-@endsection
-
 @section('content')
 @php
     // Comprobar si hay imagen de perfil y banner y si no, se ponen las imagenes por defecto
@@ -82,7 +73,7 @@
 
 <hr class="mt-4">
 
-<h5 class="fw-bold mb-3"><span class="clickar" style="color:#F07B3F;" id="clickRecetas">Recetas publicadas</span> | <span class="clickar" id="clickMeGustas">Me gustas</span></h5>
+<h5 class="fw-bold mb-3"><span class="seleccionado bi bi-person-fill" id="clickRecetas">Recetas publicadas</span> | <span class="seleccionado bi bi-heart-fill" id="clickMeGustas">Me gustas</span></h5>
 
 <!-- Donde se van a listar las recetas -->
 <div class="row" id="listado">
@@ -249,8 +240,8 @@
 
                     document.getElementById('recetasListadas').remove();
 
-                    document.getElementById("clickMeGustas").setAttribute('style','color:#F07B3F');
-                    document.getElementById("clickRecetas").removeAttribute('style');
+                    document.getElementById("clickMeGustas").setAttribute('class','seleccionado');
+                    document.getElementById("clickRecetas").removeAttribute('class', 'seleccionado');
 
                     crearListadoMeGustas();
                 });
@@ -314,10 +305,9 @@
                         $('#clickRecetas').off('click');
                         
                         document.getElementById('recetasListadas').remove();
-
-                        document.getElementById("clickRecetas").setAttribute('style','color:#F07B3F');
-                        document.getElementById("clickMeGustas").removeAttribute('style');
-
+                        
+                        document.getElementById("clickRecetas").setAttribute('class','seleccionado');
+                        document.getElementById("clickMeGustas").removeAttribute('class', 'seleccionado');
 
                         crearListadoRecetasPublicadas();
                     });
@@ -383,8 +373,8 @@
 
                         document.getElementById('recetasListadas').remove();
 
-                        document.getElementById("clickMeGustas").setAttribute('style','color:#F07B3F');
-                        document.getElementById("clickRecetas").removeAttribute('style');
+                        document.getElementById("clickMeGustas").setAttribute('class','seleccionado');
+                        document.getElementById("clickRecetas").removeAttribute('class', 'seleccionado');
 
                         crearListadoMeGustas();
                     });
