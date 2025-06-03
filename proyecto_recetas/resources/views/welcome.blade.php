@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bootstrap/icons/bootstrap-icons.min.css') }}" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
@@ -125,17 +126,17 @@
 
             <div class="row justify-content-center text-center g-5">
                 <div class="col-sm-6 col-md-4">
-                    <img src="{{ asset('storage/about/placeholder.jpg') }}" class="profile-img" alt="Sergio Álvarez de Ron">
+                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img" alt="Sergio Álvarez de Ron">
                     <div class="profile-name">Sergio Álvarez de Ron</div>
                     <div class="profile-desc">Alérgico a la vida</div>
                 </div>
                 <div class="col-sm-6 col-md-4">
-                    <img src="{{ asset('storage/about/placeholder.jpg') }}" class="profile-img" alt="Jonathan Hidalgo">
+                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img" alt="Jonathan Hidalgo">
                     <div class="profile-name">Jonathan Hidalgo</div>
                     <div class="profile-desc">Catador profesional de elixires revitalizantes</div>
                 </div>
                 <div class="col-sm-6 col-md-4">
-                    <img src="{{ asset('storage/about/placeholder.jpg') }}" class="profile-img" alt="Sergio Montoiro">
+                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img" alt="Sergio Montoiro">
                     <div class="profile-name">Sergio Montoiro</div>
                     <div class="profile-desc">Programador explotado</div>
                 </div>
@@ -200,7 +201,7 @@
 
 
     <!-- Bootstrap JS + Script de alternancia -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script>
         function showForm(type) {
             const loginForm = document.getElementById('login-form');
@@ -230,12 +231,12 @@
             
             if (input.type === 'password') {
                 input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
             } else {
                 input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
             }
         }
 

@@ -69,6 +69,12 @@
                     <span class="link-text"> {{ __('Admin') }} </span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('ajustes.cuenta') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('ajustes.cuenta') ? 'active bg-dark' : '' }}">
+                    <i class="bi bi-person-gear me-2 fs-4"></i>
+                    <span class="link-text"> {{ __('Ajustes de cuenta') }} </span>
+                </a>
+            </li>
         
         <form method="POST" action="{{ route('logout') }}">
             @csrf

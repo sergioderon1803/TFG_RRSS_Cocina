@@ -86,6 +86,11 @@ Route::middleware('auth')->group(function () {
 
     // Eliminar receta (puede que admin y usuario tengan diferente permiso, controla con políticas)
     Route::delete('recetas/{id}', [RecetaController::class, 'eliminarReceta'])->name('recetas.eliminar');
+
+    // Añadir estas nuevas rutas dentro del grupo de autenticación
+    Route::get('/ajustes/cuenta', [ProfileController::class, 'ajustesCuenta'])->name('ajustes.cuenta');
+    Route::put('/ajustes/email', [ProfileController::class, 'actualizarEmail'])->name('ajustes.actualizar-email');
+    Route::put('/ajustes/password', [ProfileController::class, 'actualizarPassword'])->name('ajustes.actualizar-password');
 });
 
 // Rutas para usuarios autenticados y verificados

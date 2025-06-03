@@ -444,6 +444,28 @@ body.sidebar-collapsed .main-content {
     box-shadow: 0 0 0 0.2rem rgba(244, 162, 97, 0.25);
 }
 
+/* Estilos para el botón de mostrar/ocultar contraseña */
+.btn-toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    padding: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.btn-toggle-password:hover {
+    color: var(--main-color);
+}
+
+.custom-input {
+    padding-right: 40px !important; /* Espacio para el botón */
+}
+
 .custom-alert-success {
     background-color: #2A9D8F;
     color: white;

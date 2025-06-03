@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Perfil;
 use App\Models\SeguirUsuario;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller {
 
@@ -130,5 +132,55 @@ class ProfileController extends Controller {
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function ajustesCuenta()
+    {
+        return view('profile.cuenta');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function actualizarEmail(Request $request)
+    {
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $user->id,
+        ]);
+
+        $user->update([
+            'email' => $request->email,
+            'email_verified_at' => null,
+        ]);
+
+        return back()->with('success', 'Email actualizado correctamente. Por favor, verifica tu nuevo email.');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function actualizarPassword(Request $request)
+    {
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+        
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return back()->with('success', 'Contraseña actualizada correctamente.');
     }
 }
