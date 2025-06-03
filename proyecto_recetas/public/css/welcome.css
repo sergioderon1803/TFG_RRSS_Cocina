@@ -8,7 +8,7 @@
 }
 
 .fondoRegistro {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: url('../images/landing_bg.jpg') no-repeat center center fixed;
     background-size: cover;
     color: var(--text-dark);

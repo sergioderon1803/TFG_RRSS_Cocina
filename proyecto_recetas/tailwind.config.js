@@ -12,7 +12,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Acme', 'Arial', ...defaultTheme.fontFamily.sans],
+                sans: ['Poppins', 'Arial', ...defaultTheme.fontFamily.sans],
             },
         },
     },

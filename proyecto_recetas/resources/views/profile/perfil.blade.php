@@ -244,12 +244,15 @@
 
                     document.getElementById('recetasListadas').remove();
 
+                    document.getElementById("clickMeGustas").classList.add('seleccionado');
                     document.getElementById("clickMeGustas").classList.remove('bi-heart');
                     document.getElementById("clickMeGustas").classList.add('bi-heart-fill');
 
+                    document.getElementById("clickRecetas").classList.remove('seleccionado');
                     document.getElementById("clickRecetas").classList.remove('bi-person-fill');
                     document.getElementById("clickRecetas").classList.add('bi-person');
 
+                    document.getElementById("clickGuardados").classList.remove('seleccionado');
                     document.getElementById("clickGuardados").classList.remove('bi-bookmark-fill');
                     document.getElementById("clickGuardados").classList.add('bi-bookmark');
 
@@ -316,12 +319,15 @@
                         
                         document.getElementById('recetasListadas').remove();
                         
+                        document.getElementById("clickMeGustas").classList.add('seleccionado');
                         document.getElementById("clickMeGustas").classList.remove('bi-heart-fill');
                         document.getElementById("clickMeGustas").classList.add('bi-heart');
 
+                        document.getElementById("clickRecetas").classList.remove('seleccionado');
                         document.getElementById("clickRecetas").classList.remove('bi-person');
                         document.getElementById("clickRecetas").classList.add('bi-person-fill');
 
+                        document.getElementById("clickGuardados").classList.remove('seleccionado');
                         document.getElementById("clickGuardados").classList.remove('bi-bookmark-fill');
                         document.getElementById("clickGuardados").classList.add('bi-bookmark');
 
@@ -389,12 +395,15 @@
 
                         document.getElementById('recetasListadas').remove();
 
+                        document.getElementById("clickMeGustas").classList.add('seleccionado');
                         document.getElementById("clickMeGustas").classList.remove('bi-heart');
                         document.getElementById("clickMeGustas").classList.add('bi-heart-fill');
 
+                        document.getElementById("clickRecetas").classList.remove('seleccionado');
                         document.getElementById("clickRecetas").classList.remove('bi-person-fill');
                         document.getElementById("clickRecetas").classList.add('bi-person');
 
+                        document.getElementById("clickGuardados").classList.remove('seleccionado');
                         document.getElementById("clickGuardados").classList.remove('bi-bookmark-fill');
                         document.getElementById("clickGuardados").classList.add('bi-bookmark');
 
@@ -434,14 +443,3 @@
         });
     </script>
 @endsection
-
-<!-- PARA GUARDADOS SERGITO
-
-document.getElementById("clickMeGustas").classList.remove('bi-heart-fill');
-document.getElementById("clickMeGustas").classList.add('bi-heart');
-
-document.getElementById("clickRecetas").classList.remove('bi-person-fill');
-document.getElementById("clickRecetas").classList.add('bi-person');
-
-document.getElementById("clickGuardados").classList.remove('bi-bookmark');
-document.getElementById("clickGuardados").classList.add('bi-bookmark-fill'); -->
