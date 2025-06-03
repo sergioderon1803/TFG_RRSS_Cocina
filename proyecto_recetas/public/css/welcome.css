@@ -172,6 +172,18 @@
     color: var(--main-color);
 }
 
+.fondoAbout{
+    font-family: 'Poppins', sans-serif;
+    background: url('../images/fondoCocina.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--text-dark);
+    transition: var(--transition);
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    z-index: 0;
+}
+
 /* Responsive */
 @media (max-width: 767px) {
     .row.flex-column.flex-md-row {
