@@ -141,29 +141,62 @@
                 </div>
             </div>
         </div>
-        <!-- Libro promocional -->
-    <div class="container my-5">
-        <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center min-vh-100 bg-peach p-4 rounded">
-            
-            <!-- Libro a la venta -->
-            <div class="col-12 col-lg-4 d-flex flex-column align-items-center bg-light p-4 rounded mb-4 mb-lg-0">
-                <img src="{{ asset('images/libroCocina.jpg') }}" alt="Libro de cocina" class="img-fluid mb-3">
-                <p class="precio fs-4 fw-bold">14.99€</p>
-                <button class="btn btn-success">Comprar</button>
-            </div>
 
-            <!-- Info del libro -->
-            <div class="col-12 col-lg-6 d-flex align-items-center ps-lg-5">
-                <div class="bg-light rounded shadow p-4 text-center text-lg-start w-100">
-                    <h3 class="mb-3">Compra nuestro recetario</h3>
-                    <p class="fs-4">Con las mejores recetas de nuestros usuarios, adaptadas y mejoradas por nuestros mejores chefs.</p>
-                    <p class="fs-4">Adquiere este completo libro a través de nuestra tienda online.</p>
-                </div>
-            </div>
-
+    <!--Noticias-->
+    <div class="container bg-light shadow rounded mt-5 p-5">
+        <p class="text-center fs-1 mb-5">Noticias</p>
+    <!-- Fresas Beneficios -->
+    <div class="d-flex">
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-4 tamaño">
+          <img src="{{ asset('images/fresasNoticia.jpg') }}" alt="Noticia fresas" class="img-fluid rounded">
+      </div>
+      <div class="col-md-6 text-center">
+        <div class="product-card">
+          <h3 class="fw-bold titulo text-center">¿Te gustaría saber más acerca de esta deliciosa fruta?</h3>
+          <p class="text-center contenido"> Entonces no te pierdas el siguiente artículo de EcologíaVerde donde hablaremos de las propiedades de las fresas, sus beneficios y sus contraindicaciones.</p>
+          <button type="button" class="text-light text-center rounded fs-6 mt-3 sabermas"><a class="enlace" href="https://www.ecologiaverde.com/fresas-propiedades-beneficios-y-contraindicaciones-4519.html">Saber más...</a></button>
         </div>
+      </div>
     </div>
+    </div>
+    <hr>
+    <!-- Fresas Beneficios -->
+    <div class="d-flex">
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-4 tamaño">
+          <img src="{{ asset('images/fresasNoticia.jpg') }}" alt="Noticia fresas" class="img-fluid rounded">
+      </div>
+      <div class="col-md-6 text-center">
+        <div class="product-card">
+          <h3 class="fw-bold fs-5 text-center">¿Te gustaría saber más acerca de esta deliciosa fruta?</h3>
+          <p class="text-center fs-6"> Entonces no te pierdas el siguiente artículo de EcologíaVerde donde hablaremos de las propiedades de las fresas, sus beneficios y sus contraindicaciones.</p>
+          <button type="button" class="text-light text-center rounded fs-6 mt-3 sabermas"><a class="enlace" href="https://www.ecologiaverde.com/fresas-propiedades-beneficios-y-contraindicaciones-4519.html">Saber más...</a></button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <hr>
+    <!-- Fresas Beneficios -->
+    <div class="d-flex">
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-4 tamaño">
+          <img src="{{ asset('images/fresasNoticia.jpg') }}" alt="Noticia fresas" class="img-fluid rounded">
+      </div>
+      <div class="col-md-6 text-center">
+        <div class="product-card">
+          <h3 class="fw-bold fs-5 text-center">¿Te gustaría saber más acerca de esta deliciosa fruta?</h3>
+          <p class="text-center fs-6"> Entonces no te pierdas el siguiente artículo de EcologíaVerde donde hablaremos de las propiedades de las fresas, sus beneficios y sus contraindicaciones.</p>
+          <button type="button" class="text-light text-center rounded fs-6 mt-3 sabermas"><a class="enlace" href="https://www.ecologiaverde.com/fresas-propiedades-beneficios-y-contraindicaciones-4519.html">Saber más...</a></button>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
     </main>
+    
 
 
     <!-- Bootstrap JS + Script de alternancia -->
