@@ -225,3 +225,57 @@ body.sidebar-collapsed .main-content {
         font-size: 0.95rem;
     }
 }
+
+/*==============================
+=           FOOTER            =
+==============================*/
+.site-footer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 12px;
+    font-size: 0.85rem;
+}
+
+.footer-link {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: #F07B3F;
+}
+
+.footer-info {
+    font-size: 0.75rem;
+    color: #888;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .site-footer {
+        position: static;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
+}

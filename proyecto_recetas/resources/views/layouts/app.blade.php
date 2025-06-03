@@ -53,6 +53,9 @@
                 @yield('content')
             </div>
         </main>
+
+        <!-- Footer -->
+        @include('layouts.footer')
     </div>
     @yield('js')
     @stack('scripts')
