@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('titulo', 'WeCook!')</title>
+    <title>@yield('titulo', 'WeCook')</title>
     @yield('css')
 
     <!-- Font Awesome -->
@@ -51,8 +51,8 @@
         @endguest --}}
 
         <!-- Contenido principal -->
-        <main id="mainContent" class="main-content bg-light d-flex justify-content-center align-items-start py-4 flex-grow-1">
-            <div class="container rounded-3 shadow-sm p-3 bg-white">
+        <main id="mainContent" class="main-content bg-light d-flex justify-content-center align-items-start py-3 flex-grow-1">
+            <div class="container-fluid rounded-3 shadow-sm p-3 bg-white" style="max-width: 1200px;">
                 @yield('content')
             </div>
         </main>

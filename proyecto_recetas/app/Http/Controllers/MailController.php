@@ -10,7 +10,7 @@ class MailController extends Controller
 {
     public function index()
     {
-        return view('contacto');
+        return view('legal.contacto');
     }
 
     public function enviar(Request $request)

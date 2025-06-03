@@ -138,7 +138,7 @@ class RecetaController extends Controller {
     }
     
     public function listarRecetas(){
-        $recetas = Receta::paginate(9);
+        $recetas = Receta::orderBy('created_at', 'desc')->paginate(9);
         return view('recetas.lista', compact('recetas'));
     }
 

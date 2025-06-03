@@ -10,47 +10,56 @@ use App\Http\Controllers\RespuestaController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MailController;
 
-// Ruta raíz pública
+// Ruta raíz
 Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect()->route('recetas.lista');
-    }
-    return view('welcome');
+    return Auth::check() ? redirect()->route('recetas.lista') : view('welcome');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Rutas legales
+Route::prefix('legal')->group(function () {
+    Route::view('/terminos', 'legal.terminos')->name('terminos');
+    Route::view('/privacidad', 'legal.privacidad')->name('privacidad');
+    Route::view('/cookies', 'legal.cookies')->name('cookies');
+    Route::view('/accesibilidad', 'legal.accesibilidad')->name('accesibilidad');
+});
 
-// Rutas públicas
+// Rutas básicas
 Route::view('/about', 'about')->name('about');
-Route::view('/terminos', 'legal.terminos')->name('terminos');
-Route::view('/privacidad', 'legal.privacidad')->name('privacidad');
-Route::view('/cookies', 'legal.cookies')->name('cookies');
-Route::view('/accesibilidad', 'legal.accesibilidad')->name('accesibilidad');
-Route::get('/contacto', [MailController::class, 'index'])->name('contacto');
-Route::post('/contacto', [MailController::class, 'enviar'])->name('contacto.enviar');
-Route::get('/perfil/{id}', [ProfileController::class, 'ver'])->name('perfil.ver');
-Route::get('/perfil/meGustas/{id}', [ProfileController::class, 'verMeGustas'])->name('perfil.verMeGustas');
-Route::get('/perfil/{id}/editar', [ProfileController::class, 'editar'])->name('perfil.edicionPerfil');
-Route::post('/perfil/{id}/actualizar', [ProfileController::class, 'actualizar'])->name('perfil.actualizar');
-Route::get('/usuarios/{id}', [UserController::class, 'mostrarPerfil'])->name('usuarios.perfil');
 
-Route::get('recetas', [RecetaController::class, 'listarRecetas'])->name('recetas.lista');
+// Contacto
+Route::controller(MailController::class)->group(function () {
+    Route::get('/contacto', 'index')->name('contacto');
+    Route::post('/contacto', 'enviar')->name('contacto.enviar');
+});
 
-Route::post('recetas/listarAjax', [RecetaController::class, 'listarRecetasAjax'])->name('recetas.listaRecetasAjax');
-Route::post('recetas/listarMeGustaAjax', [RecetaController::class, 'listarMeGustaAjax'])->name('recetas.listarMeGustaAjax');
-Route::post('recetas/listarRecetasGuardadasAjax', [RecetaController::class, 'listarRecetasGuardadasAjax'])->name('recetas.listarRecetasGuardadasAjax');
+// Ruta pública para ver receta individual
+Route::get('receta/{id}', [RecetaController::class, 'mostrarRecetaIndividual'])->name('recetas.mostrar');
 
-
-Route::get('recetasGuardadas', [RecetaController::class, 'recetasGuardadasVista'])->name('recetas.recetasGuardadas');
-Route::get('receta/{id}', [RecetaController::class, 'mostrarRecetaIndividual']);
-
-Route::get('/perfil/{id}/seguidores', [ProfileController::class, 'verSeguidores'])->name('profile.seguidores');
-Route::get('/perfil/{id}/seguidos', [ProfileController::class, 'verSeguidos'])->name('profile.seguidos');
-
-// Rutas para usuarios autenticados
+// Rutas que requieren autenticación
 Route::middleware('auth')->group(function () {
+    // Rutas de perfil
+    Route::prefix('perfil')->group(function () {
+        Route::get('/{id}', [ProfileController::class, 'ver'])->name('perfil.ver');
+        Route::get('/meGustas/{id}', [ProfileController::class, 'verMeGustas'])->name('perfil.verMeGustas');
+        Route::get('/{id}/editar', [ProfileController::class, 'editar'])->name('perfil.edicionPerfil');
+        Route::post('/{id}/actualizar', [ProfileController::class, 'actualizar'])->name('perfil.actualizar');
+        Route::get('/{id}/seguidores', [ProfileController::class, 'verSeguidores'])->name('profile.seguidores');
+        Route::get('/{id}/seguidos', [ProfileController::class, 'verSeguidos'])->name('profile.seguidos');
+    });
+
+    Route::get('/usuarios/{id}', [UserController::class, 'mostrarPerfil'])->name('usuarios.perfil');
+
+    // Rutas de recetas que requieren autenticación
+    Route::controller(RecetaController::class)->group(function () {
+        Route::get('recetas', 'listarRecetas')->name('recetas.lista');
+        Route::get('recetasGuardadas', 'recetasGuardadasVista')->name('recetas.recetasGuardadas');
+        
+        // Rutas Ajax
+        Route::post('recetas/listarAjax', 'listarRecetasAjax')->name('recetas.listaRecetasAjax');
+        Route::post('recetas/listarMeGustaAjax', 'listarMeGustaAjax')->name('recetas.listarMeGustaAjax');
+        Route::post('recetas/listarRecetasGuardadasAjax', 'listarRecetasGuardadasAjax')->name('recetas.listarRecetasGuardadasAjax');
+    });
+
     // Comentarios y respuestas
     Route::post('/comentarios', [ComentarioController::class, 'store'])->name('comentarios.store');
     Route::post('/respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');
