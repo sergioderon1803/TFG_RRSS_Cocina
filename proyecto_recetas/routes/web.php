@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\RespuestaController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\MailController;
 
 // Ruta raíz pública
 Route::get('/', function () {
@@ -23,6 +24,12 @@ Route::get('/dashboard', function () {
 
 // Rutas públicas
 Route::view('/about', 'about')->name('about');
+Route::view('/terminos', 'legal.terminos')->name('terminos');
+Route::view('/privacidad', 'legal.privacidad')->name('privacidad');
+Route::view('/cookies', 'legal.cookies')->name('cookies');
+Route::view('/accesibilidad', 'legal.accesibilidad')->name('accesibilidad');
+Route::get('/contacto', [MailController::class, 'index'])->name('contacto');
+Route::post('/contacto', [MailController::class, 'enviar'])->name('contacto.enviar');
 Route::get('/perfil/{id}', [ProfileController::class, 'ver'])->name('perfil.ver');
 Route::get('/perfil/meGustas/{id}', [ProfileController::class, 'verMeGustas'])->name('perfil.verMeGustas');
 Route::get('/perfil/{id}/editar', [ProfileController::class, 'editar'])->name('perfil.edicionPerfil');

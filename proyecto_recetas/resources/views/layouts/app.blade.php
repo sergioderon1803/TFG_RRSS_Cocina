@@ -30,7 +30,7 @@
     @vite(['public/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
-    <div class="d-flex min-vh-100 flex-column flex-lg-row">
+    <div class="d-flex min-vh-100 flex-column flex-lg-row position-relative"> <!-- Añadido position-relative -->
         @auth
             <!-- Sidebar de ordenador y tablet -->
             <aside class="d-none d-lg-block">
@@ -54,7 +54,7 @@
             </div>
         </main>
 
-        <!-- Footer -->
+        <!-- Footer fuera del contenedor principal para evitar problemas de z-index -->
         @include('layouts.footer')
     </div>
     @yield('js')

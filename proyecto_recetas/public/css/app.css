@@ -229,15 +229,59 @@ body.sidebar-collapsed .main-content {
 /*==============================
 =           FOOTER            =
 ==============================*/
-.site-footer {
+.footer-wrapper {
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 10px 15px;
+}
+
+.footer-toggle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #2A9D8F;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.footer-toggle:hover {
+    background-color: #238276;
+    transform: translateY(-2px);
+}
+
+.footer-toggle.active {
+    background-color: #238276;
+    transform: scale(0.95);
+}
+
+.site-footer {
+    position: absolute;
+    bottom: 0;
+    right: 60px;
+    background-color: white;
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(20px);
+    transition: all 0.3s ease;
+    min-width: 280px;
+}
+
+.site-footer.expanded {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
 }
 
 .footer-content {
@@ -255,11 +299,18 @@ body.sidebar-collapsed .main-content {
 .footer-link {
     color: #666;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 .footer-link:hover {
     color: #F07B3F;
+    background-color: rgba(240, 123, 63, 0.1);
+}
+
+.footer-link i {
+    color: #F4A261;
 }
 
 .footer-info {
@@ -269,13 +320,144 @@ body.sidebar-collapsed .main-content {
 }
 
 @media (max-width: 768px) {
+    .footer-wrapper {
+        position: fixed;
+        bottom: 80px;
+        right: 15px;
+        z-index: 1050;
+    }
+
     .site-footer {
-        position: static;
-        margin-top: 20px;
-        text-align: center;
+        position: fixed;
+        bottom: 130px;
+        right: 15px;
+        left: 15px;
+        transform: translateY(20px);
+        min-width: auto;
+        width: auto;
+        max-width: calc(100% - 30px);
+        max-height: calc(100vh - 200px); /* Altura máxima para evitar que se salga de la pantalla */
+        overflow-y: auto; /* Permite scroll si el contenido es muy largo */
+        z-index: 1049;
+    }
+
+    .site-footer.expanded {
+        transform: translateY(0);
     }
 
     .footer-links {
-        justify-content: center;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
     }
+
+    .footer-link {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+    }
+
+    .footer-link i {
+        width: 24px;
+        font-size: 1.1rem;
+    }
+
+    .footer-info {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+    }
+}
+
+/*==============================
+=        LEGAL PAGES          =
+==============================*/
+.legal-content {
+    color: #333;
+}
+
+.legal-content h2 {
+    color: #F07B3F;
+    font-weight: 600;
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(240, 123, 63, 0.1);
+}
+
+.legal-content p {
+    line-height: 1.7;
+    color: #666;
+    margin: 1rem 0;
+}
+
+.legal-content ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.legal-content ul li {
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background-color: rgba(240, 123, 63, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid #F07B3F;
+}
+
+.legal-content .alert {
+    background-color: rgba(240, 123, 63, 0.1);
+    border: none;
+    border-left: 4px solid #F07B3F;
+}
+
+.legal-content a {
+    color: #F07B3F;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.legal-content a:hover {
+    color: #CF5E13;
+}
+
+.text-primary {
+    color: #F07B3F !important;
+}
+
+/*==============================
+=        CONTACT FORM         =
+==============================*/
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #F07B3F 0%, #F4A261 100%);
+}
+
+.custom-input {
+    border: 2px solid #eee;
+    border-radius: 8px;
+    padding: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+    border-color: #F4A261;
+    box-shadow: 0 0 0 0.2rem rgba(244, 162, 97, 0.25);
+}
+
+.custom-alert-success {
+    background-color: #2A9D8F;
+    color: white;
+    border: none;
+}
+
+.btn-success {
+    background-color: #2A9D8F;
+    border-color: #2A9D8F;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #238276;
+    border-color: #238276;
+    transform: translateY(-1px);
 }
