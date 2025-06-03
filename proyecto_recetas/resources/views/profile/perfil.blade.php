@@ -63,14 +63,6 @@
     </div>
 </div>
 
-
-@if (Auth::id() === $perfil->id_user)
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#recetasGuardadas">
-        Ver recetas guardadas
-    </button>
-@endif
-
-
 <hr class="mt-4">
 
 <h5 class="fw-bold mb-3">
