@@ -115,7 +115,33 @@
         </div>
     </div>
 
-    <!-- Libro promocional -->
+    <main class="flex-grow-1 fondoAbout p-5">
+        <div class="container py-5 bg-light rounded shadow">
+            <h1 class="text-center mb-4">Sobre Nosotros</h1>
+
+            <p class="text-center lead mb-5">
+                Somos tres amigos apasionados por la cocina y el desarrollo web. Esta red social permite compartir, descubrir y comentar recetas.
+            </p>
+
+            <div class="row justify-content-center text-center g-5">
+                <div class="col-sm-6 col-md-4">
+                    <img src="{{ asset('storage/about/placeholder.jpg') }}" class="profile-img" alt="Sergio Álvarez de Ron">
+                    <div class="profile-name">Sergio Álvarez de Ron</div>
+                    <div class="profile-desc">Alérgico a la vida</div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <img src="{{ asset('storage/about/placeholder.jpg') }}" class="profile-img" alt="Jonathan Hidalgo">
+                    <div class="profile-name">Jonathan Hidalgo</div>
+                    <div class="profile-desc">Catador profesional de elixires revitalizantes</div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <img src="{{ asset('storage/about/placeholder.jpg') }}" class="profile-img" alt="Sergio Montoiro">
+                    <div class="profile-name">Sergio Montoiro</div>
+                    <div class="profile-desc">Programador explotado</div>
+                </div>
+            </div>
+        </div>
+        <!-- Libro promocional -->
     <div class="container my-5">
         <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center min-vh-100 bg-peach p-4 rounded">
             
@@ -128,7 +154,7 @@
 
             <!-- Info del libro -->
             <div class="col-12 col-lg-6 d-flex align-items-center ps-lg-5">
-                <div class="bg-white rounded shadow-sm p-4 text-center text-lg-start w-100">
+                <div class="bg-light rounded shadow p-4 text-center text-lg-start w-100">
                     <h3 class="mb-3">Compra nuestro recetario</h3>
                     <p class="fs-4">Con las mejores recetas de nuestros usuarios, adaptadas y mejoradas por nuestros mejores chefs.</p>
                     <p class="fs-4">Adquiere este completo libro a través de nuestra tienda online.</p>
@@ -137,6 +163,7 @@
 
         </div>
     </div>
+    </main>
 
 
     <!-- Bootstrap JS + Script de alternancia -->
