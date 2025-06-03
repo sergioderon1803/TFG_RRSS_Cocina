@@ -142,6 +142,25 @@ class RecetaController extends Controller {
         return view('recetas.lista', compact('recetas'));
     }
 
+    public function listarRecetasPrincipalAjax(){
+        $recetas = Receta::orderBy('created_at', 'desc')->get();
+
+        $recetas = $recetas->shuffle()->take(9);
+
+        foreach($recetas as $r){
+
+            $r['meGustas'] = count($r->usuariosQueGustaron);
+            $r['vecesGuardados'] = count($r->usuariosQueGuardaron);
+            $r['nombreAutor'] = $r->autor->perfil->name;
+            $r['like'] = GustarReceta::where('id_receta',$r->id)->where('id_user',Auth::id())->exists();
+            $r['guardado'] = GuardarReceta::where('id_receta',$r->id)->where('id_user',Auth::id())->exists();
+
+
+        }
+
+        return response(json_encode($recetas),200)->header('Content-type','text/plain');
+    }
+
     // Listado recetas del usuario
 
     public function listarRecetasAjax(Request $request){

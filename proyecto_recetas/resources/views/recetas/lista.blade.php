@@ -3,105 +3,328 @@
 @section('titulo', 'Listado de recetas')
 
 @section('content')
-<div class="container-fluid my-3 px-3 mb-5">
-    <div class="d-flex flex-column align-items-center mb-4">
-        <div class="d-flex align-items-center">
-            <img src="/images/logo.svg" alt="Logo WeCook" class="img-fluid" style="height: 80px;">
-            <span class="fs-4 d-none d-md-inline ms-2" id="sidebarLogoText">WeCook</span>
+    <div class="container-fluid my-3 px-3 mb-5">
+        <div class="d-flex flex-column align-items-center mb-4">
+            <div class="d-flex align-items-center">
+                <img src="/images/logo.svg" alt="Logo WeCook" class="img-fluid" style="height: 80px;">
+                <span class="fs-4 d-none d-md-inline ms-2" id="sidebarLogoText">WeCook</span>
+            </div>
+            <p class="text-center text-muted mt-2" style="font-size: 0.8rem; max-width: 600px;">
+                Explora nuestras deliciosas recetas y encuentra tu próxima inspiración culinaria.
+            </p>
         </div>
-        <p class="text-center text-muted mt-2" style="font-size: 0.8rem; max-width: 600px;">
-            Explora nuestras deliciosas recetas y encuentra tu próxima inspiración culinaria.
-        </p>
-    </div>
-    <div class="row gx-5 gy-4">
-        <!-- Columna de recetas -->
-        <div class="col-12 col-xl-9">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
-                @foreach ($recetas as $receta)
-                    <div class="col">
-                        <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3" 
-                            style="cursor: pointer;" onclick="window.location='{{ url('receta/' . $receta->id) }}'">
+        <div class="row gx-5 gy-4">
+            <!-- Columna de recetas -->
+            <div class="col-12 col-xl-9">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4" id="listado">
 
-                            @if ($receta->imagen)
-                                <img src="{{ asset(Str::startsWith($receta->imagen, 'recetas/') ? 'storage/' . $receta->imagen : $receta->imagen) }}"
-                                    class="card-img-top"
-                                    alt="Imagen de {{ $receta->titulo }}"
-                                    style="height: 140px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;">
-                            @endif
+                </div>
+            </div>
+
+            <!-- Columna de filtros -->
+            <div class="col-12 col-xl-3">
+                <div class="card mb-3">
+                    <div class="card-header bg-light">
+                        <strong>Filtrar por categoría</strong>
+                    </div>
+                    <div class="card-body">
+                        <!-- Contenido del filtro 1 -->
+                        <select class="form-select">
+                            <option selected>Selecciona categoría</option>
+                            <option value="1">Entrantes</option>
+                            <option value="2">Postres</option>
+                            <!-- etc -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <strong>Filtrar por dificultad</strong>
+                    </div>
+                    <div class="card-body">
+                        <!-- Contenido del filtro 2 -->
+                        <select class="form-select">
+                            <option selected>Selecciona dificultad</option>
+                            <option value="fácil">Fácil</option>
+                            <option value="media">Media</option>
+                            <option value="difícil">Difícil</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+@section('js')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "{{ route('recetas.listarRecetasPrincipalAjax') }}",
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                }
+            }).done(function(res) {
+                var arreglo = JSON.parse(res);
+
+                // Impresión del listado de recetas
+
+                var listado = ``;
+
+                //--------------------------------------------------------------------------IMPRESIÓN DEL CADA RECETA-------------------------------------------------------------------------------
+
+                for (var x = 0; x < arreglo.length; x++) {
+
+                    listado += `<div class="col">
+                        <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3" style="cursor: pointer;">
+                            <img src="{{ asset('storage/` + arreglo[x].imagen +`') }}"
+                                class="card-img-top"
+                                alt="Imagen de ` + arreglo[x].titulo + `"
+                                style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'">
 
                             <div class="card-body d-flex flex-column justify-content-between p-2">
-                                <div class="mb-2">
-                                    <div class="d-flex align-items-center text-muted mb-1" style="font-size: 0.85rem;">
-                                        <a href="{{ url('usuario/' . ($receta->user->id ?? '#')) }}" 
+                                <div class="mb-2 text">
+                                    <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
+                                        <a href="{{ url('perfil/`+arreglo[x].autor_receta+`') }}" 
                                         class="text-decoration-none text-muted">
                                             <img src="{{ asset('images/default-profile.jpg') }}"
                                                 alt="Imagen de perfil"
                                                 class="rounded-circle me-2"
-                                                style="width: 24px; height: 24px; object-fit: cover;">
-                                            {{ $receta->user->name ?? 'usuario' }}
+                                                style="width: 25px; height: 25px; object-fit: cover;">
+                                            ` + arreglo[x].nombreAutor + `
                                         </a>
                                     </div>
-                                    <h6 class="card-title mb-0" style="font-size: 0.95rem;">
-                                        <p>{{ Str::limit($receta->titulo, 30) }}</p>
+                                    <h6 class="card-title mb-1" style="font-size: 0.95rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'">
+                                        <strong>` + arreglo[x].titulo.substring(0, 40) + `</strong>
                                     </h6>
                                 </div>
+                            </div>
+                                <div class="d-flex justify-content-between mt-auto pt-2 px-1">
+                                <button id="btnLike` + arreglo[x].id + `" class="btn p-0 border-0 bg-transparent" title="` + (arreglo[x].like ? `Quitar me gusta` : `Dar me gusta`) + `">
+                                    <i data-id="` + arreglo[x].id + `" class="bi bi-heart` + (arreglo[x].like ? `-fill` : ``) + ` text-danger darLike"></i>
+                                    <small id="gustas` + arreglo[x].id + `">` + arreglo[x].meGustas + `</small>
+                                </button>
 
-                                <div class="d-flex justify-content-between align-items-center mt-2">
-                                    <button class="btn p-1 border-0 bg-transparent d-flex align-items-center" title="Me gusta">
-                                        <i class="bi bi-heart text-danger fs-5"></i>
-                                        <span class="ms-1 fs-6">{{ $receta->usuariosQueGustaron->count() }}</span>
-                                    </button>
-
-                                    <button class="btn p-1 border-0 bg-transparent d-flex align-items-center" title="Guardar receta">
-                                        <i class="bi bi-bookmark text-success fs-5"></i>
-                                        <span class="ms-1 fs-6">{{ $receta->usuariosQueGuardaron->count() }}</span>
-                                    </button>
-                                </div>
+                                <button id="btnGuardado` + arreglo[x].id + `" class="btn p-0 border-0 bg-transparent" title="` + (arreglo[x].guardado ? `Quitar de guardadas` : `Guardar receta`) + `">
+                                    <i data-id="` + arreglo[x].id + `" class="bi bi-bookmark` + (arreglo[x].guardado ? `-fill` : ``) + ` text-success guardados"></i>
+                                    <small id="guardados` + arreglo[x].id + `">` + arreglo[x].vecesGuardados + `</small>
+                                </button>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    </div>`;
 
-            <!-- Paginación -->
-            <div class="d-flex justify-content-center mt-4">
-                {{ $recetas->links('pagination::bootstrap-5') }}
-            </div>
-        </div>
+                }
 
-        <!-- Columna de filtros -->
-        <div class="col-12 col-xl-3">
-            <div class="card mb-3">
-                <div class="card-header bg-light">
-                    <strong>Filtrar por categoría</strong>
-                </div>
-                <div class="card-body">
-                    <!-- Contenido del filtro 1 -->
-                    <select class="form-select">
-                        <option selected>Selecciona categoría</option>
-                        <option value="1">Entrantes</option>
-                        <option value="2">Postres</option>
-                        <!-- etc -->
-                    </select>
-                </div>
-            </div>
 
-            <div class="card">
-                <div class="card-header bg-light">
-                    <strong>Filtrar por dificultad</strong>
-                </div>
-                <div class="card-body">
-                    <!-- Contenido del filtro 2 -->
-                    <select class="form-select">
-                        <option selected>Selecciona dificultad</option>
-                        <option value="fácil">Fácil</option>
-                        <option value="media">Media</option>
-                        <option value="difícil">Difícil</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                listado += `</div>`;
+
+                $("#listado").append(listado);
+
+                //-------------------------------------------------------------------------------------GUARDADOS--------------------------------------------------------------------------------------------------
+
+                $(".guardados").on("click", function() {
+
+                    const recetaId = $(this).data('id');
+
+                    let etiqueta = `#guardados${recetaId}`; // Guardo el id de la etiqueta small
+
+                    let etiquetaBtn = `#btnGuardado${recetaId}`;
+
+                    let valorGuardados = parseInt($(etiqueta).text()); // Convierto en número el txto que tiene
+
+                    if ($(this).hasClass('bi-bookmark-fill')) {
+
+
+                        Swal.fire({
+                            title: "¿Estás seguro de que ya no quieres guardar esta receta?",
+                            text: "",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Quitar de guardados"
+                        }).then((result) => {
+
+                            if (result.isConfirmed) { // Si acepta borrarla, hago un ajax
+
+                                $.ajax({
+                                    url: `{{ url('/recetas/quitarGuardado/') }}/${recetaId}`, // Llamo al controlador y le paso el ID
+                                    method: 'DELETE',
+                                    data: {
+                                        _token: '{{ csrf_token() }}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                                    },
+
+                                    // Si acepta y la respuesta es la que mando en el controlador, lanzo un pop up
+                                    success: function(response) {
+                                        if (response.status === 'success') {
+
+                                            Swal.fire({
+                                                title: "Ya no la tienes guardada",
+                                                text: "",
+                                                icon: "success"
+                                            });
+
+
+                                        } else {
+                                            Swal.fire(
+                                                'No se ha podido completar la solicitud',
+                                                '', 'warning');
+                                        }
+                                    },
+                                    error: function(error) {
+                                        Swal.fire('Se ha producido un error',
+                                            '', 'error');
+                                    }
+                                })
+
+                                $(this).removeClass('bi-bookmark-fill');
+                                $(this).addClass('bi-bookmark');
+
+                                $(etiquetaBtn).attr('title', "Guardar receta");
+
+                                // Cambiu el valor del html por la nueva cantidad de guardados
+
+                                valorGuardados--;
+
+                                $(etiqueta).text(valorGuardados.toString());
+                            }
+
+
+                        });
+
+                    } else {
+                        $.ajax({
+                            url: `{{ url('/recetas/guardarReceta/') }}/${recetaId}`, // Llamo al controlador y le paso el ID
+                            method: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                            }
+                        })
+
+                        // Le quito una clase y le pongo la otra
+
+                        $(this).removeClass('bi-bookmark');
+                        $(this).addClass('bi-bookmark-fill');
+
+                        $(etiquetaBtn).attr('title', "Quitar de guardadas");
+
+                        // Cambiu el valor del html por la nueva cantidad de guardados
+
+                        valorGuardados++;
+                        $(etiqueta).text(valorGuardados.toString());
+                    }
+
+
+
+                });
+
+                //-------------------------------------------------------------------------------------ME GUSTAS--------------------------------------------------------------------------------------------------
+
+                $(".darLike").on("click", function() {
+
+                    const recetaId = $(this).data('id');
+
+                    let etiqueta = `#gustas${recetaId}`; // Guardo el id de la etiqueta small
+
+                    let etiquetaBtn = `#btnLike${recetaId}`;
+
+                    let valorMegusta = parseInt($(etiqueta).text()); // Convierto en número el txto que tiene
+
+                    if ($(this).hasClass('bi-heart-fill')) {
+
+                        Swal.fire({
+                            title: "¿Estás seguro de que ya no te gusta esta receta?",
+                            text: "",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "No me gusta"
+                        }).then((result) => {
+
+                            if (result.isConfirmed) { // Si acepta borrarla, hago un ajax
+
+                                $.ajax({
+                                    url: `{{ url('/recetas/quitarMeGusta/') }}/${recetaId}`, // Llamo al controlador y le paso el ID
+                                    method: 'DELETE',
+                                    data: {
+                                        _token: '{{ csrf_token() }}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                                    },
+
+                                    // Si acepta y la respuesta es la que mando en el controlador, lanzo un pop up
+                                    success: function(response) {
+                                        if (response.status === 'success') {
+
+                                            Swal.fire({
+                                                title: "Ya no te gusta esta receta",
+                                                text: "",
+                                                icon: "success"
+                                            });
+
+                                        } else {
+                                            Swal.fire(
+                                                'No se ha podido completar la solicitud',
+                                                '', 'warning');
+                                        }
+                                    },
+                                    error: function(error) {
+                                        Swal.fire('Se ha producido un error',
+                                            '', 'error');
+                                    }
+                                })
+
+                                // Le quito una clase y le pongo la otra
+
+                                $(this).removeClass('bi-heart-fill');
+                                $(this).addClass('bi-heart');
+
+                                $(etiquetaBtn).attr('title', "Dar me gusta");
+
+                                // Cambiu el valor del html por la nueva cantidad de me gusta
+
+                                valorMegusta--;
+
+                                
+                                $(etiqueta).text(valorMegusta.toString());
+                            }
+
+
+                        });
+
+                    } else {
+
+                        $.ajax({
+                            url: `{{ url('/recetas/darMeGusta/') }}/${recetaId}`, // Llamo al controlador y le paso el ID
+                            method: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                            }
+                        })
+
+                        // Le quito una clase y le pongo la otra
+
+                        $(this).removeClass('bi-heart');
+                        $(this).addClass('bi-heart-fill');
+
+                        $(etiquetaBtn).attr('title', "Quitar me gusta");
+
+                        // Cambiu el valor del html por la nueva cantidad de me gusta
+
+                        valorMegusta++;
+                        $(etiqueta).text(valorMegusta.toString());
+                    }
+
+
+
+                });
+            })
+        });
+    </script>
 
 @endsection

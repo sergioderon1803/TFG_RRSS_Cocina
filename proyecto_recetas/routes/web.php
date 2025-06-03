@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
         
         // Rutas Ajax
         Route::post('recetas/listarAjax', 'listarRecetasAjax')->name('recetas.listaRecetasAjax');
+        Route::post('recetas/listarRecetasPrincipalAjax', 'listarRecetasPrincipalAjax')->name('recetas.listarRecetasPrincipalAjax');
         Route::post('recetas/listarMeGustaAjax', 'listarMeGustaAjax')->name('recetas.listarMeGustaAjax');
         Route::post('recetas/listarRecetasGuardadasAjax', 'listarRecetasGuardadasAjax')->name('recetas.listarRecetasGuardadasAjax');
     });
