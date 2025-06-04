@@ -41,7 +41,7 @@
         <li>
             <a href="{{ route('about') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('about') ? 'active bg-dark' : '' }}">
                 <i class="bi bi-info-circle-fill me-2 fs-4"></i>
-                <span class="link-wrapper"><span class="link-text"> {{ __('About') }} </span></span>
+                <span class="link-wrapper"><span class="link-text"> {{ __('About') }} Us</span></span>
             </a>
         </li>
         <br>

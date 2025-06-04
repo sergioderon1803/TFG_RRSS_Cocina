@@ -59,11 +59,13 @@ html, body {
     color: white;
 }
 
+
 /* Logo */
 .navbar-brand img {
     height: 80px;
     margin-right: 1rem;
 }
+
 
 /*==============================
 =           SIDEBAR           =
@@ -106,7 +108,7 @@ html, body {
 
 /* Ajuste para main-content cuando el sidebar está colapsado */
 body.sidebar-collapsed .main-content {
-    margin-left: 60px; /* igual que el ancho del sidebar colapsado */
+    margin-left: 60px; 
     transition: margin-left 0.3s ease;
 }
 

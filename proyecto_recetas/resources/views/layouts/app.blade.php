@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('titulo', 'WeCook')</title>
+    <link rel="icon" href="{{ asset('images/logo_small_black.svg') }}" type="image/svg+xml">
     @yield('css')
 
     <!-- Font Awesome -->
@@ -51,7 +52,7 @@
         @endguest --}}
 
         <!-- Contenido principal -->
-        <main id="mainContent" class="main-content bg-light d-flex justify-content-center align-items-start py-3 flex-grow-1">
+        <main id="mainContent" class="main-content bg-light d-flex justify-content-center align-items-start py-3 flex-grow-1 pb-5">
             <div class="container-fluid rounded-3 shadow-sm p-3 bg-white" style="max-width: 1200px;">
                 @yield('content')
             </div>
