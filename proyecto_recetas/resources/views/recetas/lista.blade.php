@@ -63,6 +63,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+
+        var ids = [];
+
         $(document).ready(function() {
             $.ajax({
                 url: "{{ route('recetas.listarRecetasPrincipalAjax') }}",
@@ -80,6 +83,8 @@
                 //--------------------------------------------------------------------------IMPRESIÓN DEL CADA RECETA-------------------------------------------------------------------------------
 
                 for (var x = 0; x < arreglo.length; x++) {
+
+                    ids.push(arreglo[x].id);
 
                     listado += `<div class="col">
                         <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3" style="cursor: pointer;">
@@ -129,7 +134,7 @@
                 // Botón "Ver más"
                 $("#listado").after(`
                     <div class="text-center mt-4">
-                        <a href="#" class="btn btn-outline-secondary disabled">Ver más...</a>
+                        <button id="verMas" class="btn btn-outline-secondary">Ver más...</button>
                     </div>
                 `);
 
@@ -330,7 +335,81 @@
 
 
                 });
+
+                $("#verMas").on("click", function() {
+
+                    $.ajax({
+                        url: "{{ route('recetas.listarRecetasPrincipalAjax') }}",
+                        method: 'POST',
+                        data: {
+                            recetas: ids,
+                            _token: '{{ csrf_token() }}',
+                        }
+                    }).done(function(res) {
+                        var arreglo = JSON.parse(res);
+
+                        // Impresión del listado de recetas
+
+                        var listado = ``;
+
+                        //--------------------------------------------------------------------------IMPRESIÓN DEL CADA RECETA-------------------------------------------------------------------------------
+
+                        for (var x = 0; x < arreglo.length; x++) {
+
+                            ids.push(arreglo[x].id);
+
+
+                            listado += `<div class="col">
+                                <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3" style="cursor: pointer;">
+                                    <img src="{{ asset('storage/` + arreglo[x].imagen +`') }}"
+                                        class="card-img-top"
+                                        alt="Imagen de ` + arreglo[x].titulo + `"
+                                        style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'">
+
+                                    <div class="card-body d-flex flex-column justify-content-between p-2">
+                                        <div class="mb-2 text">
+                                            <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
+                                                <a href="{{ url('perfil/`+arreglo[x].autor_receta+`') }}" 
+                                                class="text-decoration-none text-muted">
+                                                    <img src="{{ asset('images/default-profile.jpg') }}"
+                                                        alt="Imagen de perfil"
+                                                        class="rounded-circle me-2"
+                                                        style="width: 25px; height: 25px; object-fit: cover;">
+                                                    ` + arreglo[x].nombreAutor + `
+                                                </a>
+                                            </div>
+                                            <h6 class="card-title mb-1" style="font-size: 0.95rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'">
+                                                <strong>` + arreglo[x].titulo.substring(0, 40) + `</strong>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                        <div class="d-flex justify-content-between mt-auto pt-2 px-1">
+                                        <button id="btnLike` + arreglo[x].id + `" class="btn p-0 border-0 bg-transparent" title="` + (arreglo[x].like ? `Quitar me gusta` : `Dar me gusta`) + `">
+                                            <i data-id="` + arreglo[x].id + `" class="bi bi-heart` + (arreglo[x].like ? `-fill` : ``) + ` text-danger darLike"></i>
+                                            <small id="gustas` + arreglo[x].id + `">` + arreglo[x].meGustas + `</small>
+                                        </button>
+
+                                        <button id="btnGuardado` + arreglo[x].id + `" class="btn p-0 border-0 bg-transparent" title="` + (arreglo[x].guardado ? `Quitar de guardadas` : `Guardar receta`) + `">
+                                            <i data-id="` + arreglo[x].id + `" class="bi bi-bookmark` + (arreglo[x].guardado ? `-fill` : ``) + ` text-success guardados"></i>
+                                            <small id="guardados` + arreglo[x].id + `">` + arreglo[x].vecesGuardados + `</small>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>`;
+
+                        }
+
+
+                        listado += `</div>`;
+
+                        $("#listado").append(listado);
+
+
+                    });
+                });
             })
+
+            
         });
     </script>
 

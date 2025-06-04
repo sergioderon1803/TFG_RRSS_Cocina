@@ -142,8 +142,24 @@ class RecetaController extends Controller {
         return view('recetas.lista', compact('recetas'));
     }
 
-    public function listarRecetasPrincipalAjax(){
-        $recetas = Receta::orderBy('created_at', 'desc')->get();
+    public function listarRecetasPrincipalAjax(Request $request){
+
+        $listaIds = [];
+
+        if(isset($request->recetas)){
+
+            $listaIds = array($request->recetas);
+
+            for($i = 0; $i<count($listaIds[0]);$i++){
+                $listaIds[0][$i] = intval($listaIds[0][$i]);
+            }
+
+            $recetas = Receta::whereNotIn('id',$listaIds[0])->whereNot('autor_receta',Auth::id())->get();
+        }else{
+            $recetas = Receta::orderBy('created_at', 'desc')->whereNot('autor_receta',Auth::id())->get();
+        }
+
+        $longitud = $recetas->count();
 
         $recetas = $recetas->shuffle()->take(9);
 
@@ -154,7 +170,6 @@ class RecetaController extends Controller {
             $r['nombreAutor'] = $r->autor->perfil->name;
             $r['like'] = GustarReceta::where('id_receta',$r->id)->where('id_user',Auth::id())->exists();
             $r['guardado'] = GuardarReceta::where('id_receta',$r->id)->where('id_user',Auth::id())->exists();
-
 
         }
 
