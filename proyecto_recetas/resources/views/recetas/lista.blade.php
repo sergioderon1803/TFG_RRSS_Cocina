@@ -6,7 +6,7 @@
     <div class="container-fluid my-3 px-3 mb-5">
         <div class="d-flex flex-column align-items-center mb-4">
             <div class="d-flex align-items-center">
-                <img src="/images/logo.svg" alt="Logo WeCook" class="img-fluid" style="height: 80px;">
+                <img src="/images/logo_black.svg" alt="Logo WeCook" class="img-fluid" style="height: 80px;">
                 <span class="fs-4 d-none d-md-inline ms-2" id="sidebarLogoText">WeCook</span>
             </div>
             <p class="text-center text-muted mt-2" style="font-size: 0.8rem; max-width: 600px;">
@@ -125,6 +125,13 @@
                 listado += `</div>`;
 
                 $("#listado").append(listado);
+
+                // Botón "Ver más"
+                $("#listado").after(`
+                    <div class="text-center mt-4">
+                        <a href="#" class="btn btn-outline-secondary disabled">Ver más...</a>
+                    </div>
+                `);
 
                 //-------------------------------------------------------------------------------------GUARDADOS--------------------------------------------------------------------------------------------------
 
