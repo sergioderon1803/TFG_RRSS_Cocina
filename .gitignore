@@ -1,0 +1,4 @@
+proyecto_recetas/.env
+proyecto_recetas/vendor/composer/autoload_classmap.php
+proyecto_recetas/vendor/composer/autoload_static.php
+proyecto_recetas/vendor/composer/installed.php
