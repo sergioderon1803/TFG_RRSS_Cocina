@@ -31,12 +31,12 @@
                         <!-- Contenido del filtro 1 -->
                         <select class="form-select">
                             <option hidden>Selecciona tipo de receta</option>
-                            <option value="1">Bebidas</option>
-                            <option value="2">Comida</option>
-                            <option value="3">Entrantes</option>
-                            <option value="4">Postres</option>
-                            <option value="5">Saludable</option>
-                            <option value="6">Vegano</option>
+                            <option value="Bebidas">Bebidas</option>
+                            <option value="Comida">Comida</option>
+                            <option value="Entrantes">Entrantes</option>
+                            <option value="Postres">Postres</option>
+                            <option value="Saludable">Saludable</option>
+                            <option value="Vegano">Vegano</option>
                             <!-- etc -->
                         </select>
                     </div>
@@ -50,7 +50,7 @@
                         <!-- Contenido del filtro 2 -->
                         <select class="form-select">
                             <option hidden>Selecciona dificultad</option>
-                            <option value="fácil">Fácil</option>
+                            <option value="facil">Fácil</option>
                             <option value="media">Media</option>
                             <option value="difícil">Difícil</option>
                         </select>
