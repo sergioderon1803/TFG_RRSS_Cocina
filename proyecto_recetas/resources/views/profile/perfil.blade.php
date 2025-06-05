@@ -22,7 +22,7 @@
     {{-- Imagen de perfil --}}
     <div class="position-absolute top-100 start-0 translate-middle-y ps-4">
         <img src="{{ $imgPerfil }}"
-            class="rounded-circle border border-white shadow"
+            class="rounded-circle border border-black shadow"
             style="width: 120px; height: 120px; object-fit: cover;"
             alt="Perfil de {{ $perfil->name }}">
     </div>

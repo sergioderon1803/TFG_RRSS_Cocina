@@ -36,16 +36,20 @@
 <body class="font-sans antialiased">
     <div class="d-flex min-vh-100 flex-column flex-lg-row position-relative"> <!-- Añadido position-relative -->
         @auth
-            <!-- Sidebar de ordenador y tablet -->
-            <aside class="d-none d-lg-block">
-                @include('layouts.navigation')
-            </aside>
-
-            <!-- Sidebar de móvil -->
-            <aside class="d-block d-lg-none">
+            <!-- Sidebar de móvil y tablet -->
+            <aside id="sidebar-responsive">
                 @include('layouts.navigationResponsive')
             </aside>
+
+            <!-- Sidebar de escritorio (lg en adelante) -->
+            <aside id="sidebar-desktop">
+                @include('layouts.navigation')
+            </aside>
         @endauth
+
+        
+        <!-- Modal Crear Receta -->
+        @include('modals.crear-receta')
 
         {{-- @guest
             @include('layouts.navigationGuest')

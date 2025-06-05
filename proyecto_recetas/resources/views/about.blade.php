@@ -21,7 +21,15 @@
 </head>
 <body class="font-sans antialiased d-flex flex-column min-vh-100">
     @auth
-        @include('layouts.navigation')
+        <!-- Sidebar de ordenador y tablet -->
+            <aside class="d-none d-lg-block">
+                @include('layouts.navigation')
+            </aside>
+
+            <!-- Sidebar de móvil -->
+            <aside class="d-block d-lg-none">
+                @include('layouts.navigationResponsive')
+            </aside>
     @endauth
     @guest
         @include('layouts.navigationGuest')

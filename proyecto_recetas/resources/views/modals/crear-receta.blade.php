@@ -1,5 +1,5 @@
 <div class="modal fade" id="crearReceta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+  <div class="modal-dialog  ">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Receta</h1>
@@ -9,6 +9,7 @@
         @csrf
         <div class="modal-body">
             <div class="row g-3">
+              <div class="col-12">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label for="titulo" class="form-label">Título:</label>
@@ -30,9 +31,9 @@
                     </div>
                 </div>
 
-                <div class="justify-center">
+                <div class="d-flex flex-column align-items-center">
                     <label for="imagen" class="form-label">Imagen:</label>
-                    <img id="preview" class="mt-2 imagenPrevia" style="max-width: 250px; max-height: 250px;" src="{{ asset('images/pantallaGris.jpg') }}" alt="Imagen previa">
+                    <img id="preview" class="mt-2 img-fluid" style="max-width: 250px; max-height: 250px;" src="{{ asset('images/pantallaGris.jpg') }}" alt="Imagen previa">
                     <input type="file" accept="image/*" id="imagen" name="imagen" class="form-control" required>
                 </div>
 
@@ -47,6 +48,7 @@
                         <textarea name="procedimiento" id="procedimiento" class="form-control" rows="6" required></textarea>
                     </div>
                 </div>
+              </div>
             </div>
         </div>
         <div class="modal-footer">

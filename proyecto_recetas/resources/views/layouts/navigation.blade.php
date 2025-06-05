@@ -88,9 +88,6 @@
     </div>
 </nav>
 
-<!-- Modal Crear Receta -->
-@include('modals.crear-receta')
-
 
 <script>
     // Script para el toggle del sidebar

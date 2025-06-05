@@ -49,8 +49,6 @@ html, body {
     }
  }
 
-
-
 /*==============================
 =           NAVBAR            =
 ==============================*/
@@ -81,6 +79,17 @@ html, body {
 /*==============================
 =           SIDEBAR           =
 ==============================*/
+
+/* Por defecto, solo se muestra el menú responsive */
+#sidebar-desktop { display: none; }
+#sidebar-responsive { display: block; }
+
+/* A partir de 992px (escritorio), solo se muestra el menú de escritorio */
+@media (min-width: 992px) {
+    #sidebar-desktop { display: block; }
+    #sidebar-responsive { display: none; }
+}
+
 .sidebar {
     width: 250px;
     height: 100vh;
