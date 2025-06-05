@@ -15,14 +15,14 @@
         </div>
         <div class="row gx-5 gy-4">
             <!-- Columna de recetas -->
-            <div class="col-12 col-xl-9">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4" id="listado">
+            <div class="col-12 col-sm-9 col-md-9 col-xl-9 margenesResponsive">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4" id="listado">
 
                 </div>
             </div>
 
             <!-- Columna de filtros -->
-            <div class="col-12 col-xl-3">
+            <div class="col-12 col-sm-3 col-md-3 col-xl-3 margenesResponsive">
                 <div class="card mb-3">
                     <div class="card-header bg-light">
                         <strong>Elija tipo de receta:</strong>
@@ -113,7 +113,6 @@
                                         <strong>` + arreglo[x].titulo.substring(0, 40) + `</strong>
                                     </h6>
                                 </div>
-                            </div>
                                 <div class="d-flex justify-content-between mt-auto pt-2 px-1">
                                 <button id="btnLike` + arreglo[x].id + `" class="btn p-0 border-0 bg-transparent" title="` + (arreglo[x].like ? `Quitar me gusta` : `Dar me gusta`) + `">
                                     <i data-id="` + arreglo[x].id + `" class="bi bi-heart` + (arreglo[x].like ? `-fill` : ``) + ` text-danger darLike"></i>
@@ -124,6 +123,7 @@
                                     <i data-id="` + arreglo[x].id + `" class="bi bi-bookmark` + (arreglo[x].guardado ? `-fill` : ``) + ` text-success guardados"></i>
                                     <small id="guardados` + arreglo[x].id + `">` + arreglo[x].vecesGuardados + `</small>
                                 </button>
+                            </div>
                             </div>
                         </div>
                     </div>`;

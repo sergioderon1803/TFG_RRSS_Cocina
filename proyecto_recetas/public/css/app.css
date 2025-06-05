@@ -39,6 +39,17 @@ html, body {
     padding: 0 1.5rem;
 }
 
+/*==============================
+=             LETRA            =
+==============================*/
+@media (max-width: 769px) {
+    .margenesResponsive{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+ }
+
+
 
 /*==============================
 =           NAVBAR            =
@@ -339,7 +350,7 @@ body.sidebar-collapsed .main-content {
         min-width: auto;
         width: auto;
         max-width: calc(100% - 30px);
-        max-height: calc(100vh - 200px); /* Altura máxima para evitar que se salga de la pantalla */
+        max-height: calc(100vh - 200px);
         overflow-y: auto; /* Permite scroll si el contenido es muy largo */
         z-index: 1049;
     }
