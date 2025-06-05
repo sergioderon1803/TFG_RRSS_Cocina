@@ -3,34 +3,50 @@
 @section('titulo', 'Confirmar contraseña')
 
 @section('content')
-    <div class="mb-3 text-muted small">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
-    </div>
-
-    <form method="POST" action="{{ route('password.confirm') }}">
-        @csrf
-
-        <div class="mb-3">
-            <label for="password" class="form-label">{{ __('Password') }}</label>
-            <input
-                id="password"
-                type="password"
-                name="password"
-                class="form-control @error('password') is-invalid @enderror"
-                required
-                autocomplete="current-password"
-            >
-            @error('password')
-                <div class="invalid-feedback">
-                    {{ $message }}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-gradient-primary text-white py-4 px-4">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-shield-check fs-2 me-3"></i>
+                        <div>
+                            <h1 class="h3 mb-1 fw-bold">Área segura</h1>
+                            <p class="mb-0 opacity-75">Confirma tu contraseña para continuar</p>
+                        </div>
+                    </div>
                 </div>
-            @enderror
-        </div>
 
-        <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">
-                {{ __('Confirm') }}
-            </button>
+                <div class="card-body p-4">
+                    <div class="alert alert-info border-0 d-flex align-items-center mb-4">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        <div>Esta es un área segura de la aplicación. Por favor, confirma tu contraseña antes de continuar.</div>
+                    </div>
+
+                    <form method="POST" action="{{ route('password.confirm') }}">
+                        @csrf
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label">
+                                <i class="bi bi-lock text-secondary me-2"></i>Contraseña
+                            </label>
+                            <input id="password" type="password" 
+                                   class="form-control custom-input @error('password') is-invalid @enderror"
+                                   name="password" required autocomplete="current-password">
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success btn-lg px-4">
+                                <i class="bi bi-check-lg me-2"></i>Confirmar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </form>
+    </div>
+</div>
 @endsection
