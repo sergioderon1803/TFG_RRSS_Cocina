@@ -145,6 +145,7 @@ class RecetaController extends Controller {
     public function listarRecetasPrincipalAjax(Request $request){
 
         $listaIds = [];
+        $filtro = $request->tipo;
 
         if(isset($request->recetas)){
 
@@ -154,12 +155,29 @@ class RecetaController extends Controller {
                 $listaIds[0][$i] = intval($listaIds[0][$i]);
             }
 
-            $recetas = Receta::whereNotIn('id',$listaIds[0])->whereNot('autor_receta',Auth::id())->get();
-        }else{
-            $recetas = Receta::orderBy('created_at', 'desc')->whereNot('autor_receta',Auth::id())->get();
-        }
+            if($filtro == "Todas"){
 
-        $longitud = $recetas->count();
+                $recetas = Receta::whereNotIn('id',$listaIds[0])->whereNot('autor_receta',Auth::id())->get();
+
+            }else{
+
+                $recetas = Receta::whereNotIn('id',$listaIds[0])->where('tipo',$filtro)->whereNot('autor_receta',Auth::id())->get();
+
+            }
+
+        }else{
+
+            if($filtro == "Todas"){
+
+                $recetas = Receta::orderBy('created_at', 'desc')->whereNot('autor_receta',Auth::id())->get();
+
+            }else{
+
+                $recetas = Receta::orderBy('created_at', 'desc')->where('tipo',$filtro)->whereNot('autor_receta',Auth::id())->get();
+
+            }
+
+        }
 
         $recetas = $recetas->shuffle()->take(9);
 

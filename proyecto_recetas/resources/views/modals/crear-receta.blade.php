@@ -1,16 +1,15 @@
 <div class="modal fade" id="crearReceta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog  ">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Receta</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
       <form action="{{ route('recetas.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal-body">
             <div class="row g-3">
               <div class="col-12">
                 <div class="row g-3">
+                  <ul class="list-group">
+                    <li class="list-group-item text-center fs-4 text-decoration-none col-12 py-3 m-0 rounded-0 border-end" style="background-color:rgba(238,114,71,255); color:white;">Crear receta</li>
+                  </ul>
                     <div class="col-md-6">
                         <label for="titulo" class="form-label">Título:</label>
                         <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Título" required>
@@ -19,13 +18,16 @@
                     <div class="col-md-6">
                         <label for="tipo" class="form-label">Tipo:</label>
                         <select class="form-control" id="tipo" name="tipo" required>
-                            <option hidden>Selecciona tipo de receta</option>
-                            <option value="Bebidas">Bebidas</option>
-                            <option value="Comida">Comida</option>
-                            <option value="Entrantes">Entrantes</option>
-                            <option value="Postres">Postres</option>
-                            <option value="Saludable">Saludable</option>
-                            <option value="Vegano">Vegano</option>
+                            <option value="" selected disabled>Selecciona tipo de receta</option>
+                            <option value="Postres y dulces">Postres y dulces</option>
+                            <option value="Arroz">Arroz</option>
+                            <option value="Pasta">Pasta</option>
+                            <option value="Carnes y aves">Carnes y aves</option>
+                            <option value="Pescado y marisco">Pescado y marisco</option>
+                            <option value="Verduras y hortalizas">Verduras y hortalizas</option>
+                            <option value="Ensaladas">Ensaladas</option>
+                            <option value="Huevos y tortillas">Huevos y tortillas</option>
+                            <option value="Tapas y aperitivos">Tapas y aperitivos</option>
                             <!-- etc -->
                         </select>
                     </div>
@@ -51,9 +53,9 @@
               </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Guardar receta</button>
+        <div class="modal-footer flex-nowrap p-0">
+          <button type="submit" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" style="background-color:rgba(238,114,71,255); color:white;">Guardar receta</button>
+          <button type="button" class="btn btn-lg btn-danger fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">Cancelar</button>
         </div>
       </form>
     </div>
