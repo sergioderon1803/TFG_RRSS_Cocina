@@ -17,7 +17,16 @@
 
                     <div class="col-md-6">
                         <label for="tipo" class="form-label">Tipo:</label>
-                        <input type="text" name="tipo" id="tipo" class="form-control" required>
+                        <select class="form-control" id="tipo" name="tipo" required>
+                            <option hidden>Selecciona tipo de receta</option>
+                            <option value="Bebidas">Bebidas</option>
+                            <option value="Comida">Comida</option>
+                            <option value="Entrantes">Entrantes</option>
+                            <option value="Postres">Postres</option>
+                            <option value="Saludable">Saludable</option>
+                            <option value="Vegano">Vegano</option>
+                            <!-- etc -->
+                        </select>
                     </div>
                 </div>
 

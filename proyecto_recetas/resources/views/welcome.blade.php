@@ -126,17 +126,17 @@
 
             <div class="row justify-content-center text-center g-5">
                 <div class="col-sm-6 col-md-4">
-                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img" alt="Sergio Álvarez de Ron">
+                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img img-fluid" alt="Sergio Álvarez de Ron">
                     <div class="profile-name">Sergio Álvarez de Ron</div>
                     <div class="profile-desc">Alérgico a la vida</div>
                 </div>
                 <div class="col-sm-6 col-md-4">
-                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img" alt="Jonathan Hidalgo">
+                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img img-fluid" alt="Jonathan Hidalgo">
                     <div class="profile-name">Jonathan Hidalgo</div>
                     <div class="profile-desc">Catador profesional de elixires revitalizantes</div>
                 </div>
                 <div class="col-sm-6 col-md-4">
-                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img" alt="Sergio Montoiro">
+                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img img-fluid" alt="Sergio Montoiro">
                     <div class="profile-name">Sergio Montoiro</div>
                     <div class="profile-desc">Programador explotado</div>
                 </div>

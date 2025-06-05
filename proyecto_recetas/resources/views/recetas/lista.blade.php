@@ -25,14 +25,18 @@
             <div class="col-12 col-xl-3">
                 <div class="card mb-3">
                     <div class="card-header bg-light">
-                        <strong>Filtrar por categoría</strong>
+                        <strong>Elija tipo de receta:</strong>
                     </div>
                     <div class="card-body">
                         <!-- Contenido del filtro 1 -->
                         <select class="form-select">
-                            <option selected>Selecciona categoría</option>
-                            <option value="1">Entrantes</option>
-                            <option value="2">Postres</option>
+                            <option hidden>Selecciona tipo de receta</option>
+                            <option value="1">Bebidas</option>
+                            <option value="2">Comida</option>
+                            <option value="3">Entrantes</option>
+                            <option value="4">Postres</option>
+                            <option value="5">Saludable</option>
+                            <option value="6">Vegano</option>
                             <!-- etc -->
                         </select>
                     </div>
@@ -40,12 +44,12 @@
 
                 <div class="card">
                     <div class="card-header bg-light">
-                        <strong>Filtrar por dificultad</strong>
+                        <strong>Elija dificultad:</strong>
                     </div>
                     <div class="card-body">
                         <!-- Contenido del filtro 2 -->
                         <select class="form-select">
-                            <option selected>Selecciona dificultad</option>
+                            <option hidden>Selecciona dificultad</option>
                             <option value="fácil">Fácil</option>
                             <option value="media">Media</option>
                             <option value="difícil">Difícil</option>
@@ -87,7 +91,7 @@
                     ids.push(arreglo[x].id);
 
                     listado += `<div class="col">
-                        <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3" style="cursor: pointer;">
+                        <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3 recetaResponsive" style="cursor: pointer;">
                             <img src="{{ asset('storage/` + arreglo[x].imagen +`') }}"
                                 class="card-img-top"
                                 alt="Imagen de ` + arreglo[x].titulo + `"
