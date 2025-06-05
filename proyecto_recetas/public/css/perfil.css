@@ -5,25 +5,11 @@ body {
     font-size: x-large;
 }
 .tamañoSecciones{
-    padding: 5px 205px;
+    padding: 3px 0px;
     border: 1px solid #000000;
     border-top: none;
     border-radius: 0 0 10px 10px;
     cursor: pointer;
-}
-
-/* Pantalla tablet*/
-@media (max-width: 991px) {
-  .tamañoSecciones {
-    padding: 5px 164px;
-  }
-}
-
-/* Pantalla movil*/
-@media (max-width: 767px) {
-  .tamañoSecciones {
-    padding: 5px 78px;
-  }
 }
 
 /* Pantallas muy pequeñas (móviles, <576px) */

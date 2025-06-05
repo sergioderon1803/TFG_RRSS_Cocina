@@ -66,8 +66,10 @@
 <hr class="mt-4">
 
 <h5 class="fw-bold mb-3">
-    <i class="bi bi-person-fill tamañoSecciones" id="clickRecetas"></i>
-    <i class="bi bi-heart tamañoSecciones" id="clickMeGustas"></i>
+    <div class="d-flex w-100">
+        <i class="bi bi-person-fill w-50 tamañoSecciones text-center" id="clickRecetas"></i>
+        <i class="bi bi-heart w-50 tamañoSecciones text-center" id="clickMeGustas"></i>
+    </div>
 </h5>
 
 <!-- Donde se van a listar las recetas -->
