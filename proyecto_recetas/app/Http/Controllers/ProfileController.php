@@ -32,6 +32,42 @@ class ProfileController extends Controller {
         return view('profile.perfil', compact('perfil', 'seguido'));
     }
 
+    // Buscador de la principal
+
+    public function buscarPerfiles(Request $request)
+    {
+        $usuarios = Perfil::where('name','LIKE',$request->input.'%')->whereNot('id_user',Auth::id())->take(6)->get(); // Cojo 6 que coincidan y no sean el usuario logado
+
+        $listaUsuarios = '';
+
+        // Si hay más de 0, los imprimo, si no, no hay resultados
+
+        if(count($usuarios)>0){
+
+            $listaUsuarios = '<ul class="list-group" style="display:block;position:relative;z-index:1;">';
+
+            foreach($usuarios as $perfil){
+
+                $imgPerfil = asset('storage/'. $perfil->img_perfil);
+                $url = url('perfil/' .$perfil->id_user);
+
+                $listaUsuarios .= '<a href="'.$url.'"class="text-decoration-none text-muted">
+                        <li class="list-group-item usuarioCoincidencia">
+                            <img src="'.$imgPerfil.'" 
+                            class="rounded-circle shadow-sm" 
+                            style="width: 50px; height: 50px; object-fit: cover;"> '. $perfil->name .
+                        '</li></a>';
+            }
+
+            $listaUsuarios .= '</ul>';
+
+        }else{
+            $listaUsuarios = '<li class="list-group-item">No se encontraron resultados</li>';
+        }
+
+        return $listaUsuarios;
+    }
+
     public function verSeguidores($id)
     {
         $perfil = Perfil::where('id_user', $id)->firstOrFail();

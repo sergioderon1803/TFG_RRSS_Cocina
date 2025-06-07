@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function () {
     // Perfil usuario autenticado
     Route::get('/perfil', [UserController::class, 'mostrarPerfilAutenticado'])->name('usuario.perfil');
 
+    Route::get('/busqueda', [ProfileController::class, 'buscarPerfiles'])->name('usuario.buscarPerfiles');
+
     // Guardar y gustar recetas
     Route::post('/recetas/{id}/guardar', [RecetaController::class, 'guardarRecetaUsuario'])->name('recetas.guardar');
     Route::delete('/recetas/{id}/guardar', [RecetaController::class, 'eliminarGuardado'])->name('recetas.guardar.eliminar');

@@ -2,6 +2,17 @@
 
 @section('titulo', 'Listado de recetas')
 
+@section('css')
+
+    <style>
+        .usuarioCoincidencia:hover{
+            background-color:rgba(238,114,71,255); 
+            color:white;
+        }
+    </style>
+
+@endsection
+
 @section('content')
     <div class="container-fluid my-3 px-3 mb-5">
         <div class="d-flex flex-column align-items-center mb-4">
@@ -44,18 +55,9 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header bg-light">
-                        <strong>Elija dificultad:</strong>
-                    </div>
-                    <div class="card-body">
-                        <!-- Contenido del filtro 2 -->
-                        <select class="form-select">
-                            <option hidden>Selecciona dificultad</option>
-                            <option value="facil">Fácil</option>
-                            <option value="media">Media</option>
-                            <option value="difícil">Difícil</option>
-                        </select>
+                <div class="card mb-3">
+                    <input type="text" name="busqueda" id="busqueda" class="form-control" placeholder="Buscar">
+                    <div id="busquedaUsuarios">
                     </div>
                 </div>
             </div>
@@ -67,6 +69,41 @@
 @section('js')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!--SCRIPT BUSCADOR, SE PUEDE MOVER PERO DE MOMENTO LO DEJO AQUÍ-->
+
+    <script>
+        $(document).ready(function(){
+
+            // Cada vez que el usuario teclea en el buscador
+
+            $('#busqueda').on('keyup',function(){
+                var input = $(this).val();
+
+                // Si el valor es distinto de vacío, hace Ajax y sustituye lo recogido por el contenido del html, si está vacío, borra todo el contenido
+
+                if(input != ""){
+                    $.ajax({
+                        url:"{{ route('usuario.buscarPerfiles')}}",
+                        method:"GET",
+                        data: {
+                            input: input,
+                            _token: '{{ csrf_token() }}',
+                        },
+
+                        success:function(datos){
+                            $('#busquedaUsuarios').html(datos);
+                        }
+                    })
+                }else{
+                    $('#busquedaUsuarios').html("");
+                }
+            });
+        });
+    </script>
+
+
+    <!--SCRIPT DEL LISTADO DE RECETAS (CREO QUE NO SE PODRÁ MOVER A OTRO)-->
 
     <script>
 
@@ -423,7 +460,7 @@
             
         });
 
-//-----------------------------------------------------------------------EVENTO SELECT------------------------------------------------------------------------
+        //-----------------------------------------------------------------------EVENTO SELECT------------------------------------------------------------------------
 
          $('#tipoRecetas').on('click',function(){
             if(filtroTipo != $('#tipoRecetas').val()){
