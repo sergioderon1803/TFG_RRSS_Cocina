@@ -70,6 +70,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/busqueda', [ProfileController::class, 'buscarPerfiles'])->name('usuario.buscarPerfiles');
 
+    Route::post('/buscar', [ProfileController::class, 'busqueda'])->name('usuario.busqueda');
+
     // Guardar y gustar recetas
     Route::post('/recetas/{id}/guardar', [RecetaController::class, 'guardarRecetaUsuario'])->name('recetas.guardar');
     Route::delete('/recetas/{id}/guardar', [RecetaController::class, 'eliminarGuardado'])->name('recetas.guardar.eliminar');

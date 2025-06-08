@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Perfil;
+use App\Models\Receta;
 use App\Models\SeguirUsuario;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
+use App\Models\GuardarReceta;
+use App\Models\GustarReceta;
 
 class ProfileController extends Controller {
 
@@ -44,7 +47,7 @@ class ProfileController extends Controller {
 
         if(count($usuarios)>0){
 
-            $listaUsuarios = '<ul class="list-group" style="display:block;position:relative;z-index:1;">';
+            $listaUsuarios = '<ul class="list-group" style="display:block;position:absolute;z-index:1;">';
 
             foreach($usuarios as $perfil){
 
@@ -62,10 +65,27 @@ class ProfileController extends Controller {
             $listaUsuarios .= '</ul>';
 
         }else{
-            $listaUsuarios = '<li class="list-group-item">No se encontraron resultados</li>';
+            $listaUsuarios = '';
         }
 
         return $listaUsuarios;
+    }
+
+    public function busqueda(Request $request)
+    {
+        $filtro = $request->busqueda;
+
+        $recetas = Receta::where('titulo','LIKE',$request->busqueda."%")->whereNot('autor_receta',Auth::id())->take(9)->get();
+
+        foreach($recetas as $receta){
+
+            $receta['like'] = GustarReceta::where('id_receta',$receta->id)->where('id_user',Auth::id())->exists();
+            $receta['guardado'] = GuardarReceta::where('id_receta',$receta->id)->where('id_user',Auth::id())->exists();
+        }
+
+        $usuarios = Perfil::where('name','LIKE',$request->busqueda.'%')->whereNot('id_user',Auth::id())->take(6)->get(); // Cojo 6 que coincidan y no sean el usuario logado
+
+        return view('profile.busqueda', compact('recetas', 'usuarios','filtro'));
     }
 
     public function verSeguidores($id)
