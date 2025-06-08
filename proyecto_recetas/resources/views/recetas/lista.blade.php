@@ -385,6 +385,9 @@
 
                 $("#verMas").on("click", function() {
 
+                    $('.guardados').off('click');
+                    $('.darLike').off('click');
+
                     $.ajax({
                         url: "{{ route('recetas.listarRecetasPrincipalAjax') }}",
                         method: 'POST',
@@ -451,6 +454,202 @@
                         listado += `</div>`;
 
                         $("#listado").append(listado);
+
+                        $(".guardados").on("click", function() {
+
+                            const recetaId = $(this).data('id');
+
+                            let etiqueta = `#guardados${recetaId}`; // Guardo el id de la etiqueta small
+
+                            let etiquetaBtn = `#btnGuardado${recetaId}`;
+
+                            let valorGuardados = parseInt($(etiqueta).text()); // Convierto en número el txto que tiene
+
+                            if ($(this).hasClass('bi-bookmark-fill')) {
+
+
+                                Swal.fire({
+                                    title: "¿Estás seguro de que ya no quieres guardar esta receta?",
+                                    text: "",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Quitar de guardados"
+                                }).then((result) => {
+
+                                    if (result.isConfirmed) { // Si acepta borrarla, hago un ajax
+
+                                        $.ajax({
+                                            url: `{{ url('/recetas/quitarGuardado/') }}/${recetaId}`, // Llamo al controlador y le paso el ID
+                                            method: 'DELETE',
+                                            data: {
+                                                _token: '{{ csrf_token() }}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                                            },
+
+                                            // Si acepta y la respuesta es la que mando en el controlador, lanzo un pop up
+                                            success: function(response) {
+                                                if (response.status === 'success') {
+
+                                                    Swal.fire({
+                                                        title: "Ya no la tienes guardada",
+                                                        text: "",
+                                                        icon: "success"
+                                                    });
+
+
+                                                } else {
+                                                    Swal.fire(
+                                                        'No se ha podido completar la solicitud',
+                                                        '', 'warning');
+                                                }
+                                            },
+                                            error: function(error) {
+                                                Swal.fire('Se ha producido un error',
+                                                    '', 'error');
+                                            }
+                                        })
+
+                                        $(this).removeClass('bi-bookmark-fill');
+                                        $(this).addClass('bi-bookmark');
+
+                                        $(etiquetaBtn).attr('title', "Guardar receta");
+
+                                        // Cambiu el valor del html por la nueva cantidad de guardados
+
+                                        valorGuardados--;
+
+                                        $(etiqueta).text(valorGuardados.toString());
+                                    }
+
+
+                                });
+
+                            } else {
+                                $.ajax({
+                                    url: `{{ url('/recetas/guardarReceta/') }}/${recetaId}`, // Llamo al controlador y le paso el ID
+                                    method: 'POST',
+                                    data: {
+                                        _token: '{{ csrf_token() }}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                                    }
+                                })
+
+                                // Le quito una clase y le pongo la otra
+
+                                $(this).removeClass('bi-bookmark');
+                                $(this).addClass('bi-bookmark-fill');
+
+                                $(etiquetaBtn).attr('title', "Quitar de guardadas");
+
+                                // Cambiu el valor del html por la nueva cantidad de guardados
+
+                                valorGuardados++;
+                                $(etiqueta).text(valorGuardados.toString());
+                            }
+
+
+
+                        });
+
+                        //-------------------------------------------------------------------------------------ME GUSTAS--------------------------------------------------------------------------------------------------
+
+                        $(".darLike").on("click", function() {
+
+                            const recetaId = $(this).data('id');
+
+                            let etiqueta = `#gustas${recetaId}`; // Guardo el id de la etiqueta small
+
+                            let etiquetaBtn = `#btnLike${recetaId}`;
+
+                            let valorMegusta = parseInt($(etiqueta).text()); // Convierto en número el txto que tiene
+
+                            if ($(this).hasClass('bi-heart-fill')) {
+
+                                Swal.fire({
+                                    title: "¿Estás seguro de que ya no te gusta esta receta?",
+                                    text: "",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "No me gusta"
+                                }).then((result) => {
+
+                                    if (result.isConfirmed) { // Si acepta borrarla, hago un ajax
+
+                                        $.ajax({
+                                            url: `{{ url('/recetas/quitarMeGusta/') }}/${recetaId}`, // Llamo al controlador y le paso el ID
+                                            method: 'DELETE',
+                                            data: {
+                                                _token: '{{ csrf_token() }}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                                            },
+
+                                            // Si acepta y la respuesta es la que mando en el controlador, lanzo un pop up
+                                            success: function(response) {
+                                                if (response.status === 'success') {
+
+                                                    Swal.fire({
+                                                        title: "Ya no te gusta esta receta",
+                                                        text: "",
+                                                        icon: "success"
+                                                    });
+
+                                                } else {
+                                                    Swal.fire(
+                                                        'No se ha podido completar la solicitud',
+                                                        '', 'warning');
+                                                }
+                                            },
+                                            error: function(error) {
+                                                Swal.fire('Se ha producido un error',
+                                                    '', 'error');
+                                            }
+                                        })
+
+                                        // Le quito una clase y le pongo la otra
+
+                                        $(this).removeClass('bi-heart-fill');
+                                        $(this).addClass('bi-heart');
+
+                                        $(etiquetaBtn).attr('title', "Dar me gusta");
+
+                                        // Cambio el valor del html por la nueva cantidad de me gusta
+
+                                        valorMegusta--;
+
+                                        
+                                        $(etiqueta).text(valorMegusta.toString());
+                                    }
+
+
+                                });
+
+                            } else {
+
+                                $.ajax({
+                                    url: `{{ url('/recetas/darMeGusta/') }}/${recetaId}`, // Llamo al controlador y le paso el ID
+                                    method: 'POST',
+                                    data: {
+                                        _token: '{{ csrf_token() }}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                                    }
+                                })
+
+                                // Le quito una clase y le pongo la otra
+
+                                $(this).removeClass('bi-heart');
+                                $(this).addClass('bi-heart-fill');
+
+                                $(etiquetaBtn).attr('title', "Quitar me gusta");
+
+                                // Cambiu el valor del html por la nueva cantidad de me gusta
+
+                                valorMegusta++;
+                                $(etiqueta).text(valorMegusta.toString());
+                            }
+
+
+
+                        });
 
 
                     });
