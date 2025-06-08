@@ -8,7 +8,7 @@
               <div class="col-12">
                 <div class="row g-3">
                   <ul class="list-group">
-                    <li class="list-group-item text-center fs-4 text-decoration-none col-12 py-3 m-0 rounded-0 border-end" style="background-color:rgba(238,114,71,255); color:white;">Crear receta</li>
+                    <li class="list-group-item text-center fs-4 text-decoration-none col-12 py-3 m-0 rounded-0 border-end" style="background-color:#F07B3F; color:white;">Crear receta</li>
                   </ul>
                     <div class="col-md-6">
                         <label for="titulo" class="form-label">Título:</label>
@@ -54,8 +54,8 @@
             </div>
         </div>
         <div class="modal-footer flex-nowrap p-0">
-          <button type="submit" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" style="background-color:rgba(238,114,71,255); color:white;">Guardar receta</button>
-          <button type="button" class="btn btn-lg btn-danger fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" style="background-color:#2A9D8F; color:white;">Guardar receta</button>
+          <button type="button" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" style="background-color:#E76F51; color:white;" data-bs-dismiss="modal">Cancelar</button>
         </div>
       </form>
     </div>
