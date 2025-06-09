@@ -21,7 +21,12 @@
             <form action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="d-block">
-                    <input type="text" name="busqueda" id="busqueda" class="form-control flex-fill" placeholder="Buscar">
+                    <div class="input-group">
+                        <input type="text" name="busqueda" id="busqueda" class="form-control" placeholder="Buscar usuarios">
+                        <button type="submit" class="btn btn-outline-secondary">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
                     <div id="busquedaUsuarios">
                     </div>
                 </div>

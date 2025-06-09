@@ -26,10 +26,13 @@
                 <form action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card mb-3">
-                        <input type="text" name="busqueda" id="busqueda" class="form-control" placeholder="Buscar usuarios">
-                        <input type="submit" hidden>
-                        <div id="busquedaUsuarios">
+                        <div class="input-group">
+                            <input type="text" name="busqueda" id="busqueda" class="form-control" placeholder="Buscar usuarios">
+                            <button type="submit" class="btn btn-outline-secondary">
+                                <i class="bi bi-search"></i>
+                            </button>
                         </div>
+                        <div id="busquedaUsuarios"></div>
                     </div>
                 </form>
 
