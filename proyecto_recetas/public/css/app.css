@@ -7,6 +7,19 @@
     background-color:rgba(238,114,71,255); 
     color:white;
 }
+
+.botonVerMas {
+    background-color: #F07B3F;
+    color: white;
+    border: none;
+    transition: background 0.2s;
+}
+
+.botonVerMas:hover {
+    background-color: #c9652f; /* Un poco más oscuro que #F07B3F */
+    color: white;
+}
+
 @media (max-width: 426px) {
     .margenesResponsive{
         margin-bottom: 50px;

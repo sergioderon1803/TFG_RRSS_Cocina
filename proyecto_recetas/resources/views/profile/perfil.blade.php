@@ -66,7 +66,7 @@
 
 <h5 class="fw-bold mb-3">
     <div class="d-flex w-100">
-        <i class="bi bi-person-fill w-50 tamañoSecciones text-center" id="clickRecetas"></i>
+        <i class="bi bi-person-fill w-50 tamañoSecciones seleccionado text-center" id="clickRecetas"></i>
         <i class="bi bi-heart w-50 tamañoSecciones text-center" id="clickMeGustas"></i>
     </div>
 </h5>
@@ -307,11 +307,11 @@
                         
                         document.getElementById('recetasListadas').remove();
                         
-                        document.getElementById("clickMeGustas").classList.add('seleccionado');
+                        document.getElementById("clickMeGustas").classList.remove('seleccionado');
                         document.getElementById("clickMeGustas").classList.remove('bi-heart-fill');
                         document.getElementById("clickMeGustas").classList.add('bi-heart');
 
-                        document.getElementById("clickRecetas").classList.remove('seleccionado');
+                        document.getElementById("clickRecetas").classList.add('seleccionado');
                         document.getElementById("clickRecetas").classList.remove('bi-person');
                         document.getElementById("clickRecetas").classList.add('bi-person-fill');
 

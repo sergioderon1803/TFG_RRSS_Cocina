@@ -15,7 +15,9 @@ body {
   top: 234px;
   right: -6px;
 }
-
+.seleccionado{
+  color:#F07B3F;
+}
 
 /* Pantallas muy pequeñas (móviles, <576px) */
 @media (max-width: 424px) {

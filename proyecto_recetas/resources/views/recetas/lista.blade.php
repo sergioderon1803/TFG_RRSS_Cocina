@@ -172,7 +172,7 @@
                 // Botón "Ver más"
                 $("#listado").after(`
                     <div class="text-center mt-4">
-                        <button id="verMas" class="btn btn-outline-secondary">Ver más...</button>
+                        <button id="verMas" class="btn botonVerMas">Ver más...</button>
                     </div>
                 `);
 
