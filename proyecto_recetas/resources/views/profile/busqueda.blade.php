@@ -23,7 +23,7 @@
                 <div class="d-block">
                     <div class="input-group">
                         <input type="text" name="busqueda" id="busqueda" class="form-control" placeholder="Buscar usuarios">
-                        <button type="submit" class="btn btn-outline-secondary">
+                        <button type="submit" class="btn botonVerMas">
                             <i class="bi bi-search"></i>
                         </button>
                     </div>
