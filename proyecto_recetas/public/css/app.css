@@ -1,6 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 /*==============================
+=           LISTADO            =
+==============================*/
+.usuarioCoincidencia:hover{
+    background-color:rgba(238,114,71,255); 
+    color:white;
+}
+@media (max-width: 426px) {
+    .margenesResponsive{
+        margin-bottom: 50px;
+    }
+}
+
+/*==============================
 =            RESET            =
 ==============================*/
 * {
@@ -196,6 +209,7 @@ body.sidebar-collapsed .main-content {
 /*==============================
 =        ABOUT / PERFIL       =
 ==============================*/
+
 .profile-img {
     width: 300px;
     height: 300px;

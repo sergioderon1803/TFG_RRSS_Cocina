@@ -193,8 +193,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Comentar receta {{ $receta->id }}</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="list-group-item text-center modal-title fs-5 text-decoration-none col-12 py-3 m-0 rounded-0 border-end" style="background-color:#F07B3F; color:white;" id="exampleModalLabel">Comentar receta de {{ '@' . Str::slug($receta->autor->perfil->name) }}</h1>
                 </div>
                 <form action="{{ route('comentarios.store') }}" method="POST">
                     @csrf
@@ -204,9 +203,9 @@
                             <textarea name="contenido" class="form-control" rows="3" placeholder="Escribe un comentario..." required></textarea>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Comentar</button>
+                    <div class="modal-footer d-flex justify-content-between flex-nowrap p-0">
+                        <button type="submit" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" style="background-color:#2A9D8F; color:white;">Comentar</button>
+                        <button type="button" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" style="background-color:#E76F51; color:white;" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -218,8 +217,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Receta</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="list-group-item text-center modal-title fs-4 text-decoration-none col-12 py-3 m-0 rounded-0 border-end" style="background-color:#F07B3F; color:white;" id="exampleModalLabel">Editar Receta</h1>
                 </div>
                 <form action="{{ route('recetas.actualizar', $receta->id) }}" method="POST"
                     enctype="multipart/form-data">
@@ -237,26 +235,30 @@
                                 <div class="col-md-6">
                                     <label for="tipo" class="form-label">Tipo:</label>
                                     <select class="form-control" id="tipo" name="tipo" required>
-                                        <option value="{{ $receta->tipo }}" hidden>{{ $receta->tipo }}</option>
-                                        <option value="Bebidas">Bebidas</option>
-                                        <option value="Comida">Comida</option>
-                                        <option value="Entrantes">Entrantes</option>
-                                        <option value="Postres">Postres</option>
-                                        <option value="Saludable">Saludable</option>
-                                        <option value="Vegano">Vegano</option>
+                                        <option value="" selected disabled>Selecciona tipo de receta</option>
+                                        <option value="Postres y dulces">Postres y dulces</option>
+                                        <option value="Arroz">Arroz</option>
+                                        <option value="Pasta">Pasta</option>
+                                        <option value="Carnes y aves">Carnes y aves</option>
+                                        <option value="Pescado y marisco">Pescado y marisco</option>
+                                        <option value="Verduras y hortalizas">Verduras y hortalizas</option>
+                                        <option value="Ensaladas">Ensaladas</option>
+                                        <option value="Huevos y tortillas">Huevos y tortillas</option>
+                                        <option value="Tapas y aperitivos">Tapas y aperitivos</option>
                                         <!-- etc -->
                                     </select>
                                 </div>
                             </div>
-                            <div class="justify-center">
+                            <div class="d-flex flex-column align-items-center">
                                 <label for="imagen" class="form-label">Imagen:</label>
-                                <br />
                                 <img id="preview" class="mt-2 imagenPrevia"
                                     style="max-width: 250px; max-height: 250px;"
                                     src="{{ asset('storage/' . $receta->imagen) }}" alt="Imagen previa">
-                                <input type="file" accept="image/*" id="imgInput" name="imagen"
+                                <input type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" id="imgInput" name="imagen"
                                     class="form-control">
                             </div>
+
+
                             <div class="row g-3">
                                 <!-- Ingredientes -->
                                 <div class="col-md-6">
@@ -272,9 +274,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Editar receta</button>
+                    <div class="modal-footer d-flex justify-content-between flex-nowrap p-0">
+                        <button type="submit" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" style="background-color:#2A9D8F; color:white;">Guardar cambios</button>
+                        <button type="button" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" style="background-color:#E76F51; color:white;" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -324,8 +326,8 @@
                     text: "",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
+                    confirmButtonColor: "#2A9D8F",
+                    cancelButtonColor: "#E76F51",
                     confirmButtonText: "No me gusta"
                 }).then((result) => {
 
@@ -414,8 +416,8 @@
                     text: "",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
+                    confirmButtonColor: "#2A9D8F",
+                    cancelButtonColor: "#E76F51",
                     confirmButtonText: "Quitar de guardados"
                 }).then((result) => {
 
@@ -484,8 +486,8 @@
                     text: "",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
+                    confirmButtonColor: "#2A9D8F",
+                    cancelButtonColor: "#E76F51",
                     confirmButtonText: "Eliminar"
                 }).then((result) => {
 

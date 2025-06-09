@@ -36,7 +36,7 @@
                 <div class="d-flex flex-column align-items-center">
                     <label for="imagen" class="form-label">Imagen:</label>
                     <img id="preview" class="mt-2 img-fluid" style="max-width: 250px; max-height: 250px;" src="{{ asset('images/pantallaGris.jpg') }}" alt="Imagen previa">
-                    <input type="file" accept="image/*" id="imagen" name="imagen" class="form-control" required>
+                    <input type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" id="imagen" name="imagen" class="form-control" required>
                 </div>
 
                 <div class="row g-3">
@@ -53,7 +53,7 @@
               </div>
             </div>
         </div>
-        <div class="modal-footer flex-nowrap p-0">
+        <div class="modal-footer d-flex justify-content-between flex-nowrap p-0">
           <button type="submit" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" style="background-color:#2A9D8F; color:white;">Guardar receta</button>
           <button type="button" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" style="background-color:#E76F51; color:white;" data-bs-dismiss="modal">Cancelar</button>
         </div>

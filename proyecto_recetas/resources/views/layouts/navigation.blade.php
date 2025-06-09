@@ -26,26 +26,33 @@
                 <span class="link-wrapper"><span class="link-text"> {{ __('Principal') }} </span></span>
             </a>
         </li>
+        
         <li>
-            <a href="{{ route('perfil.ver', ['id' => $perfilId]) }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('perfil.ver') ? 'active bg-dark' : '' }}">
+            <a href="{{ route('perfil.ver', ['id' => $perfilId]) }}"
+            class="nav-link text-white d-flex align-items-center
+            {{ (request()->routeIs('perfil.ver') && (request()->route('id') == $perfilId)) ? 'active bg-dark' : '' }}">
                 <i class="bi bi-person-fill me-2 fs-4"></i>
                 <span class="link-wrapper"><span class="link-text"> {{ __('Perfil') }} </span></span>
             </a>
         </li>
+
+        <li>
+        <form action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+            <button type="submit" name="busqueda" id="busqueda" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('usuario.busqueda') ? 'active bg-dark' : '' }}">
+                <i class="bi bi-search me-2 fs-4"></i>
+                <span class="link-wrapper"><span class="link-text"> {{ __('Buscador') }} </span>
+            </button>
+        </form>
+        </li>
+        
         <li>
             <a href="{{ route('recetas.recetasGuardadas') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('recetas.recetasGuardadas') ? 'active bg-dark' : '' }}">
                 <i class="bi bi-bookmarks-fill me-2 fs-4"></i>
                 <span class="link-wrapper"><span class="link-text"> {{ __('Guardados') }} </span></span>
             </a>
         </li>
-        <li>
-            <a href="{{ route('about') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('about') ? 'active bg-dark' : '' }}">
-                <i class="bi bi-info-circle-fill me-2 fs-4"></i>
-                <span class="link-wrapper"><span class="link-text"> {{ __('About') }} Us</span></span>
-            </a>
-        </li>
         <br>
-        @if (!request()->routeIs('about'))
         <li>
             @auth
                 <button
@@ -57,7 +64,6 @@
                 </button>
             @endauth
         </li>
-        @endif
     </ul>
 
     <!-- Área del usuario al fondo -->
@@ -109,3 +115,33 @@
         body.classList.toggle('sidebar-collapsed', collapsed);
     });
 </script>
+
+<script>
+        $(document).ready(function(){
+
+            // Cada vez que el usuario teclea en el buscador
+
+            $('#busqueda').on('keyup',function(){
+                var input = $(this).val();
+
+                // Si el valor es distinto de vacío, hace Ajax y sustituye lo recogido por el contenido del html, si está vacío, borra todo el contenido
+
+                if(input != ""){
+                    $.ajax({
+                        url:"{{ route('usuario.buscarPerfiles')}}",
+                        method:"GET",
+                        data: {
+                            input: input,
+                            _token: '{{ csrf_token() }}',
+                        },
+
+                        success:function(datos){
+                            $('#busquedaUsuarios').html(datos);
+                        }
+                    })
+                }else{
+                    $('#busquedaUsuarios').html("");
+                }
+            });
+        });
+    </script>

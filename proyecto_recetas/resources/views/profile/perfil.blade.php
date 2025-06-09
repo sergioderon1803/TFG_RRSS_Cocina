@@ -26,16 +26,15 @@
             style="width: 120px; height: 120px; object-fit: cover;"
             alt="Perfil de {{ $perfil->name }}">
     </div>
-
     {{-- Botón de editar o seguir, según el caso --}}
     @auth
-        <div class="position-absolute top-0 end-0 p-3">
+        <div class="position-absolute posicionBoton p-4">
             @if (Auth::id() === $perfil->id_user)
-                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarPeril">
+                <button type="button" class="btn btn-outline-primary fs-6 btn-sm" data-bs-toggle="modal" data-bs-target="#editarPeril">
                     Editar perfil
                 </button>
             @else
-                <button data-id="{{$perfil->id_user}}" id="seguirUsuario" type="submit" class="btn btn-{{$seguido ? "danger" : "success"}} btn-sm">{{$seguido ? "Dejar de seguir" : "Seguir"}}</button>
+                <button data-id="{{$perfil->id_user}}" id="seguirUsuario" type="submit" class="btn fs-6 btn-{{$seguido ? "danger" : "success"}} btn-sm">{{$seguido ? "Dejar de seguir" : "Seguir"}}</button>
             @endif
         </div>
     @endauth
@@ -123,8 +122,8 @@
                     text: "",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
+                    confirmButtonColor: "#2A9D8F",
+                    cancelButtonColor: "#E76F51",
                     confirmButtonText: "Dejar de seguir"
                 }).then((result) => {
 

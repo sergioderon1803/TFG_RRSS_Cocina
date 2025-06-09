@@ -2,8 +2,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Edición de perfil</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 id="exampleModalLabel" class="list-group-item text-center modal-title fs-4 text-decoration-none col-12 py-3 m-0 rounded-0 border-end" style="background-color:#F07B3F; color:white;">Edición de perfil</h1>
       </div>
 
       <form action="{{ route('perfil.actualizar', ['id' => $perfil->id_user]) }}" method="POST" enctype="multipart/form-data">
@@ -34,7 +33,7 @@
             <div class="col-md-6">
               <label for="img_perfil" class="form-label">Nueva imagen de perfil</label>
               <img id="preview" style="max-width: 200px; max-height:200px;" class="mt-2 imagenPrevia" src="{{asset('images/pantallaGris.jpg')}}" alt="Imagen previa">
-              <input id="img_perfil" type="file" name="img_perfil" class="form-control my-auto">
+              <input id="img_perfil" type="file" name="img_perfil" class="form-control my-auto" accept=".jpg,.jpeg,.png,image/jpeg,image/png">
             </div>
           </div>
 
@@ -49,16 +48,16 @@
             </div>
 
             <div class="col-md-6">
-              <label for="img_banner" class="form-label m-auto">Nuevo banner</label>
-              <img id="previewBanner" style="max-width: 200px; max-height:150px;" class="mt-2 imagenPrevia" src="{{asset('images/pantallaGris.jpg')}}" alt="Imagen previa">
-              <input id="img_banner" type="file" name="img_banner" class="form-control my-auto">
+              <label for="img_perfil" class="form-label">Nuevo banner</label><br>
+              <img id="preview" style="max-width: 200px; max-height:200px;" class="mt-2 imagenPrevia" src="{{asset('images/pantallaGris.jpg')}}" alt="Imagen previa">
+              <input id="img_banner" type="file" name="img_banner" class="form-control my-auto" accept=".jpg,.jpeg,.png,image/jpeg,image/png">
             </div>
           </div>
 
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Guardar cambios</button>
+          <div class="modal-footer d-flex justify-content-between flex-nowrap p-0">
+          <button type="submit" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" style="background-color:#2A9D8F; color:white;" data-bs-dismiss="modal">Guardar cambios</button>
+          <button type="button" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" style="background-color:#E76F51; color:white;" data-bs-dismiss="modal">Cancelar</button>
         </div>
       </form>
     </div>

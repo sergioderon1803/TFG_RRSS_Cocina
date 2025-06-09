@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>WeCook - Comparte tus recetas al mundo</title>
+    <link rel="icon" href="{{ asset('images/logo_small_black.svg') }}" type="image/svg+xml">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap -->
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap/icons/bootstrap-icons.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -20,6 +22,19 @@
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 </head>
 <body class="position-relative bg-peach">
+    <!-- Botón circular para bajar -->
+    <button id="scrollDownBtn" class="btn btn-circle position-fixed start-50 translate-middle-x"
+        style="bottom: 30px; z-index: 10; width: 60px; height: 60px; background: #F07B3F; color: white; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border: none;">
+        <i class="bi bi-arrow-down fs-2 text-white"></i>
+    </button>
+
+    <!-- Botón circular para volver arriba -->
+    <button id="scrollUpBtn" class="btn btn-circle position-fixed start-50 translate-middle-x d-none"
+        style="bottom: 30px; z-index: 10; width: 60px; height: 60px; background: #2A9D8F; color: white; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border: none;">
+        <i class="bi bi-arrow-up fs-2 text-white"></i>
+    </button>
+
+    <!-- Sección de registro y login -->
     <div class="fondoRegistro">
         <div class="container auth-container fondoOpaco d-flex align-items-center justify-content-center min-vh-100 px-3">
             <div class="row shadow-lg bg-white rounded-4 overflow-hidden w-100 flex-column flex-md-row">
@@ -116,8 +131,8 @@
         </div>
     </div>
 
-    <main class="flex-grow-1 fondoAbout p-5">
-        <div class="container py-5 bg-light rounded shadow">
+    <main class="flex-grow-1 fondoAbout p-5" >
+        <div class="container py-5 bg-light rounded shadow" id="sobre-nosotros">
             <h1 class="text-center mb-4">Sobre Nosotros</h1>
 
             <p class="text-center lead mb-5">
@@ -144,8 +159,9 @@
         </div>
 
     <!--Noticias-->
-    <div class="container bg-light shadow rounded mt-5 p-5">
+    <div class="container bg-light shadow rounded mt-5 p-5" id="noticias">
         <p class="text-center fs-1 mb-5">Noticias</p>
+        <hr>
     <!-- Fresas Beneficios -->
     <div class="d-flex">
     <div class="row mb-4 align-items-center">
@@ -247,5 +263,66 @@
             showForm('login');
         @endif
     </script>
+
+<script>
+    const scrollDownBtn = document.getElementById('scrollDownBtn');
+    const scrollUpBtn = document.getElementById('scrollUpBtn');
+    const sobreNosotros = document.getElementById('sobre-nosotros');
+    const noticias = document.getElementById('noticias');
+
+    function getScrollStep() {
+        const scrollY = window.scrollY;
+        const sobreNosotrosTop = sobreNosotros.getBoundingClientRect().top + window.scrollY;
+        const noticiasTop = noticias.getBoundingClientRect().top + window.scrollY;
+
+        if (scrollY < sobreNosotrosTop - 10) {
+            return 0;
+        } else if (scrollY < noticiasTop - 10) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    function updateButtons() {
+        const scrollStep = getScrollStep();
+        if (scrollStep === 2) {
+            // Cambia el icono a flecha arriba y muestra el botón
+            scrollDownBtn.querySelector('i').classList.remove('bi-arrow-down');
+            scrollDownBtn.querySelector('i').classList.add('bi-arrow-up');
+            scrollDownBtn.classList.remove('d-none');
+            scrollUpBtn.classList.add('d-none');
+        } else {
+            // Icono flecha abajo
+            scrollDownBtn.querySelector('i').classList.remove('bi-arrow-up');
+            scrollDownBtn.querySelector('i').classList.add('bi-arrow-down');
+            scrollDownBtn.classList.remove('d-none');
+            scrollUpBtn.classList.add('d-none');
+        }
+    }
+
+    scrollDownBtn.addEventListener('click', function() {
+        const scrollStep = getScrollStep();
+        let offset = 0; // Cambia este valor si tienes un navbar fijo arriba
+
+        if (scrollStep === 0) {
+            // Scroll a "Sobre Nosotros"
+            const top = sobreNosotros.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+        } else if (scrollStep === 1) {
+            // Scroll a "Noticias"
+            const top = noticias.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+        } else if (scrollStep === 2) {
+            // Volver arriba a login
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+
+    window.addEventListener('scroll', updateButtons);
+    window.addEventListener('resize', updateButtons);
+    document.addEventListener('DOMContentLoaded', updateButtons);
+</script>
+
 </body>
 </html>

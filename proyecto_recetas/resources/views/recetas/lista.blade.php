@@ -2,19 +2,8 @@
 
 @section('titulo', 'Listado de recetas')
 
-@section('css')
-
-    <style>
-        .usuarioCoincidencia:hover{
-            background-color:rgba(238,114,71,255); 
-            color:white;
-        }
-    </style>
-
-@endsection
-
 @section('content')
-    <div class="container-fluid my-3 px-3 mb-5">
+    <div class="container-fluid my-3 px-3 mb-5 margenesResponsive">
         <div class="d-flex flex-column align-items-center mb-4">
             <div class="d-flex align-items-center">
                 <img src="/images/logo_black.svg" alt="Logo WeCook" class="img-fluid" style="height: 80px;">
@@ -34,6 +23,16 @@
 
             <!-- Columna de filtros -->
             <div class="col-12 col-sm-3 col-md-3 col-xl-3 margenesResponsive">
+                <form action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card mb-3">
+                        <input type="text" name="busqueda" id="busqueda" class="form-control" placeholder="Buscar usuarios">
+                        <input type="submit" hidden>
+                        <div id="busquedaUsuarios">
+                        </div>
+                    </div>
+                </form>
+
                 <div class="card mb-3">
                     <div class="card-header bg-light">
                         <strong>Elija tipo de receta:</strong>
@@ -54,16 +53,6 @@
                         </select>
                     </div>
                 </div>
-
-            <form action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="card mb-3">
-                    <input type="text" name="busqueda" id="busqueda" class="form-control" placeholder="Buscar">
-                    <input type="submit" hidden>
-                    <div id="busquedaUsuarios">
-                    </div>
-                </div>
-            </form>
             </div>
         </div>
     </div>
@@ -207,8 +196,8 @@
                             text: "",
                             icon: "warning",
                             showCancelButton: true,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
+                            confirmButtonColor: "#2A9D8F",
+                            cancelButtonColor: "#E76F51",
                             confirmButtonText: "Quitar de guardados"
                         }).then((result) => {
 
@@ -304,8 +293,8 @@
                             text: "",
                             icon: "warning",
                             showCancelButton: true,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
+                            confirmButtonColor: "#2A9D8F",
+                            cancelButtonColor: "#E76F51",
                             confirmButtonText: "No me gusta"
                         }).then((result) => {
 
@@ -477,8 +466,8 @@
                                     text: "",
                                     icon: "warning",
                                     showCancelButton: true,
-                                    confirmButtonColor: "#3085d6",
-                                    cancelButtonColor: "#d33",
+                                    confirmButtonColor: "#2A9D8F",
+                                    cancelButtonColor: "#E76F51",
                                     confirmButtonText: "Quitar de guardados"
                                 }).then((result) => {
 
@@ -574,8 +563,8 @@
                                     text: "",
                                     icon: "warning",
                                     showCancelButton: true,
-                                    confirmButtonColor: "#3085d6",
-                                    cancelButtonColor: "#d33",
+                                    confirmButtonColor: "#2A9D8F",
+                                    cancelButtonColor: "#E76F51",
                                     confirmButtonText: "No me gusta"
                                 }).then((result) => {
 
@@ -758,8 +747,8 @@
                                 text: "",
                                 icon: "warning",
                                 showCancelButton: true,
-                                confirmButtonColor: "#3085d6",
-                                cancelButtonColor: "#d33",
+                                confirmButtonColor: "#2A9D8F",
+                                cancelButtonColor: "#E76F51",
                                 confirmButtonText: "Quitar de guardados"
                             }).then((result) => {
 
@@ -855,8 +844,8 @@
                                 text: "",
                                 icon: "warning",
                                 showCancelButton: true,
-                                confirmButtonColor: "#3085d6",
-                                cancelButtonColor: "#d33",
+                                confirmButtonColor: "#2A9D8F",
+                                cancelButtonColor: "#E76F51",
                                 confirmButtonText: "No me gusta"
                             }).then((result) => {
 

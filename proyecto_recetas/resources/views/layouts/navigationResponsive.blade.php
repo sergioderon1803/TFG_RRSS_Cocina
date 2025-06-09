@@ -19,7 +19,9 @@
             </button>
         </li>
         <li class="nav-item">
-            <a href="{{ route('perfil.ver', ['id' => $perfilId]) }}" class="nav-link text-center {{ request()->routeIs('perfil.ver') ? 'text-black' : 'text-white' }}">
+            <a href="{{ route('perfil.ver', ['id' => $perfilId]) }}"
+            class="nav-link text-center
+            {{ (request()->routeIs('perfil.ver') && (request()->route('id') == $perfilId)) ? 'active text-dark' : 'text-white' }}">
                 <i class="bi bi-person-fill fs-3"></i><!-- PERFIL -->
             </a>
         </li>

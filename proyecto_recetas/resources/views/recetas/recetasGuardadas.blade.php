@@ -99,8 +99,8 @@
                         text: "",
                         icon: "warning",
                         showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
+                        confirmButtonColor: "#2A9D8F",
+                        cancelButtonColor: "#E76F51",
                         confirmButtonText: "Quitar de guardados"
                     }).then((result) => {
 
@@ -173,8 +173,8 @@
                             text: "",
                             icon: "warning",
                             showCancelButton: true,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
+                            confirmButtonColor: "#2A9D8F",
+                            cancelButtonColor: "#E76F51",
                             confirmButtonText: "No me gusta"
                         }).then((result) => {
 
