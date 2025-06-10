@@ -193,7 +193,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="list-group-item text-center modal-title fs-5 text-decoration-none col-12 py-3 m-0 rounded-0 border-end" style="background-color:#F07B3F; color:white;" id="exampleModalLabel">Comentar receta de {{ '@' . Str::slug($receta->autor->perfil->name) }}</h1>
+                    <h1 class="list-group-item text-center modal-title fs-5 text-decoration-none col-12 py-3 m-0 rounded-0" style="color:white;" id="exampleModalLabel">Comentar receta de {{ '@' . Str::slug($receta->autor->perfil->name) }}</h1>
                 </div>
                 <form action="{{ route('comentarios.store') }}" method="POST">
                     @csrf
@@ -203,9 +203,9 @@
                             <textarea name="contenido" class="form-control" rows="3" placeholder="Escribe un comentario..." required></textarea>
                         </div>
                     </div>
-                    <div class="modal-footer d-flex justify-content-between flex-nowrap p-0">
-                        <button type="submit" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" style="background-color:#2A9D8F; color:white;">Comentar</button>
-                        <button type="button" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" style="background-color:#E76F51; color:white;" data-bs-dismiss="modal">Cancelar</button>
+                    <div class="modal-footer d-flex justify-content-between flex-nowrap p-1 m-1">
+                        <button type="submit" class="btn btn-guardar btn-sm fs-6 text-decoration-none col-4 py-3 rounded-2">Comentar</button>
+                        <button type="button" class="btn btn-cancelar btn-sm fs-6 text-decoration-none col-4 py-3 rounded-2" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -217,7 +217,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="list-group-item text-center modal-title fs-4 text-decoration-none col-12 py-3 m-0 rounded-0 border-end" style="background-color:#F07B3F; color:white;" id="exampleModalLabel">Editar Receta</h1>
+                    <h1 class="list-group-item text-center modal-title fs-4 text-decoration-none col-12 py-3 m-0 rounded-0" style="color:white;" id="exampleModalLabel">Editar Receta</h1>
                 </div>
                 <form action="{{ route('recetas.actualizar', $receta->id) }}" method="POST"
                     enctype="multipart/form-data">
@@ -225,6 +225,7 @@
                     @method('PUT')
                     <div class="modal-body">
                         <div class="row g-3">
+
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="titulo" class="form-label">Título:</label>
@@ -275,8 +276,8 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between flex-nowrap p-0">
-                        <button type="submit" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" style="background-color:#2A9D8F; color:white;">Guardar cambios</button>
-                        <button type="button" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" style="background-color:#E76F51; color:white;" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-guardar btn-sm fs-6 text-decoration-none col-4 py-3 rounded-2" style="background-color:#2A9D8F; color:white;">Guardar cambios</button>
+                        <button type="button" class="btn btn-cancelar btn-sm fs-6 text-decoration-none col-4 py-3 rounded-2" style="background-color:#E76F51; color:white;" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
             </div>

@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 id="exampleModalLabel" class="list-group-item text-center modal-title fs-4 text-decoration-none col-12 py-3 m-0 rounded-0 border-end" style="background-color:#F07B3F; color:white;">Edición de perfil</h1>
+        <h1 id="exampleModalLabel" class="list-group-item text-center modal-title fs-4 text-decoration-none col-12 py-3 m-0 rounded-0" style="color:white;">Edición de perfil</h1>
       </div>
 
       <form action="{{ route('perfil.actualizar', ['id' => $perfil->id_user]) }}" method="POST" enctype="multipart/form-data">
@@ -16,7 +16,7 @@
 
             <div class="col-md-8">
               <label for="descripcion" class="form-label">Biografía</label>
-              <textarea name="descripcion" class="form-control">{{ old('descripcion', $perfil->biografia) }}</textarea>
+              <textarea name="descripcion" class="form-control" rows="1">{{ old('descripcion', $perfil->biografia) }}</textarea>
             </div>
           </div>
 
@@ -55,9 +55,9 @@
           </div>
 
         </div>
-          <div class="modal-footer d-flex justify-content-between flex-nowrap p-0">
-          <button type="submit" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" style="background-color:#2A9D8F; color:white;" data-bs-dismiss="modal">Guardar cambios</button>
-          <button type="button" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" style="background-color:#E76F51; color:white;" data-bs-dismiss="modal">Cancelar</button>
+          <div class="modal-footer d-flex justify-content-between flex-nowrap p-1 m-1">
+          <button type="submit" class="btn btn-guardar btn-sm fs-6 text-decoration-none col-4 py-3 rounded-2" data-bs-dismiss="modal">Guardar cambios</button>
+          <button type="button" class="btn btn-cancelar btn-sm fs-6 text-decoration-none col-4 py-3 rounded-2" data-bs-dismiss="modal">Cancelar</button>
         </div>
       </form>
     </div>

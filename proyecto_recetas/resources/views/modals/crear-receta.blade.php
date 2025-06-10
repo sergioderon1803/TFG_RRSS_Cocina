@@ -3,13 +3,12 @@
     <div class="modal-content">
       <form action="{{ route('recetas.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <div class="modal-header mb-2">
+          <h1 class="list-group-item text-center modal-title fs-4 text-decoration-none col-12 py-3 m-0 rounded-0" style="color:white;">Crear receta</h1>
+        </div>
         <div class="modal-body">
-            <div class="row g-3">
               <div class="col-12">
-                <div class="row g-3">
-                  <ul class="list-group">
-                    <li class="list-group-item text-center fs-4 text-decoration-none col-12 py-3 m-0 rounded-0 border-end" style="background-color:#F07B3F; color:white;">Crear receta</li>
-                  </ul>
+                <div class="row">
                     <div class="col-md-6">
                         <label for="titulo" class="form-label">Título:</label>
                         <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Título" required>
@@ -51,11 +50,10 @@
                     </div>
                 </div>
               </div>
-            </div>
         </div>
-        <div class="modal-footer d-flex justify-content-between flex-nowrap p-0">
-          <button type="submit" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" style="background-color:#2A9D8F; color:white;">Guardar receta</button>
-          <button type="button" class="btn btn-lg fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" style="background-color:#E76F51; color:white;" data-bs-dismiss="modal">Cancelar</button>
+        <div class="modal-footer d-flex justify-content-between flex-nowrap p-1 m-1">
+          <button type="submit" class="btn btn-guardar btn-sm fs-6 text-decoration-none col-4 py-3 rounded-2">Guardar receta</button>
+          <button type="button" class="btn btn-cancelar btn-sm fs-6 text-decoration-none col-4 py-3 rounded-2" data-bs-dismiss="modal">Cancelar</button>
         </div>
       </form>
     </div>

@@ -37,12 +37,12 @@
                 </form>
 
                 <div class="card mb-3">
-                    <div class="card-header bg-light">
+                    <div class="card-header colorPrincipalOscuro text-white">
                         <strong>Elija tipo de receta:</strong>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body colorPrincipal">
                         <!-- Contenido del filtro 1 -->
-                        <select id="tipoRecetas" class="form-select">
+                        <select id="tipoRecetas" class="form-select btn-cancelar text-white">
                             <option value="Todas" selected>Todas</option>
                             <option value="Postres y dulces">Postres y dulces</option>
                             <option value="Arroz">Arroz</option>

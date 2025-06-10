@@ -7,11 +7,11 @@
     // Comprobar si hay imagen de perfil y banner y si no, se ponen las imagenes por defecto
     $imgPerfil = Str::startsWith($perfil->img_perfil, 'perfiles/')
         ? asset('storage/' . $perfil->img_perfil)
-        : asset($perfil->img_perfil);
+        : asset('images/default-profile.jpg');
 
     $imgBanner = Str::startsWith($perfil->img_banner, 'perfiles/')
         ? asset('storage/' . $perfil->img_banner)
-        : asset($perfil->img_banner);
+        : asset('images/default-banner.jpg');
 @endphp
 
 <div class="position-relative mb-5">
@@ -34,7 +34,7 @@
                     Editar perfil
                 </button>
             @else
-                <button data-id="{{$perfil->id_user}}" id="seguirUsuario" type="submit" class="btn fs-6 btn-{{$seguido ? "danger" : "success"}} btn-sm">{{$seguido ? "Dejar de seguir" : "Seguir"}}</button>
+                <button data-id="{{$perfil->id_user}}" id="seguirUsuario" type="submit" class='btn fs-6 btn-{{$seguido ? "outline-dark" : "dark"}} btn-sm'>{{$seguido ? "Siguiendo" : "Seguir"}}</button>
             @endif
         </div>
     @endauth
@@ -97,7 +97,7 @@
 
             const idUsuario = $(this).data('id');
 
-            if($(this).hasClass('btn-success')){
+            if($(this).hasClass('btn-dark')){
                 $.ajax({
                     url: `{{ url('usuario/seguirUsuario/') }}/${idUsuario}`, // Llamo al controlador y le paso el ID
                     method: 'POST',
@@ -108,10 +108,10 @@
 
                 numSeguidores++;
 
-                $(this).removeClass('btn-success');
-                $(this).addClass('btn-danger');
+                $(this).removeClass('btn-dark');
+                $(this).addClass('btn-outline-dark');
 
-                $(this).text("Dejar de seguir");
+                $(this).text("Siguiendo");
                 $('#contSeguidores').text(numSeguidores.toString());
 
             }
@@ -160,8 +160,8 @@
 
                         numSeguidores--;
 
-                        $(this).removeClass('btn-danger');
-                        $(this).addClass('btn-success');
+                        $(this).removeClass('btn-outline-dark');
+                        $(this).addClass('btn-dark');
 
                         $(this).text("Seguir");
                         $('#contSeguidores').text(numSeguidores.toString());

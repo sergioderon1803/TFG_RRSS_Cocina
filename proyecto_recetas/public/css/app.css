@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
+.colorPrincipal {
+    background-color: #F07B3F !important;
+}
+.colorPrincipalOscuro{
+    background-color: #c94e2c !important;
+}
+.colorSecundaria {
+    background-color: #2A9D8F !important;
+}
+
 /*==============================
 =           LISTADO            =
 ==============================*/
@@ -266,6 +276,36 @@ body.sidebar-collapsed .main-content {
 /*==============================
 =           MODALS            =
 ==============================*/
+
+.modal-header {
+    background-color: #F07B3F;
+}
+.modal-content{
+    padding: 0 !important;
+}
+
+.btn-guardar {
+    background-color: #2A9D8F;
+    color: white;
+    border-radius: 0 0 0 0.5rem;
+    transition: background 0.2s;
+}
+.btn-guardar:hover, .btn-guardar:focus {
+    background-color: #21756b;
+    color: white;
+}
+
+.btn-cancelar {
+    background-color: #E76F51;
+    color: white;
+    border-radius: 0 0 0.5rem 0;
+    transition: background 0.2s;
+}
+.btn-cancelar:hover, .btn-cancelar:focus {
+    background-color: #c94e2c;
+    color: white;
+}
+
 @media (max-width: 576px) {
     .modal-dialog {
         margin: 1rem;

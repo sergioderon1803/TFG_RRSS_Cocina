@@ -17,7 +17,7 @@
 @section('content')
     <div class="container-fluid my-3 px-3 mb-5">
         <div class="d-flex align-items-center mb-4">
-            <strong class="mx-auto p-2">Búsqueda: "{{$filtro}}"</strong>
+            <strong class="mx-auto p-2 rounded-2">Búsqueda: "{{$filtro}}"</strong>
             <form action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="d-block">
@@ -82,22 +82,22 @@
 
             <!-- Columna de filtros -->
             <div class="col-12 col-sm-3 col-md-3 col-xl-3 margenesResponsive">
-                <div class="card mb-3">
-                    <div class="card-header bg-light">
-                        <strong class="text-center">Perfiles</strong>
+                <div class="card mb-3 colorPrincipal">
+                    <div class="card-header bg-light colorPrincipalOscuro">
+                        <strong class="text-center text-white">Perfiles</strong>
                     </div>
                     <div class="card-body">
                         <ul class="list-group" style="display:block;position:relative;z-index:0;">
                             @forelse($usuarios as $user)
-                                <a href="{{url('perfil/' .$user->id_user)}}"class="text-decoration-none text-muted">
-                                    <li class="list-group-item usuarioCoincidencia">
+                                <a href="{{url('perfil/' .$user->id_user)}}"class="text-decoration-none text-muted colorPrincipal">
+                                    <li class="list-group-item usuarioCoincidencia btn-cancelar rounded-1">
                                         <img src="{{asset('storage/'. $user->img_perfil)}}" 
                                         class="rounded-circle shadow-sm" 
                                         style="width: 50px; height: 50px; object-fit: cover;">{{$user->name}}
                                     </li>
                                 </a>
                             @empty
-                                <p class="text-center">No se encontraron perfiles</p>
+                                <p class="text-center colorPrincipal">No se encontraron perfiles</p>
                             @endforelse
                         </ul>
                     </div>
