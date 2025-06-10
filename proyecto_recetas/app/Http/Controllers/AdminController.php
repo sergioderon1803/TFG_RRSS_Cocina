@@ -10,15 +10,19 @@ use Yajra\DataTables\Facades\DataTables;
 
 class AdminController extends Controller
 {
-
-    // Ver de quitar, ahora mismo no es útil
     public function index(Request $request)
     {
+        if (auth()->user()->user_type !== 1) {
+            abort(403, 'Acceso denegado');
+        }
         return view('admin.admin');
     }
 
     public function listaRecetasAjax(Request $request)
     {
+        if (auth()->user()->user_type !== 1) {
+            abort(403);
+        }
         $recetas = Receta::query();
 
         return Datatables::eloquent($recetas) // Le mando la query al Datatable
@@ -45,6 +49,9 @@ class AdminController extends Controller
 
     public function listaUsuariosAjax(Request $request)
     {
+        if (auth()->user()->user_type !== 1) {
+            abort(403);
+        }
         $usuarios = User::query();
 
         return Datatables::eloquent($usuarios)

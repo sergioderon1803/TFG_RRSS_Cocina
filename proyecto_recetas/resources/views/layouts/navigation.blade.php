@@ -59,15 +59,17 @@
     <!-- Área del usuario al fondo -->
     <div class="mt-auto">
         <ul class="nav nav-pills flex-column mb-auto" id="sidebarMenu">
+            @if(auth()->user()->user_type === 1)
             <li>
                 <a href="{{ route('admin') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('admin') ? 'active bg-dark' : '' }}">
-                    <i class="bi bi-gear-fill me-2 fs-4"></i>
+                    <i class="bi bi-person-gear me-2 fs-4"></i>
                     <span class="link-text"> {{ __('Admin') }} </span>
                 </a>
             </li>
+            @endif
             <li>
                 <a href="{{ route('ajustes.cuenta') }}" class="nav-link text-white d-flex align-items-center {{ request()->routeIs('ajustes.cuenta') ? 'active bg-dark' : '' }}">
-                    <i class="bi bi-person-gear me-2 fs-4"></i>
+                    <i class="bi bi-gear-fill me-2 fs-4"></i>
                     <span class="link-text"> {{ __('Ajustes de cuenta') }} </span>
                 </a>
             </li>
