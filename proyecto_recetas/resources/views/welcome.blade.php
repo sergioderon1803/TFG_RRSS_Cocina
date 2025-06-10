@@ -23,15 +23,8 @@
 </head>
 <body class="position-relative bg-peach">
     <!-- Botón circular para bajar -->
-    <button id="scrollDownBtn" class="btn btn-circle position-fixed start-50 translate-middle-x"
-        style="bottom: 30px; z-index: 10; width: 60px; height: 60px; background: #F07B3F; color: white; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border: none;">
+    <button id="scrollDownBtn" class="btn btn-circle position-fixed start-50 translate-middle-x botonDown">
         <i class="bi bi-arrow-down fs-2 text-white"></i>
-    </button>
-
-    <!-- Botón circular para volver arriba -->
-    <button id="scrollUpBtn" class="btn btn-circle position-fixed start-50 translate-middle-x d-none"
-        style="bottom: 30px; z-index: 10; width: 60px; height: 60px; background: #2A9D8F; color: white; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border: none;">
-        <i class="bi bi-arrow-up fs-2 text-white"></i>
     </button>
 
     <!-- Sección de registro y login -->
@@ -266,7 +259,6 @@
 
 <script>
     const scrollDownBtn = document.getElementById('scrollDownBtn');
-    const scrollUpBtn = document.getElementById('scrollUpBtn');
     const sobreNosotros = document.getElementById('sobre-nosotros');
     const noticias = document.getElementById('noticias');
 
@@ -290,14 +282,16 @@
             // Cambia el icono a flecha arriba y muestra el botón
             scrollDownBtn.querySelector('i').classList.remove('bi-arrow-down');
             scrollDownBtn.querySelector('i').classList.add('bi-arrow-up');
+            scrollDownBtn.classList.remove('botonDown');
+            scrollDownBtn.classList.add('botonUp');
             scrollDownBtn.classList.remove('d-none');
-            scrollUpBtn.classList.add('d-none');
         } else {
             // Icono flecha abajo
             scrollDownBtn.querySelector('i').classList.remove('bi-arrow-up');
             scrollDownBtn.querySelector('i').classList.add('bi-arrow-down');
+            scrollDownBtn.classList.remove('botonUp');
+            scrollDownBtn.classList.add('botonDown');
             scrollDownBtn.classList.remove('d-none');
-            scrollUpBtn.classList.add('d-none');
         }
     }
 

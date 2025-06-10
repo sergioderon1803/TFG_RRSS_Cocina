@@ -216,8 +216,48 @@
     transform: scale(1.1); /* La imagen se agranda un 10% */
 }
 
+/*==============================
+=        BOTONES LANDING       =
+==============================*/
+.botonUp{
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 10;
+    width: 60px;
+    height: 60px;
+    background: #2A9D8F;
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border: none;
+}
+.botonUp:hover{
+    background: #238276;
+    color: white;
+}
+
+.botonDown{
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 10;
+    width: 60px;
+    height: 60px;
+    background: #F07B3F;
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border: none;
+}
+.botonDown:hover{
+    background: #CF5E13;
+    color: white;
+}
+
+
 /* Responsive */
-@media (max-width: 769px) {
+@media (max-width: 767px) {
     .row.flex-column.flex-md-row {
         flex-direction: column !important;
     }

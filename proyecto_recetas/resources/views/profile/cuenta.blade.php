@@ -15,6 +15,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+            @if ($errors->has('current_password'))
+                <div class="alert alert-danger custom-alert-danger alert-dismissible fade show mb-4" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Contraseña incorrecta.
+                </div>
+            @endif
 
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-header bg-gradient-primary text-white py-3">
@@ -52,6 +58,7 @@
                         Cambiar contraseña
                     </h4>
                 </div>
+                
                 <div class="card-body p-4">
                     <form method="POST" action="{{ route('ajustes.actualizar-password') }}">
                         @csrf
