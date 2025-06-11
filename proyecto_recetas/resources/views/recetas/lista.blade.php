@@ -107,6 +107,10 @@
         var filtroTipo = $('#tipoRecetas').val();
 
         $(document).ready(function() {
+
+            var storageBase = "{{ asset('storage') }}";
+            var defaultImg = "{{ asset('images/default-img.jpg') }}";
+
             $.ajax({
                 url: "{{ route('recetas.listarRecetasPrincipalAjax') }}",
                 method: 'POST',
@@ -129,10 +133,11 @@
 
                     listado += `<div class="col recetaListada">
                         <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3 recetaResponsive" style="cursor: pointer;">
-                            <img src="{{ asset('storage/` + arreglo[x].imagen +`') }}"
+                            <img src="` + storageBase + `/` + arreglo[x].imagen + `"
                                 class="card-img-top"
                                 alt="Imagen de ` + arreglo[x].titulo + `"
-                                style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'">
+                                style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'"
+                                onerror="this.onerror=null;this.src='` + defaultImg + `';">
 
                             <div class="card-body d-flex flex-column justify-content-between p-2">
                                 <div class="mb-2 text">
@@ -408,10 +413,11 @@
 
                             listado += `<div class="col recetaListada">
                                 <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3" style="cursor: pointer;">
-                                    <img src="{{ asset('storage/` + arreglo[x].imagen +`') }}"
+                                    <img src="`+ storageBase + `/` + arreglo[x].imagen +`"
                                         class="card-img-top"
                                         alt="Imagen de ` + arreglo[x].titulo + `"
-                                        style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'">
+                                        style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'"
+                                        onerror="this.onerror=null;this.src='` + defaultImg + `';">
 
                                     <div class="card-body d-flex flex-column justify-content-between p-2">
                                         <div class="mb-2 text">

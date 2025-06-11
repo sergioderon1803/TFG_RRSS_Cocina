@@ -91,7 +91,6 @@ Route::middleware('auth')->group(function () {
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Crear receta (puedes agregar middleware si quieres)
-    Route::get('recetas/crear', [RecetaController::class, 'formularioReceta'])->name('recetas.crear');
     Route::post('recetas', [RecetaController::class, 'guardarReceta'])->name('recetas.store');
 
     // Edición receta

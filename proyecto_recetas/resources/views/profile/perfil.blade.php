@@ -183,6 +183,9 @@
 
         $(document).ready(function(){
 
+            var storageBase = "{{ asset('storage') }}";
+            var defaultImg = "{{ asset('images/default-img.jpg') }}";
+
             $.ajax({
                 url:"{{route('recetas.listaRecetasAjax')}}",
                 method: 'POST',
@@ -207,10 +210,11 @@
 
                         listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
                             <div class="card h-100 shadow-sm">
-                                    <img src="{{ asset('storage/` + arreglo[x].imagen +`') }}" 
+                                    <img src="` + storageBase + `/` + arreglo[x].imagen + `"
                                             class="card-img-top" 
                                             alt="Imagen de `+ arreglo[x].titulo + `" 
-                                            style="height: 180px; object-fit: cover;">
+                                            style="height: 180px; object-fit: cover;"
+                                            onerror="this.onerror=null;this.src='` + defaultImg + `';">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <h6 class="card-title">
                                         <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
@@ -258,6 +262,9 @@
 
             $(document).ready(function(){
 
+                var storageBase = "{{ asset('storage') }}";
+                var defaultImg = "{{ asset('images/default-img.jpg') }}";
+
                 $.ajax({
                     url:"{{route('recetas.listarMeGustaAjax')}}",
                     method: 'POST',
@@ -280,10 +287,11 @@
 
                             listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
                             <div class="card h-100 shadow-sm">
-                                    <img src="{{ asset('storage/` + arreglo[x].imagen +`') }}" 
+                                    <img src="` + storageBase + `/` + arreglo[x].imagen + `"
                                             class="card-img-top" 
                                             alt="Imagen de `+ arreglo[x].titulo + `" 
-                                            style="height: 180px; object-fit: cover;">
+                                            style="height: 180px; object-fit: cover;"
+                                            onerror="this.onerror=null;this.src='` + defaultImg + `';">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <h6 class="card-title">
                                         <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
@@ -330,6 +338,9 @@
 
             $(document).ready(function(){
 
+                var storageBase = "{{ asset('storage') }}";
+                var defaultImg = "{{ asset('images/default-img.jpg') }}";
+
                 $.ajax({
                     url:"{{route('recetas.listaRecetasAjax')}}",
                     method: 'POST',
@@ -352,10 +363,11 @@
 
                             listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
                             <div class="card h-100 shadow-sm">
-                                    <img src="{{ asset('storage/` + arreglo[x].imagen +`') }}" 
+                                    <img src="` + storageBase + `/` + arreglo[x].imagen + `"
                                             class="card-img-top" 
                                             alt="Imagen de `+ arreglo[x].titulo + `" 
-                                            style="height: 180px; object-fit: cover;">
+                                            style="height: 180px; object-fit: cover;"
+                                            onerror="this.onerror=null;this.src='` + defaultImg + `';">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <h6 class="card-title">
                                         <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">

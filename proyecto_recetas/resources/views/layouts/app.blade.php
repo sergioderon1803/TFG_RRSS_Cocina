@@ -36,6 +36,7 @@
 <body class="font-sans antialiased">
     <div class="d-flex min-vh-100 flex-column flex-lg-row position-relative"> <!-- Añadido position-relative -->
         @auth
+        @if(Route::has(Route::currentRouteName()))
             <!-- Sidebar de móvil y tablet -->
             <aside id="sidebar-responsive">
                 @include('layouts.navigationResponsive')
@@ -45,6 +46,7 @@
             <aside id="sidebar-desktop">
                 @include('layouts.navigation')
             </aside>
+        @endif
         @endauth
 
         
@@ -54,13 +56,20 @@
         {{-- @guest
             @include('layouts.navigationGuest')
         @endguest --}}
-
-        <!-- Contenido principal -->
-        <main id="mainContent" class="main-content bg-light d-flex justify-content-center align-items-start py-3 flex-grow-1 pb-5">
-            <div class="container-fluid rounded-3 shadow-sm p-3 bg-white" style="max-width: 1200px;">
+        
+        @if(Route::has(Route::currentRouteName()))
+            <!-- Contenido principal -->
+            <main id="mainContent" class="main-content bg-light d-flex justify-content-center align-items-start py-3 flex-grow-1 pb-5">
+                <div class="container-fluid rounded-3 shadow-sm p-3 bg-white" style="max-width: 1200px;">
+                    @yield('content')
+                </div>
+            </main>
+        @else
+            <!-- Contenido a pantalla completa -->
+            <main class="bg-light min-vh-100 d-flex justify-content-center align-items-center w-100">
                 @yield('content')
-            </div>
-        </main>
+            </main>
+        @endif
 
         <!-- Footer fuera del contenedor principal para evitar problemas de z-index -->
         @include('layouts.footer')

@@ -235,10 +235,6 @@ class RecetaController extends Controller {
         return view('recetas.detalle', compact('receta', 'guardada', 'gustada'));
     }
 
-    // Mostrar el formulario
-    public function formularioReceta(){
-        return view('recetas.creacionReceta');
-    }
 
     public function recetasGuardadasVista(){
         return view('recetas.recetasGuardadas');

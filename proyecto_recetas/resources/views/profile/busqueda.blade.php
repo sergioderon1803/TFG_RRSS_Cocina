@@ -39,10 +39,11 @@
                     @forelse($recetas as $receta)
                         <div class="col recetaListada">
                             <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3 recetaResponsive" style="cursor: pointer;">
-                                <img src="{{ asset('storage/'. $receta->imagen) }}"
+                                <img src="{{ $receta->imagen ? asset('storage/' . $receta->imagen) : asset('images/default-img.jpg') }}"
                                     class="card-img-top"
                                     alt="Imagen de {{$receta->titulo}}"
-                                    style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;" onclick="window.location='{{ url('receta/'. $receta->imagen) }}'">
+                                    style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;" onclick="window.location='{{ url('receta/'. $receta->imagen) }}'"
+                                    onerror="this.onerror=null;this.src='{{ asset('images/default-img.jpg') }}';">
 
                                 <div class="card-body d-flex flex-column justify-content-between p-2">
                                     <div class="mb-2 text">

@@ -15,7 +15,8 @@
                                 <img src="{{ asset('storage/' . $receta->imagen) }}" 
                                         class="card-img-top" 
                                         alt="Imagen de {{ $receta->titulo }}" 
-                                        style="height: 180px; object-fit: cover;">
+                                        style="height: 180px; object-fit: cover;"
+                                        onerror="this.onerror=null;this.src='{{ asset('images/default-img.jpg') }}';">
                             @endif
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <h6 class="card-title">
