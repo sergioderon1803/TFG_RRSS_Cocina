@@ -75,7 +75,7 @@ class ProfileController extends Controller {
     {
         $filtro = $request->busqueda;
 
-        $recetas = Receta::where('titulo','LIKE',$request->busqueda."%")->whereNot('autor_receta',Auth::id())->take(9)->get();
+        $recetas = Receta::where('titulo','LIKE',$request->busqueda."%")->whereNot('autor_receta',Auth::id())->where('estado',0)->take(9)->get();
 
         foreach($recetas as $receta){
 

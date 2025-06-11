@@ -208,6 +208,12 @@
 
                     for(var x = 0; x<arreglo.length;x++){
 
+                        var fondo = '';
+
+                        if(arreglo[x].estado == 1){
+                            var fondo = 'bg-danger bg-opacity-25';
+                        }
+
                         listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
                             <div class="card h-100 shadow-sm">
                                     <img src="` + storageBase + `/` + arreglo[x].imagen + `"
@@ -215,7 +221,7 @@
                                             alt="Imagen de `+ arreglo[x].titulo + `" 
                                             style="height: 180px; object-fit: cover;"
                                             onerror="this.onerror=null;this.src='` + defaultImg + `';">
-                                <div class="card-body d-flex flex-column justify-content-between">
+                                <div class="card-body `+fondo+` d-flex flex-column justify-content-between">
                                     <h6 class="card-title">
                                         <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
                                             `+arreglo[x].titulo+`
@@ -284,6 +290,7 @@
                     }else{ 
 
                         for(var x = 0; x<arreglo.length;x++){
+                            
 
                             listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
                             <div class="card h-100 shadow-sm">
@@ -361,6 +368,12 @@
 
                         for(var x = 0; x<arreglo.length;x++){
 
+                            var fondo = '';
+
+                            if(arreglo[x].estado == 1){
+                                var fondo = 'bg-danger bg-opacity-25';
+                            }
+
                             listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
                             <div class="card h-100 shadow-sm">
                                     <img src="` + storageBase + `/` + arreglo[x].imagen + `"
@@ -368,7 +381,7 @@
                                             alt="Imagen de `+ arreglo[x].titulo + `" 
                                             style="height: 180px; object-fit: cover;"
                                             onerror="this.onerror=null;this.src='` + defaultImg + `';">
-                                <div class="card-body d-flex flex-column justify-content-between">
+                                <div class="card-body `+fondo+` d-flex flex-column justify-content-between">
                                     <h6 class="card-title">
                                         <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
                                             `+arreglo[x].titulo+`

@@ -47,7 +47,48 @@
 
                     for (var x = 0; x < arreglo.length; x++) {
 
-                        listado += `<div id="rece`+arreglo[x].id+`" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
+                        if(arreglo[x].estado == 1){
+
+                            listado += `<div id="rece`+arreglo[x].id+`" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
+                            <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3" style="cursor: pointer;">
+                                <img src="` + defaultImg + `"
+                                    class="card-img-top"
+                                    alt="Receta oculta"
+                                    style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;">
+ 
+                                <div class="card-body d-flex flex-column justify-content-between p-2 bg-danger bg-opacity-25">
+                                    <div class="mb-2 text">
+                                        <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
+                                            <a href="{{ url('perfil/`+arreglo[x].autor_receta+`') }}" 
+                                            class="text-decoration-none text-muted">
+                                                <img src="{{ asset('images/default-profile.jpg') }}"
+                                                    alt="Imagen de perfil"
+                                                    class="rounded-circle me-2"
+                                                    style="width: 25px; height: 25px; object-fit: cover;">
+                                                `+arreglo[x].nombreAutor+`
+                                            </a>
+                                        </div>
+                                        <h6 class="card-title mb-1" style="font-size: 0.95rem;">
+                                            <strong>Esta receta está oculta en este momento</strong>
+                                        </h6>
+                                    </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-auto pt-2 px-1 bg-danger bg-opacity-25">
+                                        <button id="btnLike" class="btn p-0 border-0 bg-transparent" title="Me gustas">
+                                            <i class="bi bi-heart-fill text-danger"></i>
+                                            <small>`+arreglo[x].meGustas+`</small>
+                                        </button>
+
+                                        <button class="btn p-0 border-0 bg-transparent" title="Quitar de guardadas">
+                                            <i data-id="`+arreglo[x].id+`" class="bi bi-bookmark-fill text-success guardados"></i>
+                                            <small>`+arreglo[x].vecesGuardados+`</small>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>`;
+
+                        }else{
+                            listado += `<div id="rece`+arreglo[x].id+`" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
                             <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3" style="cursor: pointer;">
                                 <img src="` + storageBase + `/` + arreglo[x].imagen + `"
                                     class="card-img-top"
@@ -71,20 +112,22 @@
                                             <strong>`+arreglo[x].titulo.substring(0,40)+`</strong>
                                         </h6>
                                     </div>
-                                </div>
-                                 <div class="d-flex justify-content-between mt-auto pt-2 px-1">
-                                    <button id="btnLike" class="btn p-0 border-0 bg-transparent" title="`+(arreglo[x].like ? `Quitar me gusta`: `Dar me gusta` )+`">
-                                        <i data-id="`+arreglo[x].id+`" class="bi bi-heart`+(arreglo[x].like ? `-fill`: `` )+` text-danger darLike"></i>
-                                        <small id="`+arreglo[x].id+`">`+arreglo[x].meGustas+`</small>
-                                    </button>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-auto pt-2 px-1">
+                                        <button id="btnLike" class="btn p-0 border-0 bg-transparent" title="`+(arreglo[x].like ? `Quitar me gusta`: `Dar me gusta` )+`">
+                                            <i data-id="`+arreglo[x].id+`" class="bi bi-heart`+(arreglo[x].like ? `-fill`: `` )+` text-danger darLike"></i>
+                                            <small id="`+arreglo[x].id+`">`+arreglo[x].meGustas+`</small>
+                                        </button>
 
-                                    <button class="btn p-0 border-0 bg-transparent" title="Quitar de guardadas">
-                                        <i data-id="`+arreglo[x].id+`" class="bi bi-bookmark-fill text-success guardados"></i>
-                                        <small>`+arreglo[x].vecesGuardados+`</small>
-                                    </button>
+                                        <button class="btn p-0 border-0 bg-transparent" title="Quitar de guardadas">
+                                            <i data-id="`+arreglo[x].id+`" class="bi bi-bookmark-fill text-success guardados"></i>
+                                            <small>`+arreglo[x].vecesGuardados+`</small>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>`;
+                            </div>`;
+
+                        }
 
                     }
                 }

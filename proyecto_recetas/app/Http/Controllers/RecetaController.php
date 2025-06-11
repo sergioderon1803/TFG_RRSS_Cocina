@@ -196,7 +196,16 @@ class RecetaController extends Controller {
     // Listado recetas del usuario
 
     public function listarRecetasAjax(Request $request){
-        $recetas = Receta::where('autor_receta', $request->id)->get();
+
+        if($request->id == Auth::id()){
+
+            $recetas = Receta::where('autor_receta', $request->id)->get();
+
+        }else{
+
+            $recetas = Receta::where('autor_receta', $request->id)->where('estado',0)->get();
+        }
+
         return response(json_encode($recetas),200)->header('Content-type','text/plain');
     }
 
@@ -205,7 +214,7 @@ class RecetaController extends Controller {
     public function listarMeGustaAjax(Request $request){
 
         $meGustas = GustarReceta::where('id_user',$request->id)->select('id_receta')->get();
-        $recetas = Receta::whereIn('id', $meGustas)->get();
+        $recetas = Receta::whereIn('id', $meGustas)->where('estado',0)->get();
         return response(json_encode($recetas),200)->header('Content-type','text/plain');
     }
 
@@ -216,6 +225,10 @@ class RecetaController extends Controller {
             'comentarios.user',
             'comentarios.respuestas.user'
         ])->findOrFail($id);
+
+        if (auth()->user()->user_type !== 1 && $receta->estado == 1 && Auth::id() != $receta->autor_receta) {
+            abort(403, 'Acceso denegado');
+        }
 
         $guardada = false;
         $gustada = false;

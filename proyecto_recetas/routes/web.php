@@ -120,6 +120,9 @@ Route::middleware(['auth'])->group(function () {
     // Actualizar estado receta
     Route::post('recetas/ocultarReceta/{id}', [RecetaController::class, 'ocultarReceta'])->name('recetas.ocultarReceta');
 
+    // Actualizar rol usuario
+    Route::post('usuario/hacerAdmin/{id}', [UserController::class, 'hacerAdmin'])->name('usuario.hacerAdmin');
+
     //Seguir usuario
     Route::post('usuario/{id}/seguir', [UserController::class, 'SeguirUsuario'])->middleware('auth')->name('usuario.seguir');
     Route::delete('usuario/{id}/dejarSeguir', [UserController::class, 'DejarDeSeguir'])->middleware('auth')->name('usuario.dejarSeguir');

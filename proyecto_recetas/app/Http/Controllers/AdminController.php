@@ -6,23 +6,25 @@ use App\Models\Receta;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class AdminController extends Controller
 {
     public function index(Request $request)
     {
-       /* if (auth()->user()->user_type !== 1) {
+        if (auth()->user()->user_type !== 1) {
             abort(403, 'Acceso denegado');
-        }*/
+        }
+        
         return view('admin.admin');
     }
 
     public function listaRecetasAjax(Request $request)
     {
-        /* if (auth()->user()->user_type !== 1) {
+        if (auth()->user()->user_type !== 1) {
             abort(403, 'Acceso denegado');
-        }*/
+        }
         $recetas = Receta::query();
 
         return Datatables::eloquent($recetas) // Le mando la query al Datatable
@@ -74,9 +76,9 @@ class AdminController extends Controller
 
     public function listaUsuariosAjax(Request $request)
     {
-        /* if (auth()->user()->user_type !== 1) {
+        if (auth()->user()->user_type !== 1) {
             abort(403, 'Acceso denegado');
-        }*/
+        }
 
         $usuarios = User::query();
 
@@ -97,7 +99,25 @@ class AdminController extends Controller
         })
         
         ->addColumn('action', function($user){
-            return '<button data-id="'.$user->id.'" class="btn btn-danger btn-sm delete-user">Eliminar</button>';
+
+            if(Auth::id() != $user->id){
+                $acciones = '<div class="btn-group" role="group">';
+
+                switch($user->user_type){
+                    case 0:
+                        $acciones .= '<button data-id="'.$user->id.'" data-rol="'.$user->user_type.'" class="btn btn-primary btn-sm rol-usuario">Ascender</button>';
+                        break;
+                    case 1:
+                        $acciones .= '<button data-id="'.$user->id.'" data-rol="'.$user->user_type.'" class="btn btn-dark btn-sm rol-usuario">Degradar</button>';
+                        break;
+                }
+
+                $acciones .= '<button data-id="'.$user->id.'" class="btn btn-danger btn-sm delete-user">Eliminar</button></div>';
+
+                return $acciones;
+            }else{
+                return '';
+            }
         })
 
         ->addColumn('recetas_creadas', function($user){

@@ -360,6 +360,50 @@
                 });
                 }
             })
+
+            $('table').on('click', '.rol-usuario',function(){
+                const userId = $(this).data('id');
+
+                const rol = $(this).data('rol');
+
+                let textoBoton = (rol == 1 ? 'Degradar' : 'Ascender');
+                let texto = (rol == 1 ? 'degradar' : 'ascender');
+                let textoResultado = (rol == 1 ? 'degradado' : 'ascendido');
+                
+                if(userId){
+                    Swal.fire({
+                    title: '¿Estás seguro de que deseas '+ texto +' a este usuario?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#2A9D8F',
+                    cancelButtonColor: '#E76F51',
+                    confirmButtonText: textoBoton
+                }).then(result => {
+                    if (result.isConfirmed) { // Si acepta borrarla, hago un ajax
+                        $.ajax({
+                            url: `{{ url('usuario/hacerAdmin/') }}/${userId}`, // Llamo al controlador y le paso el ID
+                            method: 'POST',
+                            data: {
+                                _token: '{{csrf_token()}}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                            },
+                            
+                            // Si acepta y la respuesta es la que mando en el controlador, lanzo un pop up
+                            success: function(response){
+                                if(response.status === 'success'){
+                                    Swal.fire('Usuario ' + textoResultado, '', 'success');
+                                    tablaUsuarios.ajax.reload(null,true); // Recarga el ajax de la tabla
+                                }else{
+                                    Swal.fire('No se ha podido completar la solicitud', '', 'warning');
+                                }
+                            },
+                            error: function(error){
+                                Swal.fire('Se ha producido un error', '', 'error');
+                            }
+                        })
+                    }
+                });
+                }
+            })
             
         }
 
