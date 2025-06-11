@@ -12,17 +12,17 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        if (auth()->user()->user_type !== 1) {
+       /* if (auth()->user()->user_type !== 1) {
             abort(403, 'Acceso denegado');
-        }
+        }*/
         return view('admin.admin');
     }
 
     public function listaRecetasAjax(Request $request)
     {
-        if (auth()->user()->user_type !== 1) {
-            abort(403);
-        }
+        /* if (auth()->user()->user_type !== 1) {
+            abort(403, 'Acceso denegado');
+        }*/
         $recetas = Receta::query();
 
         return Datatables::eloquent($recetas) // Le mando la query al Datatable
@@ -36,10 +36,35 @@ class AdminController extends Controller
         ->addColumn('autor_receta', function($receta){
             return $receta->autor->perfil->name;
         })
+
+        ->addColumn('estado', function($receta){
+
+            switch($receta->estado){
+                case 0:
+                    return 'Pública';
+                case 1:
+                    return 'Oculta';
+            }
+
+        })
         
         // Añado una columna de acciones y creo los botones que quiera
         ->addColumn('action', function($receta){
-            return '<button data-id="'.$receta->id.'" class="btn btn-danger btn-sm delete-receta">Eliminar</button>';
+
+            $acciones = '<div class="btn-group" role="group">';
+
+            switch($receta->estado){
+                case 0:
+                    $acciones .= '<button data-id="'.$receta->id.'" data-estado="'.$receta->estado.'" class="btn btn-dark btn-sm ocultar-receta">Ocultar</button>';
+                    break;
+                case 1:
+                    $acciones .= '<button data-id="'.$receta->id.'" data-estado="'.$receta->estado.'" class="btn btn-success btn-sm ocultar-receta">Publicar</button>';
+                    break;
+            }
+
+            $acciones .= '<button data-id="'.$receta->id.'" class="btn btn-danger btn-sm delete-receta">Eliminar</button></div>';
+
+            return $acciones;
         })
 
         ->rawColumns(['action'])
@@ -49,9 +74,10 @@ class AdminController extends Controller
 
     public function listaUsuariosAjax(Request $request)
     {
-        if (auth()->user()->user_type !== 1) {
-            abort(403);
-        }
+        /* if (auth()->user()->user_type !== 1) {
+            abort(403, 'Acceso denegado');
+        }*/
+
         $usuarios = User::query();
 
         return Datatables::eloquent($usuarios)
@@ -59,12 +85,26 @@ class AdminController extends Controller
         ->addColumn('created_at', function($user){
             return Carbon::parse($user->created_at)->format('d-m-Y');
         })
+
+        ->addColumn('user_type', function($user){
+
+            switch($user->user_type){
+                case 0:
+                    return 'Usuario';
+                case 1:
+                    return 'Admin';
+            }
+        })
         
         ->addColumn('action', function($user){
             return '<button data-id="'.$user->id.'" class="btn btn-danger btn-sm delete-user">Eliminar</button>';
         })
 
-        ->rawColumns(['action'])
+        ->addColumn('recetas_creadas', function($user){
+            return $user->recetas->count();
+        })
+
+        ->rawColumns(['recetas_creadas'],['action'])
 
         ->make(true);
     }

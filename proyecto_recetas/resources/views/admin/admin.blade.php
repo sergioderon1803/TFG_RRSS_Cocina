@@ -39,6 +39,7 @@
             <th id="3"></th>
             <th id="4"></th>
             <th id="5"></th>
+            <th id="6"></th>
         </tr>
     </thead>
 </table>
@@ -81,7 +82,8 @@
             document.getElementById("2").innerHTML = "Título";
             document.getElementById("3").innerHTML = "Tipo";
             document.getElementById("4").innerHTML = "Autor";
-            document.getElementById("5").innerHTML = "Fecha Creación";
+            document.getElementById("5").innerHTML = "Estado";
+            document.getElementById("6").innerHTML = "Fecha Creación";
 
 
             // Creo el datatable
@@ -96,6 +98,7 @@
                     {data: 'titulo', name: 'Titulo'},
                     {data: 'tipo', name: 'Tipo'},
                     {data: 'autor_receta', name: 'Autor'},
+                    {data: 'estado', name: 'Estado'},
                     {data: 'created_at', name: 'Fecha Creación'},
                     {data: 'action', name: 'Acciones', orderable: false, searchable: false} // Para que no se pueda ordenar por él ni buscar
                 ],
@@ -143,6 +146,7 @@
                                         <th id="3"></th>
                                         <th id="4"></th>
                                         <th id="5"></th>
+                                        <th id="6"></th>
                                     </tr>
                                 </thead>`;
                 
@@ -191,6 +195,50 @@
                 });
                 }
             })
+
+            $('table').on('click', '.ocultar-receta',function(){
+                const recetaId = $(this).data('id');
+
+                const estado = $(this).data('estado');
+
+                let textoBoton = (estado == 1 ? 'Publicar' : 'Ocultar');
+                let texto = (estado == 1 ? 'publicar' : 'ocultar');
+                let textoResultado = (estado == 1 ? 'publicada' : 'ocultada');
+                
+                if(recetaId){
+                    Swal.fire({
+                    title: '¿Estás seguro de que deseas '+ texto +' esta receta?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#2A9D8F',
+                    cancelButtonColor: '#E76F51',
+                    confirmButtonText: textoBoton
+                }).then(result => {
+                    if (result.isConfirmed) { // Si acepta borrarla, hago un ajax
+                        $.ajax({
+                            url: `{{ url('recetas/ocultarReceta/') }}/${recetaId}`, // Llamo al controlador y le paso el ID
+                            method: 'POST',
+                            data: {
+                                _token: '{{csrf_token()}}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                            },
+                            
+                            // Si acepta y la respuesta es la que mando en el controlador, lanzo un pop up
+                            success: function(response){
+                                if(response.status === 'success'){
+                                    Swal.fire('Receta ' + textoResultado, '', 'success');
+                                    tablaRecetas.ajax.reload(null,true); // Recarga el ajax de la tabla
+                                }else{
+                                    Swal.fire('No se ha podido completar la solicitud', '', 'warning');
+                                }
+                            },
+                            error: function(error){
+                                Swal.fire('Se ha producido un error', '', 'error');
+                            }
+                        })
+                    }
+                });
+                }
+            })
         }
 
         // Exactamente el mismo funcionamiento pero al revés
@@ -211,8 +259,9 @@
             document.getElementById("1").innerHTML = "ID";
             document.getElementById("2").innerHTML = "Email";
             document.getElementById("3").innerHTML = "Rol";
-            document.getElementById("4").innerHTML = "Fecha";
-            document.getElementById("5").innerHTML = "Acciones";
+            document.getElementById("4").innerHTML = "Recetas Creadas";
+            document.getElementById("5").innerHTML = "Fecha";
+            document.getElementById("6").innerHTML = "Acciones";
 
 
             var tablaUsuarios = new DataTable('#tabla', {
@@ -223,6 +272,7 @@
                     {data: 'id' , name: 'Id'},
                     {data: 'email', name: 'Email'},
                     {data: 'user_type', name: 'Rol'},
+                    {data: 'recetas_creadas', name: 'Recetas Creadas'},
                     {data: 'created_at', name: 'Fecha Creación'},
                     {data: 'action', name: 'Acciones', orderable: false, searchable: false}
                 ],
@@ -264,6 +314,7 @@
                                         <th id="3"></th>
                                         <th id="4"></th>
                                         <th id="5"></th>
+                                        <th id="6"></th>
                                     </tr>
                                 </thead>`;
                 
@@ -309,6 +360,7 @@
                 });
                 }
             })
+            
         }
 
         

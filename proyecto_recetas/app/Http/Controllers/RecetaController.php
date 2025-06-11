@@ -156,11 +156,11 @@ class RecetaController extends Controller {
 
             if($filtro == "Todas"){
 
-                $recetas = Receta::whereNotIn('id',$listaIds[0])->whereNot('autor_receta',Auth::id())->get();
+                $recetas = Receta::whereNotIn('id',$listaIds[0])->whereNot('autor_receta',Auth::id())->where('estado',0)->get();
 
             }else{
 
-                $recetas = Receta::whereNotIn('id',$listaIds[0])->where('tipo',$filtro)->whereNot('autor_receta',Auth::id())->get();
+                $recetas = Receta::whereNotIn('id',$listaIds[0])->where('tipo',$filtro)->whereNot('autor_receta',Auth::id())->where('estado',0)->get();
 
             }
 
@@ -168,11 +168,11 @@ class RecetaController extends Controller {
 
             if($filtro == "Todas"){
 
-                $recetas = Receta::orderBy('created_at', 'desc')->whereNot('autor_receta',Auth::id())->get();
+                $recetas = Receta::orderBy('created_at', 'desc')->whereNot('autor_receta',Auth::id())->where('estado',0)->get();
 
             }else{
 
-                $recetas = Receta::orderBy('created_at', 'desc')->where('tipo',$filtro)->whereNot('autor_receta',Auth::id())->get();
+                $recetas = Receta::orderBy('created_at', 'desc')->where('tipo',$filtro)->whereNot('autor_receta',Auth::id())->where('estado',0)->get();
 
             }
 
@@ -352,6 +352,32 @@ class RecetaController extends Controller {
         if($receta){
             $receta->delete();
             return response()->json(['status' => 'success', 'message' => 'Se ha eliminado la receta']);
+        }
+        
+        return response()->json(['status' => 'failed', 'message' => 'Ha ocurrido un error']);
+    }
+
+    // Ocultar receta
+    public function ocultarReceta(Request $request) {
+
+        $receta = Receta::findOrFail($request->id);
+
+        if($receta){
+
+            if($receta->estado == 0){
+
+                $receta->update([
+                    'estado' => 1
+                ]);
+
+            }else{
+
+                $receta->update([
+                    'estado' => 0
+                ]);
+            }
+
+            return response()->json(['status' => 'success', 'message' => 'Receta actualizada']);
         }
         
         return response()->json(['status' => 'failed', 'message' => 'Ha ocurrido un error']);

@@ -117,6 +117,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('recetas/admin/{id}', [RecetaController::class, 'eliminarRecetaAdmin'])->name('recetas.eliminarAdmin');
     Route::delete('usuario/admin/{id}', [UserController::class, 'eliminarUsuarioAdmin'])->name('usuario.eliminarAdmin');
 
+    // Actualizar estado receta
+    Route::post('recetas/ocultarReceta/{id}', [RecetaController::class, 'ocultarReceta'])->name('recetas.ocultarReceta');
+
     //Seguir usuario
     Route::post('usuario/{id}/seguir', [UserController::class, 'SeguirUsuario'])->middleware('auth')->name('usuario.seguir');
     Route::delete('usuario/{id}/dejarSeguir', [UserController::class, 'DejarDeSeguir'])->middleware('auth')->name('usuario.dejarSeguir');
