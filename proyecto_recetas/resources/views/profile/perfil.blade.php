@@ -124,6 +124,18 @@
                     }
                 })
 
+                $.ajax({
+                    url: `{{ url('/perfil/seguidores/') }}/${idUsuario}`,
+                    method: 'POST',
+                    data:{
+                        _token: '{{csrf_token()}}',
+                }
+                }).done(function(res){
+                    var arreglo = JSON.parse(res);
+
+                    seguidoresArray = arreglo;
+                })
+
                 numSeguidores++;
 
                 $(this).removeClass('btn-dark');
@@ -176,6 +188,18 @@
                             }
                         })
 
+                        $.ajax({
+                            url: `{{ url('/perfil/seguidores/') }}/${idUsuario}`,
+                            method: 'POST',
+                            data:{
+                                _token: '{{csrf_token()}}',
+                            }
+                        }).done(function(res){
+                            var arreglo = JSON.parse(res);
+
+                            seguidoresArray = arreglo;
+                        })
+
                         numSeguidores--;
 
                         $(this).removeClass('btn-outline-dark');
@@ -204,61 +228,7 @@
         var seguidoresArray = [];
         var seguidosArray = [];
 
-
-        function listarSeguidores(){
-
-            $.ajax({
-                url: `{{ url('/perfil/seguidores/') }}/${idUsuario}`,
-                method: 'POST',
-                data:{
-                    _token: '{{csrf_token()}}',
-                }
-            }).done(function(res){
-                
-                var arreglo = JSON.parse(res);
-
-                $('#seguidores').addClass('seleccionado');
-                $('#seguidos').removeClass('seleccionado');
-
-                $('#usuariosListados').remove();
-
-                var listado = `<div class="list-group" id="usuariosListados">`;
-                
-                if(arreglo.length == 0){
-
-                    listado += `<div class="alert alert-info text-center">
-                                    Este usuario no tiene seguidores.
-                                </div>`;
-
-                }else{ 
-
-                    for(var x = 0; x<arreglo.length;x++){
-
-
-                        listado += `<a href="{{ url('perfil/` + arreglo[x].perfil.id_user +`') }}" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3">
-                                <img src="` + storageBase + `/` + arreglo[x].perfil.img_perfil + `" 
-                                    class="rounded-circle shadow-sm" 
-                                    style="width: 50px; height: 50px; object-fit: cover;" 
-                                    alt="Imagen de perfil de X" onerror="this.onerror=null;this.src='` + defaultImgPerfil + `';">
-                                {{-- Nombre --}}
-                                <div>
-                                    <h6 class="mb-0 fw-bold text-dark">`+ arreglo[x].perfil.name +`</h6>
-                                    <p>`+ arreglo[x].perfil.biografia +`</p>
-                                </div>
-                        </a>`;
-
-                    }
-                }
-
-                listado += `</div>`;
-
-                $('#listadoUsuarios').append(listado);
-            });
-            
-        }
-
-        function listarSeguidos(){
-
+        $(document).ready(function(){
             $.ajax({
                 url: `{{ url('/perfil/seguidos/') }}/${idUsuario}`,
                 method: 'POST',
@@ -268,42 +238,101 @@
             }).done(function(res){
                 var arreglo = JSON.parse(res);
 
-                $('#seguidos').addClass('seleccionado');
-                $('#seguidores').removeClass('seleccionado');
-
-                $('#usuariosListados').remove();
-
-                var listado = `<div class="list-group" id="usuariosListados">`;
-                
-                if(arreglo.length == 0){
-
-                    listado += `<div class="alert alert-info text-center">
-                                    Este usuario no sigue a nadie.
-                                </div>`;
-
-                }else{ 
-
-                    for(var x = 0; x<arreglo.length;x++){
-
-                        listado += `<a href="{{ url('perfil/` + arreglo[x].perfil.id_user +`') }}" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3">
-                                <img src="` + storageBase + `/` + arreglo[x].perfil.img_perfil + `" 
-                                    class="rounded-circle shadow-sm" 
-                                    style="width: 50px; height: 50px; object-fit: cover;" 
-                                    alt="Imagen de perfil de ` + arreglo[x].perfil.id_user +`" onerror="this.onerror=null;this.src='` + defaultImgPerfil + `';">
-                                {{-- Nombre --}}
-                                <div>
-                                    <h6 class="mb-0 fw-bold text-dark">`+ arreglo[x].perfil.name +`</h6>
-                                    <p>`+ arreglo[x].perfil.biografia.substring(0, 40) +`</p>
-                                </div>
-                        </a>`;
-
-                    }
-                }
-
-                listado += `</div>`;
-
-                $('#listadoUsuarios').append(listado);
+                seguidosArray = arreglo;
             })
+
+            $.ajax({
+                url: `{{ url('/perfil/seguidores/') }}/${idUsuario}`,
+                method: 'POST',
+                data:{
+                    _token: '{{csrf_token()}}',
+            }
+            }).done(function(res){
+                var arreglo = JSON.parse(res);
+
+                seguidoresArray = arreglo;
+            })
+    });
+
+
+        function listarSeguidores(){
+
+            $('#seguidores').addClass('seleccionado');
+            $('#seguidos').removeClass('seleccionado');
+
+            $('#usuariosListados').remove();
+
+            var listado = `<div class="list-group" id="usuariosListados">`;
+            
+            if(seguidoresArray.length == 0){
+
+                listado += `<div class="alert alert-info text-center">
+                                Este usuario no tiene seguidores.
+                            </div>`;
+
+            }else{ 
+
+                for(var x = 0; x<seguidoresArray.length;x++){
+
+
+                    listado += `<a href="{{ url('perfil/` + seguidoresArray[x].perfil.id_user +`') }}" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3">
+                            <img src="` + storageBase + `/` + seguidoresArray[x].perfil.img_perfil + `" 
+                                class="rounded-circle shadow-sm" 
+                                style="width: 50px; height: 50px; object-fit: cover;" 
+                                alt="Imagen de perfil de X" onerror="this.onerror=null;this.src='` + defaultImgPerfil + `';">
+                            {{-- Nombre --}}
+                            <div>
+                                <h6 class="mb-0 fw-bold text-dark">`+ seguidoresArray[x].perfil.name +`</h6>
+                                <p>`+ seguidoresArray[x].perfil.biografia +`</p>
+                            </div>
+                    </a>`;
+
+                }
+            }
+
+            listado += `</div>`;
+
+            $('#listadoUsuarios').append(listado);
+            
+        }
+
+        function listarSeguidos(){
+
+            $('#seguidos').addClass('seleccionado');
+            $('#seguidores').removeClass('seleccionado');
+
+            $('#usuariosListados').remove();
+
+            var listado = `<div class="list-group" id="usuariosListados">`;
+            
+            if(seguidosArray.length == 0){
+
+                listado += `<div class="alert alert-info text-center">
+                                Este usuario no sigue a nadie.
+                            </div>`;
+
+            }else{ 
+
+                for(var x = 0; x<seguidosArray.length;x++){
+
+                    listado += `<a href="{{ url('perfil/` + seguidosArray[x].perfil.id_user +`') }}" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3">
+                            <img src="` + storageBase + `/` + seguidosArray[x].perfil.img_perfil + `" 
+                                class="rounded-circle shadow-sm" 
+                                style="width: 50px; height: 50px; object-fit: cover;" 
+                                alt="Imagen de perfil de ` + seguidosArray[x].perfil.id_user +`" onerror="this.onerror=null;this.src='` + defaultImgPerfil + `';">
+                            {{-- Nombre --}}
+                            <div>
+                                <h6 class="mb-0 fw-bold text-dark">`+ seguidosArray[x].perfil.name +`</h6>
+                                <p>`+ seguidosArray[x].perfil.biografia.substring(0, 40) +`</p>
+                            </div>
+                    </a>`;
+
+                }
+            }
+
+            listado += `</div>`;
+
+            $('#listadoUsuarios').append(listado);
 
         }
 
