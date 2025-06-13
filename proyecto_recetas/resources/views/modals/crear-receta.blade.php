@@ -34,7 +34,7 @@
 
                 <div class="d-flex flex-column align-items-center">
                     <label for="imagen" class="form-label">Imagen:</label>
-                    <img id="preview" class="mt-2 img-fluid" style="max-width: 250px; max-height: 250px;" src="{{ asset('images/pantallaGris.jpg') }}" alt="Imagen previa">
+                    <img id="preview" class="mt-2 img-fluid" style="max-width: 250px; max-height: 250px;" src="{{ asset('images/default-img.jpg') }}" alt="Imagen previa">
                     <input type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" id="imagen" name="imagen" class="form-control" required>
                 </div>
 

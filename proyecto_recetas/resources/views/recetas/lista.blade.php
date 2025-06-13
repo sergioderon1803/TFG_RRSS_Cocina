@@ -23,7 +23,7 @@
 
             <!-- Columna de filtros -->
             <div class="col-12 col-sm-3 col-md-3 col-xl-3 margenesResponsive">
-                <form id="formBuscar" action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
+                <form id="formBusqueda" action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card mb-3">
                         <div class="input-group">
@@ -72,9 +72,11 @@
         $(document).ready(function(){
 
             $('#formBusqueda').on('submit',function(e){
+
                 if($('#busqueda').val() == ""){
                     e.preventDefault();
                 }
+
             })
 
             // Cada vez que el usuario teclea en el buscador
@@ -102,6 +104,7 @@
                 }
             });
         });
+
     </script>
 
 
@@ -677,6 +680,7 @@
 
                 var storageBase = "{{ asset('storage') }}";
                 var defaultImg = "{{ asset('images/default-img.jpg') }}";
+                var defaultProfile = "{{ asset('images/default-profile.jpg') }}";
 
                 filtroTipo = $('#tipoRecetas').val();
                 $('.recetaListada').remove();

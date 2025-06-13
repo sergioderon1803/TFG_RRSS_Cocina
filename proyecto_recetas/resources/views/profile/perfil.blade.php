@@ -95,7 +95,6 @@
 
 {{-- MODALS EXTERNOS --}}
 @include('modals.editar-perfil', ['perfil' => $perfil])
-@include('modals.recetas-guardadas', ['perfil' => $perfil])
 
 @endsection
 
@@ -176,6 +175,18 @@
                                         icon: "success"
                                     });
 
+                                    $.ajax({
+                                        url: `{{ url('/perfil/seguidores/') }}/${idUsuario}`,
+                                        method: 'POST',
+                                        data:{
+                                            _token: '{{csrf_token()}}',
+                                        }
+                                    }).done(function(res){
+                                        var arreglo = JSON.parse(res);
+
+                                        seguidoresArray = arreglo;
+                                    })
+
                                 } else {
                                     Swal.fire(
                                         'No se ha podido completar la solicitud',
@@ -186,18 +197,6 @@
                                 Swal.fire('Se ha producido un error',
                                     '', 'error');
                             }
-                        })
-
-                        $.ajax({
-                            url: `{{ url('/perfil/seguidores/') }}/${idUsuario}`,
-                            method: 'POST',
-                            data:{
-                                _token: '{{csrf_token()}}',
-                            }
-                        }).done(function(res){
-                            var arreglo = JSON.parse(res);
-
-                            seguidoresArray = arreglo;
                         })
 
                         numSeguidores--;
@@ -283,7 +282,7 @@
                             {{-- Nombre --}}
                             <div>
                                 <h6 class="mb-0 fw-bold text-dark">`+ seguidoresArray[x].perfil.name +`</h6>
-                                <p>`+ seguidoresArray[x].perfil.biografia +`</p>
+                                <p>`+ seguidoresArray[x].perfil.biografia.substring(0, 40) +`</p>
                             </div>
                     </a>`;
 
@@ -370,9 +369,11 @@
                     for(var x = 0; x<arreglo.length;x++){
 
                         var fondo = '';
+                        var icono = '';
 
                         if(arreglo[x].estado == 1){
-                            var fondo = 'bg-danger bg-opacity-25';
+                            fondo = 'bg-danger bg-opacity-25';
+                            icono = '<i class="bi bi-exclamation-triangle"></i>';
                         }
 
                         listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
@@ -387,6 +388,7 @@
                                         <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
                                             `+arreglo[x].titulo+`
                                         </a>
+                                        `+icono+`
                                     </h6>
                                 </div>
                             </div>
@@ -530,27 +532,30 @@
                         for(var x = 0; x<arreglo.length;x++){
 
                             var fondo = '';
+                            var icono = '';
 
                             if(arreglo[x].estado == 1){
-                                var fondo = 'bg-danger bg-opacity-25';
+                                fondo = 'bg-danger bg-opacity-25';
+                                icono = '<i class="bi bi-exclamation-triangle"></i>';
                             }
 
                             listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
-                            <div class="card h-100 shadow-sm">
-                                    <img src="` + storageBase + `/` + arreglo[x].imagen + `"
-                                            class="card-img-top" 
-                                            alt="Imagen de `+ arreglo[x].titulo + `" 
-                                            style="height: 180px; object-fit: cover;"
-                                            onerror="this.onerror=null;this.src='` + defaultImg + `';">
-                                <div class="card-body `+fondo+` d-flex flex-column justify-content-between">
-                                    <h6 class="card-title">
-                                        <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
-                                            `+arreglo[x].titulo+`
-                                        </a>
-                                    </h6>
+                                <div class="card h-100 shadow-sm">
+                                        <img src="` + storageBase + `/` + arreglo[x].imagen + `"
+                                                class="card-img-top" 
+                                                alt="Imagen de `+ arreglo[x].titulo + `" 
+                                                style="height: 180px; object-fit: cover;"
+                                                onerror="this.onerror=null;this.src='` + defaultImg + `';">
+                                    <div class="card-body `+fondo+` d-flex flex-column justify-content-between">
+                                        <h6 class="card-title">
+                                            <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
+                                                `+arreglo[x].titulo+`
+                                            </a>
+                                            `+icono+`
+                                        </h6>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>`;
+                            </div>`;
 
                         }
                     }

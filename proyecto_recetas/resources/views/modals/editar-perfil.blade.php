@@ -32,7 +32,7 @@
 
             <div class="col-md-6">
               <label for="img_perfil" class="form-label">Nueva imagen de perfil</label>
-              <img id="preview" style="max-width: 200px; max-height:200px;" class="mt-2 imagenPrevia" src="{{asset('images/pantallaGris.jpg')}}" alt="Imagen previa">
+              <img id="preview" style="max-width: 200px; max-height:200px;" class="mt-2 imagenPrevia" src="{{asset('images/default-img.jpg')}}" alt="Imagen previa">
               <input id="img_perfil" type="file" name="img_perfil" class="form-control my-auto" accept=".jpg,.jpeg,.png,image/jpeg,image/png">
             </div>
           </div>
@@ -49,7 +49,7 @@
 
             <div class="col-md-6">
               <label for="img_perfil" class="form-label">Nuevo banner</label><br>
-              <img id="preview" style="max-width: 200px; max-height:200px;" class="mt-2 imagenPrevia" src="{{asset('images/pantallaGris.jpg')}}" alt="Imagen previa">
+              <img id="preview" style="max-width: 200px; max-height:200px;" class="mt-2 imagenPrevia" src="{{asset('images/default-img.jpg')}}" alt="Imagen previa">
               <input id="img_banner" type="file" name="img_banner" class="form-control my-auto" accept=".jpg,.jpeg,.png,image/jpeg,image/png">
             </div>
           </div>
