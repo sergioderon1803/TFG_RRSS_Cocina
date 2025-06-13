@@ -133,7 +133,7 @@ class RecetaController extends Controller {
     }
 
     public function mostrarComentario($id) {
-        $receta = Receta::with(['comentarios.user'])->findOrFail($id);
+        $receta = Receta::with(['comentarios.user.perfil'])->findOrFail($id);
         return view('recetas.detalle', compact('receta'));
     }
     
@@ -222,8 +222,8 @@ class RecetaController extends Controller {
     {
         $receta = Receta::with([
             'autor.perfil',
-            'comentarios.user',
-            'comentarios.respuestas.user'
+            'comentarios.user.perfil',
+            'comentarios.respuestas.user.perfil'
         ])->findOrFail($id);
 
         if (auth()->user()->user_type !== 1 && $receta->estado == 1 && Auth::id() != $receta->autor_receta) {

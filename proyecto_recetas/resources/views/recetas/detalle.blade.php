@@ -158,37 +158,51 @@
                     @endauth
 
                     @foreach ($receta->comentarios as $comentario)
-                        <div class="border rounded p-3 mb-3 bg-light">
-                            <strong>{{ $comentario->user->perfil->name ?? $comentario->user->email }}:</strong>
-                            <p>{{ $comentario->contenido }}</p>
+    <div class="border rounded p-3 mb-3 bg-light d-flex align-items-start gap-2">
+        <img src="{{ optional($comentario->user->perfil)->img_perfil ? asset('storage/' . $comentario->user->perfil->img_perfil) : asset('images/default-profile.jpg') }}"
+            alt="Imagen de {{ optional($comentario->user->perfil)->name ?? $comentario->user->email }}"
+            class="rounded-circle"
+            style="width: 40px; height: 40px; object-fit: cover;"
+            onerror="this.onerror=null;this.src='{{ asset('images/default-profile.jpg') }}';">
+        <div>
+            <strong>{{ $comentario->user->perfil->name ?? $comentario->user->email }}:</strong>
+            <p>{{ $comentario->contenido }}</p>
 
-                            @auth
-                                <form action="{{ route('respuestas.store') }}" method="POST" class="mb-2">
-                                    @csrf
-                                    <input type="hidden" name="id_receta" value="{{ $receta->id }}">
-                                    <input type="hidden" name="id_comentario" value="{{ $comentario->id }}">
-                                    <input type="hidden" name="id_user_respondido" value="{{ $comentario->id_user }}">
-                                    <div class="input-group">
-                                        <input type="text" name="contenido" class="form-control"
-                                            placeholder="Responder a {{ $comentario->user->perfil->name ?? $comentario->user->email }}"
-                                            required>
-                                        <button type="submit" class="btn btn-outline-primary">Responder</button>
-                                    </div>
-                                </form>
-                            @endauth
+            @auth
+                <form action="{{ route('respuestas.store') }}" method="POST" class="mb-2">
+                    @csrf
+                    <input type="hidden" name="id_receta" value="{{ $receta->id }}">
+                    <input type="hidden" name="id_comentario" value="{{ $comentario->id }}">
+                    <input type="hidden" name="id_user_respondido" value="{{ $comentario->id_user }}">
+                    <div class="input-group">
+                        <input type="text" name="contenido" class="form-control"
+                            placeholder="Responder a {{ $comentario->user->perfil->name ?? $comentario->user->email }}"
+                            required>
+                        <button type="submit" class="btn btn-outline-primary">Responder</button>
+                    </div>
+                </form>
+            @endauth
 
-                            @if ($comentario->respuestas->count())
-                                <div class="ms-3 mt-2">
-                                    @foreach ($comentario->respuestas as $respuesta)
-                                        <div class="border-start ps-3 mb-2">
-                                            <strong>{{ $respuesta->user->perfil->name ?? $respuesta->user->email }}:</strong>
-                                            <p>{{ $respuesta->contenido }}</p>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
+            @if ($comentario->respuestas->count())
+                <div class="ms-3 mt-2">
+                    @foreach ($comentario->respuestas as $respuesta)
+                        <div class="border-start ps-3 mb-2 d-flex align-items-start gap-2">
+                            <img src="{{ optional($respuesta->user->perfil)->img_perfil ? asset('storage/' . $respuesta->user->perfil->img_perfil) : asset('images/default-profile.jpg') }}"
+                                alt="Imagen de {{ optional($respuesta->user->perfil)->name ?? $respuesta->user->email }}"
+                                class="rounded-circle"
+                                style="width: 32px; height: 32px; object-fit: cover;"
+                                onerror="this.onerror=null;this.src='{{ asset('images/default-profile.jpg') }}';">
+                            <div>
+                                <strong>{{ $respuesta->user->perfil->name ?? $respuesta->user->email }}:</strong>
+                                <p>{{ $respuesta->contenido }}</p>
+                            </div>
                         </div>
                     @endforeach
+                </div>
+            @endif
+        </div>
+    </div>
+@endforeach
                 </div>
             </div>
         </div>
