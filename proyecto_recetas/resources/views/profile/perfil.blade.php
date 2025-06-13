@@ -50,16 +50,34 @@
     </div>
 
     {{-- Seguidores / Seguidos (alineado a la derecha) --}}
-    <div class="d-flex gap-4 text-center">
+    <div class="d-flex gap-4 text-center mt-3">
         <div class="d-flex flex-column">
             <strong id="contSeguidores" class="text-dark">{{ $perfil->user->seguidores->count() }}</strong>
-            <a href="{{ route('profile.seguidores', $perfil->id_user) }}" class="text-decoration-none text-muted">Seguidores</a>
+            <p id="btnSeguidores" class="text-decoration-none text-muted" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Seguidores</p>
         </div>
         <div class="d-flex flex-column">
             <strong class="text-dark">{{ $perfil->user->seguidos->count() }}</strong>
-            <a href="{{ route('profile.seguidos', $perfil->id_user) }}" class="text-decoration-none text-muted">Seguidos</a>
+            <p id="btnSeguidos" class="text-decoration-none text-muted" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Seguidos</p>
         </div>
     </div>
+</div>
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-body">
+    <div class="d-flex-inline">
+        <h5 class="fw-bold mb-3">
+            <div class="d-flex w-100 justify-content-evenly">
+                <span id="seguidores" style="cursor: pointer;text-decoration: underline;">Seguidores</span>
+                <span id="seguidos" style="cursor: pointer;text-decoration: underline;">Seguidos</span>
+            </div>
+        </h5>
+        <hr>
+
+        <div id="listadoUsuarios" class="container py-4">
+        </div>
+    </div>
+  </div>
 </div>
 
 <hr class="mt-4">
@@ -179,12 +197,126 @@
         const url = window.location.href.split("/");
         const idUsuario = parseInt(url[url.length-1]);
 
+        var storageBase = "{{ asset('storage') }}";
+        var defaultImg = "{{ asset('images/default-img.jpg') }}";
+        var defaultImgPerfil = "{{ asset('images/default-profile.jpg') }}";
+
+        var seguidoresArray = [];
+        var seguidosArray = [];
+
+
+        function listarSeguidores(){
+
+            $.ajax({
+                url: `{{ url('/perfil/seguidores/') }}/${idUsuario}`,
+                method: 'POST',
+                data:{
+                    _token: '{{csrf_token()}}',
+                }
+            }).done(function(res){
+                
+                var arreglo = JSON.parse(res);
+
+                $('#seguidores').addClass('seleccionado');
+                $('#seguidos').removeClass('seleccionado');
+
+                $('#usuariosListados').remove();
+
+                var listado = `<div class="list-group" id="usuariosListados">`;
+                
+                if(arreglo.length == 0){
+
+                    listado += `<div class="alert alert-info text-center">
+                                    Este usuario no tiene seguidores.
+                                </div>`;
+
+                }else{ 
+
+                    for(var x = 0; x<arreglo.length;x++){
+
+
+                        listado += `<a href="{{ url('perfil/` + arreglo[x].perfil.id_user +`') }}" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3">
+                                <img src="` + storageBase + `/` + arreglo[x].perfil.img_perfil + `" 
+                                    class="rounded-circle shadow-sm" 
+                                    style="width: 50px; height: 50px; object-fit: cover;" 
+                                    alt="Imagen de perfil de X" onerror="this.onerror=null;this.src='` + defaultImgPerfil + `';">
+                                {{-- Nombre --}}
+                                <div>
+                                    <h6 class="mb-0 fw-bold text-dark">`+ arreglo[x].perfil.name +`</h6>
+                                    <p>`+ arreglo[x].perfil.biografia +`</p>
+                                </div>
+                        </a>`;
+
+                    }
+                }
+
+                listado += `</div>`;
+
+                $('#listadoUsuarios').append(listado);
+            });
+            
+        }
+
+        function listarSeguidos(){
+
+            $.ajax({
+                url: `{{ url('/perfil/seguidos/') }}/${idUsuario}`,
+                method: 'POST',
+                data:{
+                    _token: '{{csrf_token()}}',
+                }
+            }).done(function(res){
+                var arreglo = JSON.parse(res);
+
+                $('#seguidos').addClass('seleccionado');
+                $('#seguidores').removeClass('seleccionado');
+
+                $('#usuariosListados').remove();
+
+                var listado = `<div class="list-group" id="usuariosListados">`;
+                
+                if(arreglo.length == 0){
+
+                    listado += `<div class="alert alert-info text-center">
+                                    Este usuario no sigue a nadie.
+                                </div>`;
+
+                }else{ 
+
+                    for(var x = 0; x<arreglo.length;x++){
+
+                        listado += `<a href="{{ url('perfil/` + arreglo[x].perfil.id_user +`') }}" class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3">
+                                <img src="` + storageBase + `/` + arreglo[x].perfil.img_perfil + `" 
+                                    class="rounded-circle shadow-sm" 
+                                    style="width: 50px; height: 50px; object-fit: cover;" 
+                                    alt="Imagen de perfil de ` + arreglo[x].perfil.id_user +`" onerror="this.onerror=null;this.src='` + defaultImgPerfil + `';">
+                                {{-- Nombre --}}
+                                <div>
+                                    <h6 class="mb-0 fw-bold text-dark">`+ arreglo[x].perfil.name +`</h6>
+                                    <p>`+ arreglo[x].perfil.biografia.substring(0, 40) +`</p>
+                                </div>
+                        </a>`;
+
+                    }
+                }
+
+                listado += `</div>`;
+
+                $('#listadoUsuarios').append(listado);
+            })
+
+        }
+
+        $('#seguidores').click(listarSeguidores);
+        $('#seguidos').click(listarSeguidos);
+
+        $('#btnSeguidos').click(listarSeguidos);
+        $('#btnSeguidores').click(listarSeguidores);
+
+
         // Por defecto, pillo las recetas publicadas
 
         $(document).ready(function(){
-
-            var storageBase = "{{ asset('storage') }}";
-            var defaultImg = "{{ asset('images/default-img.jpg') }}";
 
             $.ajax({
                 url:"{{route('recetas.listaRecetasAjax')}}",
@@ -260,9 +392,9 @@
             })
         });
 
-// A partir de aquí, es la misma lógica para los dos listados, guardo en funciones lo que hacen para poder gestionar los eventos
+        // A partir de aquí, es la misma lógica para los dos listados, guardo en funciones lo que hacen para poder gestionar los eventos
 
-//-----------------------------------------------LISTADO ME GUSTAS-----------------------------------------------
+        //-----------------------------------------------LISTADO ME GUSTAS-----------------------------------------------
 
         function crearListadoMeGustas(){
 

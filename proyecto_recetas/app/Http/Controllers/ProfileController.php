@@ -51,15 +51,18 @@ class ProfileController extends Controller {
 
             foreach($usuarios as $perfil){
 
-                $imgPerfil = asset('storage/'. $perfil->img_perfil);
+                $imgPerfil = str_starts_with($perfil->img_perfil, 'perfiles/')
+                            ? asset('storage/' . $perfil->img_perfil)
+                            : asset('images/default-profile.jpg');
+
                 $url = url('perfil/' .$perfil->id_user);
 
                 $listaUsuarios .= '<a href="'.$url.'"class="text-decoration-none text-muted">
                         <li class="list-group-item usuarioCoincidencia">
                             <img src="'.$imgPerfil.'" 
-                            class="rounded-circle shadow-sm" 
-                            style="width: 50px; height: 50px; object-fit: cover;"> '. $perfil->name .
-                        '</li></a>';
+                            class="rounded-circle shadow-sm"
+                            style="width: 50px; height: 50px; object-fit: cover;"> <p class="pb-0 mb-0">'. $perfil->name .'</p>
+                        </li></a>';
             }
 
             $listaUsuarios .= '</ul>';
@@ -98,6 +101,18 @@ class ProfileController extends Controller {
         return view('profile.seguidores', compact('perfil', 'seguidores'));
     }
 
+    public function verSeguidoresAjax($id)
+    {
+        //$seguidos = SeguirUsuario::where('id_user', $id)->whereNot('id_seguidos',Auth::id())
+
+        $perfil = Perfil::where('id_user', $id)->firstOrFail();
+        $usuario = $perfil->user;
+
+        $seguidores = $usuario->seguidores()->with('perfil')->get();
+
+        return response(json_encode($seguidores),200)->header('Content-type','text/plain');
+    }
+
     public function verSeguidos($id)
     {
         $perfil = Perfil::where('id_user', $id)->firstOrFail();
@@ -106,6 +121,16 @@ class ProfileController extends Controller {
         $seguidos = $usuario->seguidos()->with('perfil')->get();
 
         return view('profile.seguidos', compact('perfil', 'seguidos'));
+    }
+
+    public function verSeguidosAjax($id)
+    {
+        $perfil = Perfil::where('id_user', $id)->firstOrFail();
+        $usuario = $perfil->user;
+
+        $seguidos = $usuario->seguidos()->with('perfil')->get();
+
+        return response(json_encode($seguidos),200)->header('Content-type','text/plain');
     }
 
     public function editar($id)

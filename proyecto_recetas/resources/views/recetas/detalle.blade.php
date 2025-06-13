@@ -10,13 +10,19 @@
             <!-- Tarjeta principal -->
             <div class="col-lg-10">
                 <div class="card shadow-sm border-0 rounded-4 p-4 bg-white">
+                    @if ($receta->estado == 1)
+                        <div class="alert alert-danger custom-alert-danger alert-dismissible fade show mb-4" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            Esta receta está oculta, póngase en contacto con un administrador para más detalles
+                        </div>
+                    @endif
                     <div class="row">
 
                         <!-- Columna izquierda: Imagen + botones -->
                         <div class="col-md-5 position-relative">
                             @if ($receta->imagen)
                                 <img src="{{ asset(Str::startsWith($receta->imagen, 'recetas/') ? 'storage/' . $receta->imagen : $receta->imagen) }}"
-                                    class="img-fluid mb-3 rounded-4 shadow-sm w-100" alt="Imagen de {{ $receta->titulo }}">
+                                    class="img-fluid mb-3 rounded-4 shadow-sm w-100" alt="Imagen de {{ $receta->titulo }}" onerror="this.onerror=null;this.src='{{ asset('images/default-img.jpg') }}';">
 
                                 <!-- Botones para autor: posición absoluta encima de la imagen -->
                                 @auth

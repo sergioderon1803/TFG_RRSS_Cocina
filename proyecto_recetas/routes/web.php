@@ -45,6 +45,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/{id}/actualizar', [ProfileController::class, 'actualizar'])->name('perfil.actualizar');
         Route::get('/{id}/seguidores', [ProfileController::class, 'verSeguidores'])->name('profile.seguidores');
         Route::get('/{id}/seguidos', [ProfileController::class, 'verSeguidos'])->name('profile.seguidos');
+
+        Route::post('/seguidores/{id}', [ProfileController::class, 'verSeguidoresAjax'])->name('profile.seguidoresAjax');
+        Route::post('/seguidos/{id}', [ProfileController::class, 'verSeguidosAjax'])->name('profile.seguidosAjax');
     });
 
     Route::get('/usuarios/{id}', [UserController::class, 'mostrarPerfil'])->name('usuarios.perfil');

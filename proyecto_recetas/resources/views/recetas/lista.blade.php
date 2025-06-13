@@ -23,7 +23,7 @@
 
             <!-- Columna de filtros -->
             <div class="col-12 col-sm-3 col-md-3 col-xl-3 margenesResponsive">
-                <form action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
+                <form id="formBuscar" action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card mb-3">
                         <div class="input-group">
@@ -70,6 +70,12 @@
 
     <script>
         $(document).ready(function(){
+
+            $('#formBusqueda').on('submit',function(e){
+                if($('#busqueda').val() == ""){
+                    e.preventDefault();
+                }
+            })
 
             // Cada vez que el usuario teclea en el buscador
 

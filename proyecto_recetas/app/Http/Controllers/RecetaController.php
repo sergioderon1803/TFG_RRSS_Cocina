@@ -197,7 +197,7 @@ class RecetaController extends Controller {
 
     public function listarRecetasAjax(Request $request){
 
-        if($request->id == Auth::id()){
+        if($request->id == Auth::id() || auth()->user()->user_type == 1){
 
             $recetas = Receta::where('autor_receta', $request->id)->get();
 

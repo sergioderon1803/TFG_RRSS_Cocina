@@ -18,7 +18,7 @@
     <div class="container-fluid my-3 px-3 mb-5">
         <div class="d-flex align-items-center mb-4">
             <strong class="mx-auto p-2 rounded-2">Búsqueda: "{{$filtro}}"</strong>
-            <form action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
+            <form id="formBusqueda" action="{{ route('usuario.busqueda') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="d-block">
                     <div class="input-group">
@@ -93,12 +93,12 @@
                                 <a href="{{url('perfil/' .$user->id_user)}}"class="text-decoration-none text-muted colorPrincipal">
                                     <li class="list-group-item usuarioCoincidencia btn-cancelar rounded-1">
                                         <img src="{{asset('storage/'. $user->img_perfil)}}" 
-                                        class="rounded-circle shadow-sm" 
-                                        style="width: 50px; height: 50px; object-fit: cover;">{{$user->name}}
+                                        class="rounded-circle shadow-sm" onerror="this.onerror=null;this.src='{{ asset('images/default-profile.jpg') }}';"
+                                        style="width: 50px; height: 50px; object-fit: cover;"><p class="pb-0 mb-0">{{$user->name}}</p>
                                     </li>
                                 </a>
                             @empty
-                                <p class="text-center colorPrincipal">No se encontraron perfiles</p>
+                                <p class="text-center colorPrincipal text-white">No se encontraron perfiles</p>
                             @endforelse
                         </ul>
                     </div>
@@ -114,6 +114,12 @@
 
     <script>
         $(document).ready(function(){
+
+            $('#formBusqueda').on('submit',function(e){
+                if($('#busqueda').val() == ""){
+                    e.preventDefault();
+                }
+            })
 
             // Cada vez que el usuario teclea en el buscador
 
