@@ -417,6 +417,8 @@
 
                         //--------------------------------------------------------------------------IMPRESIÓN DEL CADA RECETA-------------------------------------------------------------------------------
 
+                        
+
                         for (var x = 0; x < arreglo.length; x++) {
 
                             ids.push(arreglo[x].id);
@@ -463,6 +465,7 @@
                             </div>`;
 
                         }
+                        
 
 
                         listado += `</div>`;
@@ -703,50 +706,69 @@
 
                     //--------------------------------------------------------------------------IMPRESIÓN DEL CADA RECETA-------------------------------------------------------------------------------
 
-                    for (var x = 0; x < arreglo.length; x++) {
+                    if(arreglo.length == 0){
 
-                        ids.push(arreglo[x].id);
+                        if(!$('#verMas').attr('hidden')){
 
-                        listado += `<div class="col recetaListada">
-                            <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3 recetaResponsive" style="cursor: pointer;">
-                                <img src="` + storageBase + `/` + arreglo[x].imagen + `"
-                                    class="card-img-top"
-                                    alt="Imagen de ` + arreglo[x].titulo + `"
-                                    style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'"
-                                    onerror="this.onerror=null;this.src='` + defaultImg + `';">
+                            $('#verMas').attr('hidden',true);
 
-                                <div class="card-body d-flex flex-column justify-content-between p-2">
-                                    <div class="mb-2 text">
-                                        <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
-                                            <a href="{{ url('perfil/`+arreglo[x].autor_receta+`') }}" 
-                                            class="text-decoration-none text-muted">
-                                                <img src="` + (arreglo[x].imgAutor ? storageBase + '/' + arreglo[x].imgAutor : defaultProfile) + `"
-                                                    alt="Imagen de perfil"
-                                                    class="rounded-circle me-2"
-                                                    style="width: 25px; height: 25px; object-fit: cover;"
-                                                    onerror="this.onerror=null;this.src='` + defaultProfile + `';">
-                                                ` + arreglo[x].nombreAutor + `
-                                            </a>
+                        }
+
+                        listado += `<p class="text-center fw-bold recetaListada">No se encontraron recetas</p>`;
+
+                    }else{
+
+                        if($('#verMas').attr('hidden')){
+
+                            $('#verMas').attr('hidden',false);
+                            
+                        }
+
+                        for (var x = 0; x < arreglo.length; x++) {
+
+                            ids.push(arreglo[x].id);
+
+                            listado += `<div class="col recetaListada">
+                                <div class="card h-100 shadow-sm d-flex flex-column border-0 rounded-3 recetaResponsive" style="cursor: pointer;">
+                                    <img src="` + storageBase + `/` + arreglo[x].imagen + `"
+                                        class="card-img-top"
+                                        alt="Imagen de ` + arreglo[x].titulo + `"
+                                        style="height: 130px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'"
+                                        onerror="this.onerror=null;this.src='` + defaultImg + `';">
+
+                                    <div class="card-body d-flex flex-column justify-content-between p-2">
+                                        <div class="mb-2 text">
+                                            <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
+                                                <a href="{{ url('perfil/`+arreglo[x].autor_receta+`') }}" 
+                                                class="text-decoration-none text-muted">
+                                                    <img src="` + (arreglo[x].imgAutor ? storageBase + '/' + arreglo[x].imgAutor : defaultProfile) + `"
+                                                        alt="Imagen de perfil"
+                                                        class="rounded-circle me-2"
+                                                        style="width: 25px; height: 25px; object-fit: cover;"
+                                                        onerror="this.onerror=null;this.src='` + defaultProfile + `';">
+                                                    ` + arreglo[x].nombreAutor + `
+                                                </a>
+                                            </div>
+                                            <h6 class="card-title mb-1" style="font-size: 0.95rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'">
+                                                <strong>` + arreglo[x].titulo.substring(0, 40) + `</strong>
+                                            </h6>
                                         </div>
-                                        <h6 class="card-title mb-1" style="font-size: 0.95rem;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`') }}'">
-                                            <strong>` + arreglo[x].titulo.substring(0, 40) + `</strong>
-                                        </h6>
+                                        <div class="d-flex justify-content-between mt-auto pt-2 px-1">
+                                        <button id="btnLike` + arreglo[x].id + `" class="btn p-0 border-0 bg-transparent" title="` + (arreglo[x].like ? `Quitar me gusta` : `Dar me gusta`) + `">
+                                            <i data-id="` + arreglo[x].id + `" class="bi bi-heart` + (arreglo[x].like ? `-fill` : ``) + ` text-danger darLike"></i>
+                                            <small id="gustas` + arreglo[x].id + `">` + arreglo[x].meGustas + `</small>
+                                        </button>
+
+                                        <button id="btnGuardado` + arreglo[x].id + `" class="btn p-0 border-0 bg-transparent" title="` + (arreglo[x].guardado ? `Quitar de guardadas` : `Guardar receta`) + `">
+                                            <i data-id="` + arreglo[x].id + `" class="bi bi-bookmark` + (arreglo[x].guardado ? `-fill` : ``) + ` text-success guardados"></i>
+                                            <small id="guardados` + arreglo[x].id + `">` + arreglo[x].vecesGuardados + `</small>
+                                        </button>
                                     </div>
-                                    <div class="d-flex justify-content-between mt-auto pt-2 px-1">
-                                    <button id="btnLike` + arreglo[x].id + `" class="btn p-0 border-0 bg-transparent" title="` + (arreglo[x].like ? `Quitar me gusta` : `Dar me gusta`) + `">
-                                        <i data-id="` + arreglo[x].id + `" class="bi bi-heart` + (arreglo[x].like ? `-fill` : ``) + ` text-danger darLike"></i>
-                                        <small id="gustas` + arreglo[x].id + `">` + arreglo[x].meGustas + `</small>
-                                    </button>
-
-                                    <button id="btnGuardado` + arreglo[x].id + `" class="btn p-0 border-0 bg-transparent" title="` + (arreglo[x].guardado ? `Quitar de guardadas` : `Guardar receta`) + `">
-                                        <i data-id="` + arreglo[x].id + `" class="bi bi-bookmark` + (arreglo[x].guardado ? `-fill` : ``) + ` text-success guardados"></i>
-                                        <small id="guardados` + arreglo[x].id + `">` + arreglo[x].vecesGuardados + `</small>
-                                    </button>
+                                    </div>
                                 </div>
-                                </div>
-                            </div>
-                        </div>`;
+                            </div>`;
 
+                        }
                     }
 
 
