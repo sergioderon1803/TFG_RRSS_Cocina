@@ -30,7 +30,7 @@
     @auth
         <div class="position-absolute posicionBoton p-4">
             @if (Auth::id() === $perfil->id_user)
-                <button type="button" class="btn btn-outline-primary fs-6 btn-sm" data-bs-toggle="modal" data-bs-target="#editarPeril">
+                <button type="button" class="btn btn-seguir fs-6 btn-sm" data-bs-toggle="modal" data-bs-target="#editarPeril">
                     Editar perfil
                 </button>
             @else

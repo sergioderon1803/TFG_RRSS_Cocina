@@ -29,8 +29,8 @@
     transition: background 0.2s;
 }
 
-.botonVerMas:hover {
-    background-color: #c9652f; /* Un poco más oscuro que #F07B3F */
+.botonVerMas:hover, .botonVerMas:focus {
+    background-color: #c9652f; 
     color: white;
 }
 

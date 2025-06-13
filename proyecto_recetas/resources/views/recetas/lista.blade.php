@@ -116,6 +116,7 @@
 
             var storageBase = "{{ asset('storage') }}";
             var defaultImg = "{{ asset('images/default-img.jpg') }}";
+            var defaultProfile = "{{ asset('images/default-profile.jpg') }}";
 
             $.ajax({
                 url: "{{ route('recetas.listarRecetasPrincipalAjax') }}",
@@ -150,10 +151,11 @@
                                     <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
                                         <a href="{{ url('perfil/`+arreglo[x].autor_receta+`') }}" 
                                         class="text-decoration-none text-muted">
-                                            <img src="{{ asset('images/default-profile.jpg') }}"
+                                            <img src="` + (arreglo[x].imgAutor ? storageBase + '/' + arreglo[x].imgAutor : defaultProfile) + `"
                                                 alt="Imagen de perfil"
                                                 class="rounded-circle me-2"
-                                                style="width: 25px; height: 25px; object-fit: cover;">
+                                                style="width: 25px; height: 25px; object-fit: cover;"
+                                                onerror="this.onerror=null;this.src='` + defaultProfile + `';">
                                             ` + arreglo[x].nombreAutor + `
                                         </a>
                                     </div>
@@ -430,10 +432,11 @@
                                             <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
                                                 <a href="{{ url('perfil/`+arreglo[x].autor_receta+`') }}" 
                                                 class="text-decoration-none text-muted">
-                                                    <img src="{{ asset('images/default-profile.jpg') }}"
+                                                    <img src="` + (arreglo[x].imgAutor ? storageBase + '/' + arreglo[x].imgAutor : defaultProfile) + `"
                                                         alt="Imagen de perfil"
                                                         class="rounded-circle me-2"
-                                                        style="width: 25px; height: 25px; object-fit: cover;">
+                                                        style="width: 25px; height: 25px; object-fit: cover;"
+                                                        onerror="this.onerror=null;this.src='` + defaultProfile + `';">
                                                     ` + arreglo[x].nombreAutor + `
                                                 </a>
                                             </div>
@@ -713,10 +716,11 @@
                                         <div class="d-flex align-items-center text-muted" style="font-size: 0.85rem;">
                                             <a href="{{ url('perfil/`+arreglo[x].autor_receta+`') }}" 
                                             class="text-decoration-none text-muted">
-                                                <img src="{{ asset('images/default-profile.jpg') }}"
+                                                <img src="` + (arreglo[x].imgAutor ? storageBase + '/' + arreglo[x].imgAutor : defaultProfile) + `"
                                                     alt="Imagen de perfil"
                                                     class="rounded-circle me-2"
-                                                    style="width: 25px; height: 25px; object-fit: cover;">
+                                                    style="width: 25px; height: 25px; object-fit: cover;"
+                                                    onerror="this.onerror=null;this.src='` + defaultProfile + `';">
                                                 ` + arreglo[x].nombreAutor + `
                                             </a>
                                         </div>

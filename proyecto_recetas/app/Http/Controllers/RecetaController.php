@@ -185,6 +185,7 @@ class RecetaController extends Controller {
             $r['meGustas'] = count($r->usuariosQueGustaron);
             $r['vecesGuardados'] = count($r->usuariosQueGuardaron);
             $r['nombreAutor'] = $r->autor->perfil->name;
+            $r['imgAutor'] = $r->autor->perfil->img_perfil ?? null;
             $r['like'] = GustarReceta::where('id_receta',$r->id)->where('id_user',Auth::id())->exists();
             $r['guardado'] = GuardarReceta::where('id_receta',$r->id)->where('id_user',Auth::id())->exists();
 
@@ -263,6 +264,7 @@ class RecetaController extends Controller {
             $r['meGustas'] = count($r->usuariosQueGustaron);
             $r['vecesGuardados'] = count($r->usuariosQueGuardaron);
             $r['nombreAutor'] = $r->autor->perfil->name;
+            $r['imgAutor'] = $r->autor->perfil->img_perfil ?? null;
 
             if(GustarReceta::where('id_receta',$r->id)->where('id_user',Auth::id())->exists()){
 
