@@ -72,6 +72,7 @@
                                         </div>
                                         <h6 class="card-title mb-1" style="font-size: 0.95rem;">
                                             <strong>Esta receta está oculta en este momento</strong>
+                                            <i class="bi bi-exclamation-triangle"></i>
                                         </h6>
                                     </div>
                                     </div>
