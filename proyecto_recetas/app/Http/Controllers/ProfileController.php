@@ -57,12 +57,14 @@ class ProfileController extends Controller {
 
                 $url = url('perfil/' .$perfil->id_user);
 
-                $listaUsuarios .= '<a href="'.$url.'"class="text-decoration-none text-muted">
-                        <li class="list-group-item usuarioCoincidencia">
-                            <img src="'.$imgPerfil.'" 
-                            class="rounded-circle shadow-sm"
-                            style="width: 50px; height: 50px; object-fit: cover;"> <p class="pb-0 mb-0">'. $perfil->name .'</p>
-                        </li></a>';
+                $listaUsuarios .= '<li class="list-group-item usuarioCoincidencia w-100 p-0">
+                                        <a href="'.$url.'" class="text-decoration-none text-muted d-flex align-items-center w-100 p-2">
+                                            <img src="'.$imgPerfil.'" 
+                                                class="rounded-circle shadow-sm me-2"
+                                                style="width: 50px; height: 50px; object-fit: cover;">
+                                            <p class="pb-0 mb-0">'.$perfil->name.'</p>
+                                        </a>
+                                    </li>';
             }
 
             $listaUsuarios .= '</ul>';

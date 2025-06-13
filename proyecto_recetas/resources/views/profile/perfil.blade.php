@@ -34,7 +34,7 @@
                     Editar perfil
                 </button>
             @else
-                <button data-id="{{$perfil->id_user}}" id="seguirUsuario" type="submit" class='btn fs-6 btn-{{$seguido ? "outline-dark" : "dark"}} btn-sm'>{{$seguido ? "Siguiendo" : "Seguir"}}</button>
+                <button data-id="{{$perfil->id_user}}" id="seguirUsuario" type="submit" class='btn fs-6 btn-{{$seguido ? "siguiendo" : "seguir"}} btn-sm'>{{$seguido ? "Siguiendo" : "Seguir"}}</button>
             @endif
         </div>
     @endauth
@@ -115,7 +115,7 @@
 
             const idUsuario = $(this).data('id');
 
-            if($(this).hasClass('btn-dark')){
+            if($(this).hasClass('btn-seguir')){
                 $.ajax({
                     url: `{{ url('usuario/seguirUsuario/') }}/${idUsuario}`, // Llamo al controlador y le paso el ID
                     method: 'POST',
@@ -138,8 +138,8 @@
 
                 numSeguidores++;
 
-                $(this).removeClass('btn-dark');
-                $(this).addClass('btn-outline-dark');
+                $(this).removeClass('btn-seguir');
+                $(this).addClass('btn-siguiendo');
 
                 $(this).text("Siguiendo");
                 $('#contSeguidores').text(numSeguidores.toString());
@@ -202,8 +202,8 @@
 
                         numSeguidores--;
 
-                        $(this).removeClass('btn-outline-dark');
-                        $(this).addClass('btn-dark');
+                        $(this).removeClass('btn-siguiendo');
+                        $(this).addClass('btn-seguir');
 
                         $(this).text("Seguir");
                         $('#contSeguidores').text(numSeguidores.toString());

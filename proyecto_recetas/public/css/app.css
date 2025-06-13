@@ -18,6 +18,10 @@
     color:white;
 }
 
+.form-select{
+    background-color: #EF9652  !important;
+}
+
 .botonVerMas {
     background-color: #F07B3F;
     color: white;
