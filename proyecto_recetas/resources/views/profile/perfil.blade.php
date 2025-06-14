@@ -226,6 +226,8 @@
 
         var seguidoresArray = [];
         var seguidosArray = [];
+        var recetasPublicadas = [];
+        var recetasMeGusta = [];
 
         $(document).ready(function(){
             $.ajax({
@@ -250,6 +252,19 @@
                 var arreglo = JSON.parse(res);
 
                 seguidoresArray = arreglo;
+            })
+
+            $.ajax({
+                url:"{{route('recetas.listarMeGustaAjax')}}",
+                method: 'POST',
+                data:{
+                    id: idUsuario,
+                    _token: '{{csrf_token()}}',
+                }
+            }).done(function(res){
+                var arreglo = JSON.parse(res);
+
+                recetasMeGusta = arreglo;
             })
     });
 
@@ -356,37 +371,39 @@
             }).done(function(res){
                 var arreglo = JSON.parse(res);
 
+                recetasPublicadas = arreglo;
+
                 // Impresión del listado de recetas
 
                 var listado = `<div class="row" id="recetasListadas">`;
 
-                if(arreglo.length == 0){
+                if(recetasPublicadas.length == 0){
 
                     listado += `<p class="text-muted">Este usuario aún no ha publicado ninguna receta.</p>`;
 
                 }else{ 
 
-                    for(var x = 0; x<arreglo.length;x++){
+                    for(var x = 0; x<recetasPublicadas.length;x++){
 
                         var fondo = '';
                         var icono = '';
 
-                        if(arreglo[x].estado == 1){
+                        if(recetasPublicadas[x].estado == 1){
                             fondo = 'bg-danger bg-opacity-25';
                             icono = '<i class="bi bi-exclamation-triangle"></i>';
                         }
 
                         listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
                             <div class="card h-100 shadow-sm" style="cursor:pointer;">
-                                    <img src="` + storageBase + `/` + arreglo[x].imagen + `"
+                                    <img src="` + storageBase + `/` + recetasPublicadas[x].imagen + `"
                                             class="card-img-top" 
-                                            alt="Imagen de `+ arreglo[x].titulo + `" 
-                                            style="height: 180px; object-fit: cover;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`')}}'"
+                                            alt="Imagen de `+ recetasPublicadas[x].titulo + `" 
+                                            style="height: 180px; object-fit: cover;" onclick="window.location='{{ url('receta/` + recetasPublicadas[x].id+`')}}'"
                                             onerror="this.onerror=null;this.src='` + defaultImg + `';" style="cursor:pointer;">
                                 <div class="card-body `+fondo+` d-flex flex-column justify-content-between">
                                     <h6 class="card-title">
-                                        <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
-                                            `+arreglo[x].titulo+`
+                                        <a href="{{ url('receta/` + recetasPublicadas[x].id +`') }}" class="text-decoration-none text-dark">
+                                            `+recetasPublicadas[x].titulo+`
                                         </a>
                                         `+icono+`
                                     </h6>
@@ -434,69 +451,59 @@
                 var storageBase = "{{ asset('storage') }}";
                 var defaultImg = "{{ asset('images/default-img.jpg') }}";
 
-                $.ajax({
-                    url:"{{route('recetas.listarMeGustaAjax')}}",
-                    method: 'POST',
-                    data:{
-                        id: idUsuario,
-                        _token: '{{csrf_token()}}',
-                    }
-                }).done(function(res){
-                    var arreglo = JSON.parse(res);
+                var listado = `<div class="row" id="recetasListadas">`;
 
-                    var listado = `<div class="row" id="recetasListadas">`;
+                if(recetasMeGusta.length == 0){
 
-                    if(arreglo.length == 0){
+                    listado += `<p class="text-muted">A este usuario no le gusta ninguna receta de momento.</p>`;
 
-                        listado += `<p class="text-muted">A este usuario no le gusta ninguna receta de momento.</p>`;
+                }else{ 
 
-                    }else{ 
+                    for(var x = 0; x<recetasMeGusta.length;x++){
+                        
 
-                        for(var x = 0; x<arreglo.length;x++){
-                            
-
-                            listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
-                            <div class="card h-100 shadow-sm" style="cursor:pointer;">
-                                    <img src="` + storageBase + `/` + arreglo[x].imagen + `"
-                                            class="card-img-top" 
-                                            alt="Imagen de `+ arreglo[x].titulo + `" 
-                                            style="height: 180px; object-fit: cover;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`')}}'"
-                                            onerror="this.onerror=null;this.src='` + defaultImg + `';">
-                                <div class="card-body d-flex flex-column justify-content-between">
-                                    <h6 class="card-title">
-                                        <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
-                                            `+arreglo[x].titulo+`
-                                        </a>
-                                    </h6>
-                                </div>
+                        listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
+                        <div class="card h-100 shadow-sm" style="cursor:pointer;">
+                                <img src="` + storageBase + `/` + recetasMeGusta[x].imagen + `"
+                                        class="card-img-top" 
+                                        alt="Imagen de `+ recetasMeGusta[x].titulo + `" 
+                                        style="height: 180px; object-fit: cover;" onclick="window.location='{{ url('receta/` + recetasMeGusta[x].id+`')}}'"
+                                        onerror="this.onerror=null;this.src='` + defaultImg + `';">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <h6 class="card-title">
+                                    <a href="{{ url('receta/` + recetasMeGusta[x].id +`') }}" class="text-decoration-none text-dark">
+                                        `+recetasMeGusta[x].titulo+`
+                                    </a>
+                                </h6>
                             </div>
-                        </div>`;
+                        </div>
+                    </div>`;
 
-                        }
                     }
+                }
 
-                    listado += `</div>`;
+                listado += `</div>`;
 
-                    $("#listado").append(listado);
+                $("#listado").append(listado);
 
-                    $('#clickRecetas').on('click',function(){
+                $('#clickRecetas').on('click',function(){
+            
+                    $('#clickRecetas').off('click');
+                    
+                    document.getElementById('recetasListadas').remove();
+                    
+                    document.getElementById("clickMeGustas").classList.remove('seleccionado');
+                    document.getElementById("clickMeGustas").classList.remove('bi-heart-fill');
+                    document.getElementById("clickMeGustas").classList.add('bi-heart');
+
+                    document.getElementById("clickRecetas").classList.add('seleccionado');
+                    document.getElementById("clickRecetas").classList.remove('bi-person');
+                    document.getElementById("clickRecetas").classList.add('bi-person-fill');
+
+                    crearListadoRecetasPublicadas();
+                });
+
                 
-                        $('#clickRecetas').off('click');
-                        
-                        document.getElementById('recetasListadas').remove();
-                        
-                        document.getElementById("clickMeGustas").classList.remove('seleccionado');
-                        document.getElementById("clickMeGustas").classList.remove('bi-heart-fill');
-                        document.getElementById("clickMeGustas").classList.add('bi-heart');
-
-                        document.getElementById("clickRecetas").classList.add('seleccionado');
-                        document.getElementById("clickRecetas").classList.remove('bi-person');
-                        document.getElementById("clickRecetas").classList.add('bi-person-fill');
-
-                        crearListadoRecetasPublicadas();
-                    });
-
-                })
             });
 
         }
@@ -511,78 +518,67 @@
                 var storageBase = "{{ asset('storage') }}";
                 var defaultImg = "{{ asset('images/default-img.jpg') }}";
 
-                $.ajax({
-                    url:"{{route('recetas.listaRecetasAjax')}}",
-                    method: 'POST',
-                    data:{
-                        id: idUsuario,
-                        _token: '{{csrf_token()}}',
-                    }
-                }).done(function(res){
-                    var arreglo = JSON.parse(res);
+                var listado = `<div class="row" id="recetasListadas">`;
 
-                    var listado = `<div class="row" id="recetasListadas">`;
+                if(recetasPublicadas.length == 0){
 
-                    if(arreglo.length == 0){
+                    listado += `<p class="text-muted">Este usuario aún no ha publicado ninguna receta.</p>`;
 
-                        listado += `<p class="text-muted">Este usuario aún no ha publicado ninguna receta.</p>`;
+                }else{ 
 
-                    }else{ 
+                    for(var x = 0; x<recetasPublicadas.length;x++){
 
-                        for(var x = 0; x<arreglo.length;x++){
+                        var fondo = '';
+                        var icono = '';
 
-                            var fondo = '';
-                            var icono = '';
-
-                            if(arreglo[x].estado == 1){
-                                fondo = 'bg-danger bg-opacity-25';
-                                icono = '<i class="bi bi-exclamation-triangle"></i>';
-                            }
-
-                            listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
-                                <div class="card h-100 shadow-sm" style="cursor:pointer;">
-                                        <img src="` + storageBase + `/` + arreglo[x].imagen + `"
-                                                class="card-img-top" 
-                                                alt="Imagen de `+ arreglo[x].titulo + `" 
-                                                style="height: 180px; object-fit: cover;" onclick="window.location='{{ url('receta/` + arreglo[x].id+`')}}'"
-                                                onerror="this.onerror=null;this.src='` + defaultImg + `';">
-                                    <div class="card-body `+fondo+` d-flex flex-column justify-content-between">
-                                        <h6 class="card-title">
-                                            <a href="{{ url('receta/` + arreglo[x].id +`') }}" class="text-decoration-none text-dark">
-                                                `+arreglo[x].titulo+`
-                                            </a>
-                                            `+icono+`
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>`;
-
+                        if(recetasPublicadas[x].estado == 1){
+                            fondo = 'bg-danger bg-opacity-25';
+                            icono = '<i class="bi bi-exclamation-triangle"></i>';
                         }
+
+                        listado += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 recetaLista">
+                            <div class="card h-100 shadow-sm" style="cursor:pointer;">
+                                    <img src="` + storageBase + `/` + recetasPublicadas[x].imagen + `"
+                                            class="card-img-top" 
+                                            alt="Imagen de `+ recetasPublicadas[x].titulo + `" 
+                                            style="height: 180px; object-fit: cover;" onclick="window.location='{{ url('receta/` + recetasPublicadas[x].id+`')}}'"
+                                            onerror="this.onerror=null;this.src='` + defaultImg + `';">
+                                <div class="card-body `+fondo+` d-flex flex-column justify-content-between">
+                                    <h6 class="card-title">
+                                        <a href="{{ url('receta/` + recetasPublicadas[x].id +`') }}" class="text-decoration-none text-dark">
+                                            `+recetasPublicadas[x].titulo+`
+                                        </a>
+                                        `+icono+`
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>`;
+
                     }
+                }
 
-                    listado += `</div>`;
+                listado += `</div>`;
 
-                    $("#listado").append(listado);
+                $("#listado").append(listado);
 
-                    $('#clickMeGustas').on('click',function(){
-                    
-                        $('#clickMeGustas').off('click');
+                $('#clickMeGustas').on('click',function(){
+                
+                    $('#clickMeGustas').off('click');
 
-                        document.getElementById('recetasListadas').remove();
+                    document.getElementById('recetasListadas').remove();
 
-                        document.getElementById("clickMeGustas").classList.add('seleccionado');
-                        document.getElementById("clickMeGustas").classList.remove('bi-heart');
-                        document.getElementById("clickMeGustas").classList.add('bi-heart-fill');
+                    document.getElementById("clickMeGustas").classList.add('seleccionado');
+                    document.getElementById("clickMeGustas").classList.remove('bi-heart');
+                    document.getElementById("clickMeGustas").classList.add('bi-heart-fill');
 
-                        document.getElementById("clickRecetas").classList.remove('seleccionado');
-                        document.getElementById("clickRecetas").classList.remove('bi-person-fill');
-                        document.getElementById("clickRecetas").classList.add('bi-person');
+                    document.getElementById("clickRecetas").classList.remove('seleccionado');
+                    document.getElementById("clickRecetas").classList.remove('bi-person-fill');
+                    document.getElementById("clickRecetas").classList.add('bi-person');
 
-                        crearListadoMeGustas();
-                    });
-
-                    })
+                    crearListadoMeGustas();
                 });
+
+            });
         }
     </script>
 
