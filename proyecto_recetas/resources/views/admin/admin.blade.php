@@ -324,6 +324,8 @@
 
             });
 
+            // -------------------------------------------------------BORRAR USUARIO-------------------------------------------------------
+
             $('table').on('click', '.delete-user',function(){
                 const userId = $(this).data('id');
                 
@@ -361,6 +363,8 @@
                 }
             })
 
+            // -------------------------------------------------------HACER ADMIN-------------------------------------------------------
+
             $('table').on('click', '.rol-usuario',function(){
                 const userId = $(this).data('id');
 
@@ -382,6 +386,50 @@
                     if (result.isConfirmed) { // Si acepta borrarla, hago un ajax
                         $.ajax({
                             url: `{{ url('usuario/hacerAdmin/') }}/${userId}`, // Llamo al controlador y le paso el ID
+                            method: 'POST',
+                            data: {
+                                _token: '{{csrf_token()}}', // Le paso el token de la sesión, si no, no me deja hacerlo
+                            },
+                            
+                            // Si acepta y la respuesta es la que mando en el controlador, lanzo un pop up
+                            success: function(response){
+                                if(response.status === 'success'){
+                                    Swal.fire('Usuario ' + textoResultado, '', 'success');
+                                    tablaUsuarios.ajax.reload(null,true); // Recarga el ajax de la tabla
+                                }else{
+                                    Swal.fire('No se ha podido completar la solicitud', '', 'warning');
+                                }
+                            },
+                            error: function(error){
+                                Swal.fire('Se ha producido un error', '', 'error');
+                            }
+                        })
+                    }
+                });
+                }
+            })
+
+            $('table').on('click', '.banear-user',function(){
+                const userId = $(this).data('id');
+
+                const rol = $(this).data('rol');
+
+                let textoBoton = (rol == 2 ? 'Desbanear' : 'Banear');
+                let texto = (rol == 2 ? 'desbanear' : 'banear');
+                let textoResultado = (rol == 2 ? 'desbaneado' : 'baneado');
+                
+                if(userId){
+                    Swal.fire({
+                    title: '<h5 style="color:red;">¡ATENCIÓN!</h5> ¿Estás seguro de que deseas '+ texto +' a este usuario?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#2A9D8F',
+                    cancelButtonColor: '#E76F51',
+                    confirmButtonText: textoBoton
+                }).then(result => {
+                    if (result.isConfirmed) { // Si acepta borrarla, hago un ajax
+                        $.ajax({
+                            url: `{{ url('usuario/banearUsuario/') }}/${userId}`, // Llamo al controlador y le paso el ID
                             method: 'POST',
                             data: {
                                 _token: '{{csrf_token()}}', // Le paso el token de la sesión, si no, no me deja hacerlo

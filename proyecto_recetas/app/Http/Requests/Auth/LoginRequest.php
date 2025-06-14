@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class LoginRequest extends FormRequest
 {
@@ -32,6 +34,23 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    /*public function verificarBaneo($email): void {
+
+        $user = User::where('email',$email)->select('user_type')->get();
+
+        $mensaje = $user;
+
+        if(!is_null($user)){
+
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => trans($mensaje),
+            ]);
+
+        }
+    }*/
+
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -45,7 +64,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => trans('Correo o contraseña incorrectos, inténtelo de nuevo'),
             ]);
         }
 

@@ -125,6 +125,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Actualizar rol usuario
     Route::post('usuario/hacerAdmin/{id}', [UserController::class, 'hacerAdmin'])->name('usuario.hacerAdmin');
+    Route::post('usuario/banearUsuario/{id}', [UserController::class, 'banearUsuario'])->name('usuario.banearUsuario');
 
     //Seguir usuario
     Route::post('usuario/{id}/seguir', [UserController::class, 'SeguirUsuario'])->middleware('auth')->name('usuario.seguir');

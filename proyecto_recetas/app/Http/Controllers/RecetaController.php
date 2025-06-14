@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\GuardarReceta;
 use App\Models\GustarReceta;
+use App\Models\User;
 use App\Models\Comentario;
-use App\Models\Perfil;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Receta;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class RecetaController extends Controller {
 
@@ -145,6 +143,7 @@ class RecetaController extends Controller {
 
         $listaIds = [];
         $filtro = $request->tipo;
+        $usuariosBaneados = User::where('user_type',2)->select('id')->get();
 
         if(isset($request->recetas)){
 
@@ -156,11 +155,11 @@ class RecetaController extends Controller {
 
             if($filtro == "Todas"){
 
-                $recetas = Receta::whereNotIn('id',$listaIds[0])->whereNot('autor_receta',Auth::id())->where('estado',0)->get();
+                $recetas = Receta::whereNotIn('id',$listaIds[0])->whereNot('autor_receta',Auth::id())->where('estado',0)->whereNotIn('autor_receta',$usuariosBaneados)->get();
 
             }else{
 
-                $recetas = Receta::whereNotIn('id',$listaIds[0])->where('tipo',$filtro)->whereNot('autor_receta',Auth::id())->where('estado',0)->get();
+                $recetas = Receta::whereNotIn('id',$listaIds[0])->where('tipo',$filtro)->whereNot('autor_receta',Auth::id())->where('estado',0)->whereNotIn('autor_receta',$usuariosBaneados)->get();
 
             }
 
@@ -168,11 +167,11 @@ class RecetaController extends Controller {
 
             if($filtro == "Todas"){
 
-                $recetas = Receta::orderBy('created_at', 'desc')->whereNot('autor_receta',Auth::id())->where('estado',0)->get();
+                $recetas = Receta::orderBy('created_at', 'desc')->whereNot('autor_receta',Auth::id())->where('estado',0)->whereNotIn('autor_receta',$usuariosBaneados)->get();
 
             }else{
 
-                $recetas = Receta::orderBy('created_at', 'desc')->where('tipo',$filtro)->whereNot('autor_receta',Auth::id())->where('estado',0)->get();
+                $recetas = Receta::orderBy('created_at', 'desc')->where('tipo',$filtro)->whereNot('autor_receta',Auth::id())->where('estado',0)->whereNotIn('autor_receta',$usuariosBaneados)->get();
 
             }
 
@@ -214,8 +213,12 @@ class RecetaController extends Controller {
 
     public function listarMeGustaAjax(Request $request){
 
+        $usuariosBaneados = User::where('user_type',2)->select('id')->get();
+
         $meGustas = GustarReceta::where('id_user',$request->id)->select('id_receta')->get();
-        $recetas = Receta::whereIn('id', $meGustas)->where('estado',0)->get();
+
+        $recetas = Receta::whereIn('id', $meGustas)->where('estado',0)->whereNotIn('autor_receta',$usuariosBaneados)->get();
+
         return response(json_encode($recetas),200)->header('Content-type','text/plain');
     }
 
@@ -227,9 +230,16 @@ class RecetaController extends Controller {
             'comentarios.respuestas.user.perfil'
         ])->findOrFail($id);
 
-        if (auth()->user()->user_type !== 1 && $receta->estado == 1 && Auth::id() != $receta->autor_receta) {
+        if($receta->autor->user_type == 2){
+            abort(404, 'Aquí no hay nada');
+        }
+        else if (auth()->user()->user_type !== 1 && $receta->estado == 1 && Auth::id() != $receta->autor_receta) {
             abort(403, 'Acceso denegado');
         }
+
+        $usuariosBaneados = User::where('user_type',2)->select('id')->get();
+
+        $contComentarios = Comentario::where('id_receta',$id)->whereNotIn('id_user',$usuariosBaneados)->count();
 
         $guardada = false;
         $gustada = false;
@@ -246,7 +256,7 @@ class RecetaController extends Controller {
         }
 
 
-        return view('recetas.detalle', compact('receta', 'guardada', 'gustada'));
+        return view('recetas.detalle', compact('receta', 'guardada', 'gustada', 'contComentarios'));
     }
 
 
@@ -256,8 +266,10 @@ class RecetaController extends Controller {
 
     public function listarRecetasGuardadasAjax(Request $request){
 
+        $usuariosBaneados = User::where('user_type',2)->select('id')->get();
+
         $guardadas = GuardarReceta::where('id_user',Auth::id())->select('id_receta')->get();
-        $recetas = Receta::whereIn('id', $guardadas)->get();
+        $recetas = Receta::whereIn('id', $guardadas)->whereNotIn('autor_receta',$usuariosBaneados)->get();
 
         foreach($recetas as $r){
 

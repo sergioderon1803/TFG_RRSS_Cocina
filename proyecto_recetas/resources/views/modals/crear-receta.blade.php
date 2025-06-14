@@ -61,18 +61,18 @@
 </div>
 
 @push('scripts')
-<script>
-  document.getElementById('imagen')?.addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    const preview = document.getElementById('preview');
+  <script>
+    document.getElementById('imagen')?.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const preview = document.getElementById('preview');
 
-    if (file) {
-      preview.src = URL.createObjectURL(file);
-      preview.style.display = 'flex';
-    } else {
-      preview.src = '';
-      preview.style.display = 'none';
-    }
-  });
-</script>
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'flex';
+      } else {
+        preview.src = '';
+        preview.style.display = 'none';
+      }
+    });
+  </script>
 @endpush

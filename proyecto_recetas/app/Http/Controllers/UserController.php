@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\SeguirUsuario;
-use App\Models\Receta;
 
 class UserController extends Controller {
 
@@ -95,6 +94,32 @@ class UserController extends Controller {
             }
 
             return response()->json(['status' => 'success', 'message' => 'Usuario actualizado']);
+        }
+        
+        return response()->json(['status' => 'failed', 'message' => 'Ha ocurrido un error']);
+    }
+
+    // Nombrar admin o quitarlo
+    public function banearUsuario(Request $request) {
+
+        $user = User::findOrFail($request->id);
+
+        if($user){
+
+            if($user->user_type == 2){
+
+                $user->update([
+                    'user_type' => 0
+                ]);
+
+            }else{
+
+                $user->update([
+                    'user_type' => 2
+                ]);
+            }
+
+            return response()->json(['status' => 'success', 'message' => 'Usuario baneado']);
         }
         
         return response()->json(['status' => 'failed', 'message' => 'Ha ocurrido un error']);

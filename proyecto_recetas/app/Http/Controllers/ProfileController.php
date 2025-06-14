@@ -11,6 +11,7 @@ use Illuminate\View\View;
 use App\Models\Perfil;
 use App\Models\Receta;
 use App\Models\SeguirUsuario;
+use App\Models\User;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 use App\Models\GuardarReceta;
@@ -21,6 +22,10 @@ class ProfileController extends Controller {
     public function ver($id)
     {
         $perfil = Perfil::where('id_user', $id)->firstOrFail();
+
+        if($perfil->user->user_type == 2){
+            abort(404, 'Aquí no hay nada');
+        }
 
         $seguido = false;
 
@@ -39,7 +44,10 @@ class ProfileController extends Controller {
 
     public function buscarPerfiles(Request $request)
     {
-        $usuarios = Perfil::where('name','LIKE',$request->input.'%')->whereNot('id_user',Auth::id())->take(6)->get(); // Cojo 6 que coincidan y no sean el usuario logado
+
+        $usuariosBaneados = User::where('user_type',2)->select('id')->get();
+
+        $usuarios = Perfil::where('name','LIKE',$request->input.'%')->whereNot('id_user',Auth::id())->whereNotIn('id_user',$usuariosBaneados)->take(6)->get(); // Cojo 6 que coincidan y no sean el usuario logado
 
         $listaUsuarios = '';
 
@@ -78,9 +86,11 @@ class ProfileController extends Controller {
 
     public function busqueda(Request $request)
     {
+        $usuariosBaneados = User::where('user_type',2)->select('id')->get();
+
         $filtro = $request->busqueda;
 
-        $recetas = Receta::where('titulo','LIKE',$request->busqueda."%")->whereNot('autor_receta',Auth::id())->where('estado',0)->take(9)->get();
+        $recetas = Receta::where('titulo','LIKE',$request->busqueda."%")->whereNot('autor_receta',Auth::id())->where('estado',0)->whereNotIn('autor_receta',$usuariosBaneados)->take(9)->get();
 
         foreach($recetas as $receta){
 
@@ -88,7 +98,7 @@ class ProfileController extends Controller {
             $receta['guardado'] = GuardarReceta::where('id_receta',$receta->id)->where('id_user',Auth::id())->exists();
         }
 
-        $usuarios = Perfil::where('name','LIKE',$request->busqueda.'%')->whereNot('id_user',Auth::id())->take(6)->get(); // Cojo 6 que coincidan y no sean el usuario logado
+        $usuarios = Perfil::where('name','LIKE',$request->busqueda.'%')->whereNot('id_user',Auth::id())->whereNotIn('id_user',$usuariosBaneados)->take(6)->get(); // Cojo 6 que coincidan y no sean el usuario logado
 
         return view('profile.busqueda', compact('recetas', 'usuarios','filtro'));
     }
@@ -105,12 +115,12 @@ class ProfileController extends Controller {
 
     public function verSeguidoresAjax($id)
     {
-        //$seguidos = SeguirUsuario::where('id_user', $id)->whereNot('id_seguidos',Auth::id())
+        $usuariosBaneados = User::where('user_type',2)->select('id')->get();
 
         $perfil = Perfil::where('id_user', $id)->firstOrFail();
         $usuario = $perfil->user;
 
-        $seguidores = $usuario->seguidores()->with('perfil')->get();
+        $seguidores = $usuario->seguidores()->with('perfil')->whereNotIn('id_seguidor',$usuariosBaneados)->get();
 
         return response(json_encode($seguidores),200)->header('Content-type','text/plain');
     }
@@ -127,10 +137,12 @@ class ProfileController extends Controller {
 
     public function verSeguidosAjax($id)
     {
+        $usuariosBaneados = User::where('user_type',2)->select('id')->get();
+
         $perfil = Perfil::where('id_user', $id)->firstOrFail();
         $usuario = $perfil->user;
 
-        $seguidos = $usuario->seguidos()->with('perfil')->get();
+        $seguidos = $usuario->seguidos()->with('perfil')->whereNotIn('id_user',$usuariosBaneados)->get();
 
         return response(json_encode($seguidos),200)->header('Content-type','text/plain');
     }

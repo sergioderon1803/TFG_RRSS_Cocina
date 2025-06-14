@@ -145,7 +145,7 @@
         <div class="row justify-content-center mt-5">
             <div class="col-lg-10">
                 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
-                    <h3 class="mb-4">Comentarios ({{ $receta->comentarios->count() }})</h3>
+                    <h3 class="mb-4">Comentarios ({{ $contComentarios }})</h3>
 
                     @auth
                         <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#comentar">
@@ -158,51 +158,55 @@
                     @endauth
 
                     @foreach ($receta->comentarios as $comentario)
-    <div class="border rounded p-3 mb-3 bg-light d-flex align-items-start gap-2">
-        <img src="{{ optional($comentario->user->perfil)->img_perfil ? asset('storage/' . $comentario->user->perfil->img_perfil) : asset('images/default-profile.jpg') }}"
-            alt="Imagen de {{ optional($comentario->user->perfil)->name ?? $comentario->user->email }}"
-            class="rounded-circle"
-            style="width: 40px; height: 40px; object-fit: cover;"
-            onerror="this.onerror=null;this.src='{{ asset('images/default-profile.jpg') }}';">
-        <div>
-            <strong>{{ $comentario->user->perfil->name ?? $comentario->user->email }}:</strong>
-            <p>{{ $comentario->contenido }}</p>
+                        @if($comentario->user->user_type != 2)
+                            <div class="border rounded p-3 mb-3 bg-light d-flex align-items-start gap-2">
+                                <img src="{{ optional($comentario->user->perfil)->img_perfil ? asset('storage/' . $comentario->user->perfil->img_perfil) : asset('images/default-profile.jpg') }}"
+                                    alt="Imagen de {{ optional($comentario->user->perfil)->name ?? $comentario->user->email }}"
+                                    class="rounded-circle"
+                                    style="width: 40px; height: 40px; object-fit: cover;"
+                                    onerror="this.onerror=null;this.src='{{ asset('images/default-profile.jpg') }}';">
+                                <div>
+                                    <strong>{{ $comentario->user->perfil->name ?? $comentario->user->email }}:</strong>
+                                    <p>{{ $comentario->contenido }}</p>
 
-            @auth
-                <form action="{{ route('respuestas.store') }}" method="POST" class="mb-2">
-                    @csrf
-                    <input type="hidden" name="id_receta" value="{{ $receta->id }}">
-                    <input type="hidden" name="id_comentario" value="{{ $comentario->id }}">
-                    <input type="hidden" name="id_user_respondido" value="{{ $comentario->id_user }}">
-                    <div class="input-group">
-                        <input type="text" name="contenido" class="form-control"
-                            placeholder="Responder a {{ $comentario->user->perfil->name ?? $comentario->user->email }}"
-                            required>
-                        <button type="submit" class="btn btn-outline-primary">Responder</button>
-                    </div>
-                </form>
-            @endauth
+                                    @auth
+                                        <form action="{{ route('respuestas.store') }}" method="POST" class="mb-2">
+                                            @csrf
+                                            <input type="hidden" name="id_receta" value="{{ $receta->id }}">
+                                            <input type="hidden" name="id_comentario" value="{{ $comentario->id }}">
+                                            <input type="hidden" name="id_user_respondido" value="{{ $comentario->id_user }}">
+                                            <div class="input-group">
+                                                <input type="text" name="contenido" class="form-control"
+                                                    placeholder="Responder a {{ $comentario->user->perfil->name ?? $comentario->user->email }}"
+                                                    required>
+                                                <button type="submit" class="btn btn-outline-primary">Responder</button>
+                                            </div>
+                                        </form>
+                                    @endauth
 
-            @if ($comentario->respuestas->count())
-                <div class="ms-3 mt-2">
-                    @foreach ($comentario->respuestas as $respuesta)
-                        <div class="border-start ps-3 mb-2 d-flex align-items-start gap-2">
-                            <img src="{{ optional($respuesta->user->perfil)->img_perfil ? asset('storage/' . $respuesta->user->perfil->img_perfil) : asset('images/default-profile.jpg') }}"
-                                alt="Imagen de {{ optional($respuesta->user->perfil)->name ?? $respuesta->user->email }}"
-                                class="rounded-circle"
-                                style="width: 32px; height: 32px; object-fit: cover;"
-                                onerror="this.onerror=null;this.src='{{ asset('images/default-profile.jpg') }}';">
-                            <div>
-                                <strong>{{ $respuesta->user->perfil->name ?? $respuesta->user->email }}:</strong>
-                                <p>{{ $respuesta->contenido }}</p>
+                                    @if ($comentario->respuestas->count())
+                                        <div class="ms-3 mt-2">
+                                            @foreach ($comentario->respuestas as $respuesta)
+                                                @if($respuesta->user->user_type != 2)
+                                                    <div class="border-start ps-3 mb-2 d-flex align-items-start gap-2">
+                                                        <img src="{{ optional($respuesta->user->perfil)->img_perfil ? asset('storage/' . $respuesta->user->perfil->img_perfil) : asset('images/default-profile.jpg') }}"
+                                                            alt="Imagen de {{ optional($respuesta->user->perfil)->name ?? $respuesta->user->email }}"
+                                                            class="rounded-circle"
+                                                            style="width: 32px; height: 32px; object-fit: cover;"
+                                                            onerror="this.onerror=null;this.src='{{ asset('images/default-profile.jpg') }}';">
+                                                        <div>
+                                                            <strong>{{ $respuesta->user->perfil->name ?? $respuesta->user->email }}:</strong>
+                                                            <p>{{ $respuesta->contenido }}</p>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
-                </div>
-            @endif
-        </div>
-    </div>
-@endforeach
                 </div>
             </div>
         </div>
@@ -272,7 +276,7 @@
                             </div>
                             <div class="d-flex flex-column align-items-center">
                                 <label for="imagen" class="form-label">Imagen:</label>
-                                <img id="preview" class="mt-2 imagenPrevia"
+                                <img id="previewReceta" class="mt-2 imagenPrevia"
                                     style="max-width: 250px; max-height: 250px;"
                                     src="{{ asset('storage/' . $receta->imagen) }}" alt="Imagen previa">
                                 <input type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" id="imgInput" name="imagen"
@@ -308,6 +312,21 @@
 
 
 @section('js')
+
+    <script>
+        document.getElementById('imgInput')?.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('previewReceta');
+
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'flex';
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
+            }
+        });
+  </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

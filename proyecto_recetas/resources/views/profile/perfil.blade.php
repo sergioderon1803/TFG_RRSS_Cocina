@@ -52,11 +52,11 @@
     {{-- Seguidores / Seguidos (alineado a la derecha) --}}
     <div class="d-flex gap-4 text-center mt-3">
         <div class="d-flex flex-column">
-            <strong id="contSeguidores" class="text-dark">{{ $perfil->user->seguidores->count() }}</strong>
+            <strong id="contSeguidores" class="text-dark"></strong>
             <p id="btnSeguidores" class="text-decoration-none text-muted" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Seguidores</p>
         </div>
         <div class="d-flex flex-column">
-            <strong class="text-dark">{{ $perfil->user->seguidos->count() }}</strong>
+            <strong id="contSeguidos" class="text-dark"></strong>
             <p id="btnSeguidos" class="text-decoration-none text-muted" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Seguidos</p>
         </div>
     </div>
@@ -240,6 +240,8 @@
                 var arreglo = JSON.parse(res);
 
                 seguidosArray = arreglo;
+
+                $('#contSeguidos').text(seguidosArray.length.toString());
             })
 
             $.ajax({
@@ -252,6 +254,8 @@
                 var arreglo = JSON.parse(res);
 
                 seguidoresArray = arreglo;
+
+                $('#contSeguidores').text(seguidoresArray.length.toString());
             })
 
             $.ajax({
@@ -266,7 +270,7 @@
 
                 recetasMeGusta = arreglo;
             })
-    });
+        });
 
 
         function listarSeguidores(){
@@ -585,7 +589,7 @@
     <script>
         document.getElementById('img_perfil').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            const preview = document.getElementById('preview');
+            const preview = document.getElementById('previewImgPerfil');
 
             if (file) {
             preview.src = URL.createObjectURL(file);

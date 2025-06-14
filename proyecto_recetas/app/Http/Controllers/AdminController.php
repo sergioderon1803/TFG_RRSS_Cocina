@@ -95,6 +95,8 @@ class AdminController extends Controller
                     return 'Usuario';
                 case 1:
                     return 'Admin';
+                case 2:
+                    return 'Baneado';
             }
         })
         
@@ -103,18 +105,31 @@ class AdminController extends Controller
             if(Auth::id() != $user->id){
                 $acciones = '<div class="btn-group" role="group">';
 
-                switch($user->user_type){
-                    case 0:
-                        $acciones .= '<button data-id="'.$user->id.'" data-rol="'.$user->user_type.'" class="btn btn-primary btn-sm rol-usuario">Ascender</button>';
-                        break;
-                    case 1:
-                        $acciones .= '<button data-id="'.$user->id.'" data-rol="'.$user->user_type.'" class="btn btn-dark btn-sm rol-usuario">Degradar</button>';
-                        break;
+                if($user->user_type == 2){
+
+                    $acciones .= '<button data-id="'.$user->id.'" data-rol="'.$user->user_type.'" class="btn btn-success btn-sm banear-user">Desbanear</button>
+                    <button data-id="'.$user->id.'" class="btn btn-danger btn-sm delete-user">Eliminar</button>
+                    </div>';
+
+                }else{
+
+                    switch($user->user_type){
+                        case 0:
+                            $acciones .= '<button data-id="'.$user->id.'" data-rol="'.$user->user_type.'" class="btn btn-primary btn-sm rol-usuario">Ascender</button>';
+                            break;
+                        case 1:
+                            $acciones .= '<button data-id="'.$user->id.'" data-rol="'.$user->user_type.'" class="btn btn-dark btn-sm rol-usuario">Degradar</button>';
+                            break;
+                    }
+
+                    $acciones .= '<button data-id="'.$user->id.'" data-rol="'.$user->user_type.'" class="btn btn-sm banear-user" style="color:white;background-color:purple;">Banear</button>
+                    <button data-id="'.$user->id.'" class="btn btn-danger btn-sm delete-user">Eliminar</button>
+                    </div>';
+
                 }
 
-                $acciones .= '<button data-id="'.$user->id.'" class="btn btn-danger btn-sm delete-user">Eliminar</button></div>';
-
                 return $acciones;
+
             }else{
                 return '';
             }
