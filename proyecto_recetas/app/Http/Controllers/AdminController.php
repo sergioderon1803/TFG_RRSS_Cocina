@@ -41,6 +41,10 @@ class AdminController extends Controller
 
         ->addColumn('estado', function($receta){
 
+            if($receta->autor->user_type == 2){
+                return 'Autor baneado';
+            }
+
             switch($receta->estado){
                 case 0:
                     return 'Pública';
@@ -54,6 +58,8 @@ class AdminController extends Controller
         ->addColumn('action', function($receta){
 
             $acciones = '<div class="btn-group" role="group">';
+
+            $acciones = '<a class="btn btn-sm" style="color:white;background-color:purple;" href="/receta/'. $receta->id .'">Ver</a>';
 
             switch($receta->estado){
                 case 0:
