@@ -64,20 +64,24 @@
 
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-body">
-    <div class="d-flex-inline">
-        <h5 class="fw-bold mb-3">
-            <div class="d-flex w-100 justify-content-evenly">
-                <span id="seguidores" style="cursor: pointer;text-decoration: underline;">Seguidores</span>
-                <span id="seguidos" style="cursor: pointer;text-decoration: underline;">Seguidos</span>
-            </div>
-        </h5>
-        <hr>
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasRight" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="d-flex-inline">
+            <hr>
+            <h5 class="fw-bold mb-3">
+                <div class="d-flex w-100 justify-content-evenly">
+                    <span id="seguidores" style="cursor: pointer;text-decoration: underline;">Seguidores</span>
+                    <span id="seguidos" style="cursor: pointer;text-decoration: underline;">Seguidos</span>
+                </div>
+            </h5>
+            <hr>
 
-        <div id="listadoUsuarios" class="container py-4">
+            <div id="listadoUsuarios" class="container py-4">
+            </div>
         </div>
     </div>
-  </div>
 </div>
 
 <hr class="mt-4">

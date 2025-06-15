@@ -59,7 +59,7 @@ class AdminController extends Controller
 
             $acciones = '<div class="btn-group" role="group">';
 
-            $acciones = '<a class="btn btn-sm" style="color:white;background-color:purple;" href="/receta/'. $receta->id .'">Ver</a>';
+            $acciones .= '<a class="btn btn-secondary btn-sm" href="/receta/'. $receta->id .'">Ver</a>';
 
             switch($receta->estado){
                 case 0:
@@ -110,6 +110,8 @@ class AdminController extends Controller
 
             if(Auth::id() != $user->id){
                 $acciones = '<div class="btn-group" role="group">';
+
+                $acciones .= '<a class="btn btn-secondary btn-sm" href="/perfil/'. $user->id .'">Ver</a>';
 
                 if($user->user_type == 2){
 
