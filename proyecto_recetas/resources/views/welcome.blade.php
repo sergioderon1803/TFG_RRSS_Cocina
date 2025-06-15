@@ -134,12 +134,12 @@
 
             <div class="row justify-content-center text-center g-5">
                 <div class="col-sm-6 col-md-4">
-                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img img-fluid" alt="Sergio Álvarez de Ron">
+                    <img src="{{ asset('images/SergioAlvarez.jpeg') }}" class="profile-img img-fluid" alt="Sergio Álvarez de Ron">
                     <div class="profile-name">Sergio Álvarez de Ron</div>
                     <div class="profile-desc">Alérgico a la vida</div>
                 </div>
                 <div class="col-sm-6 col-md-4">
-                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img img-fluid" alt="Jonathan Hidalgo">
+                    <img src="{{ asset('images/JonathanHidalgo.jpeg') }}" class="profile-img img-fluid" alt="Jonathan Hidalgo">
                     <div class="profile-name">Jonathan Hidalgo</div>
                     <div class="profile-desc">Catador profesional de elixires revitalizantes</div>
                 </div>
@@ -171,17 +171,17 @@
     </div>
     </div>
     <hr>
-    <!-- Fresas Beneficios -->
+    <!-- Aguacate datos curiosos -->
     <div class="d-flex">
     <div class="row mb-4 align-items-center">
       <div class="col-md-4 tamaño">
-          <img src="{{ asset('images/fresasNoticia.jpg') }}" alt="Noticia fresas" class="img-fluid rounded">
+          <img src="{{ asset('images/Aguacate.jpg') }}" alt="Noticia sobre el aguacate" class="img-fluid rounded">
       </div>
       <div class="col-md-6 text-center">
         <div class="product-card">
-          <h3 class="fw-bold fs-5 text-center">¿Te gustaría saber más acerca de esta deliciosa fruta?</h3>
-          <p class="text-center fs-6"> Entonces no te pierdas el siguiente artículo de EcologíaVerde donde hablaremos de las propiedades de las fresas, sus beneficios y sus contraindicaciones.</p>
-          <button type="button" class="text-light text-center rounded fs-6 mt-3 sabermas"><a class="enlace" href="https://www.ecologiaverde.com/fresas-propiedades-beneficios-y-contraindicaciones-4519.html">Saber más...</a></button>
+          <h3 class="fw-bold fs-5 text-center">Datos curiosos sobre el aguacate que tal vez no conocías</h3>
+          <p class="text-center fs-6">El aguacate posee grandes propiedades alimenticias y un gran sabor, por lo que ha ganado una gran popularidad en las mesas de todas aquellas partes del mundo donde se ha probado.</p>
+          <button type="button" class="text-light text-center rounded fs-6 mt-3 sabermas"><a class="enlace" href="https://www.donaguacato.com/mw/datos-curiosos-aguacate-tal-vez-conocias/">Saber más...</a></button>
         </div>
       </div>
     </div>
@@ -191,13 +191,13 @@
     <div class="d-flex">
     <div class="row mb-4 align-items-center">
       <div class="col-md-4 tamaño">
-          <img src="{{ asset('images/fresasNoticia.jpg') }}" alt="Noticia fresas" class="img-fluid rounded">
+          <img src="{{ asset('images/EnsaladaNoticia.jpg') }}" alt="Noticia sobre ensaladas" class="img-fluid rounded">
       </div>
       <div class="col-md-6 text-center">
         <div class="product-card">
-          <h3 class="fw-bold fs-5 text-center">¿Te gustaría saber más acerca de esta deliciosa fruta?</h3>
-          <p class="text-center fs-6"> Entonces no te pierdas el siguiente artículo de EcologíaVerde donde hablaremos de las propiedades de las fresas, sus beneficios y sus contraindicaciones.</p>
-          <button type="button" class="text-light text-center rounded fs-6 mt-3 sabermas"><a class="enlace" href="https://www.ecologiaverde.com/fresas-propiedades-beneficios-y-contraindicaciones-4519.html">Saber más...</a></button>
+          <h3 class="fw-bold fs-5 text-center">Las 10 ensaladas más famosas del mundo (y más fáciles de hacer en casa)</h3>
+          <p class="text-center fs-6"> La ensaladilla rusa es una de las más famosas del mundo, pero hay muchas que le disputan el trono: la alemana, la waldorf, la César, la griega, el tabulé... ¡descúbrelas!</p>
+          <button type="button" class="text-light text-center rounded fs-6 mt-3 sabermas"><a class="enlace" href="https://www.lecturas.com/recetas/actualidad/10-ensaladas-mas-famosas-mundo-mas-faciles-hacer-casa_11896">Saber más...</a></button>
         </div>
       </div>
     </div>
