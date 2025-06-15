@@ -144,7 +144,7 @@
                     <div class="profile-desc">Catador profesional de elixires revitalizantes</div>
                 </div>
                 <div class="col-sm-6 col-md-4">
-                    <img src="{{ asset('images/default-profile.jpg') }}" class="profile-img img-fluid" alt="Sergio Montoiro">
+                    <img src="{{ asset('images/SergioMontoiro.jpeg') }}" class="profile-img img-fluid" alt="Sergio Montoiro">
                     <div class="profile-name">Sergio Montoiro</div>
                     <div class="profile-desc">Programador explotado</div>
                 </div>

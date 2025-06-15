@@ -30,5 +30,14 @@
                 <i class="bi bi-gear-fill fs-3"></i> <!-- SETTINGS -->
             </a>
         </li>
+        <li>
+            <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            
+            <button type="submit" class="nav-link text-white d-flex align-items-center">
+                <i class="bi bi-power fs-3"></i>
+            </button>
+        </form>
+        </li>
     </ul>
 </nav>
