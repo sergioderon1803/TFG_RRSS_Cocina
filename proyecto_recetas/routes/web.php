@@ -36,7 +36,7 @@ Route::controller(MailController::class)->group(function () {
 Route::get('receta/{id}', [RecetaController::class, 'mostrarRecetaIndividual'])->name('recetas.mostrar');
 
 // Rutas que requieren autenticación
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
     // Rutas de perfil
     Route::prefix('perfil')->group(function () {
         Route::get('/{id}', [ProfileController::class, 'ver'])->name('perfil.ver');
@@ -88,11 +88,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/recetas/{id}/gustar', [RecetaController::class, 'gustarRecetaUsuario'])->name('recetas.gustar');
     Route::delete('/recetas/{id}/gustar', [RecetaController::class, 'eliminarMeGusta'])->name('recetas.gustar.eliminar');
 
-    // // Edición perfil usuario (usa profile.edit, update, destroy)
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     // Crear receta (puedes agregar middleware si quieres)
     Route::post('recetas', [RecetaController::class, 'guardarReceta'])->name('recetas.store');
 
@@ -110,7 +105,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Rutas para usuarios autenticados y verificados
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
     // Rutas Ajax para los listados de admin
     Route::get('admin/recetasAjax', [AdminController::class, 'listaRecetasAjax'])->name('admin.recetasAjax');

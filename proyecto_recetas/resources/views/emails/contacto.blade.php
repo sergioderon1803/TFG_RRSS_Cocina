@@ -18,6 +18,12 @@
             text-align: center;
             border-radius: 5px 5px 0 0;
         }
+        .logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
         .content {
             background-color: #f9f9f9;
             padding: 20px;
@@ -46,6 +52,7 @@
 </head>
 <body>
     <div class="header">
+        <img src="{{ $message->embed(public_path('images/logo.svg')) }}" alt="WeCook Logo" class="logo">
         <h1>Nuevo Mensaje de Contacto</h1>
     </div>
     
@@ -71,6 +78,22 @@
     <div class="footer">
         <p>Este mensaje fue enviado desde el formulario de contacto de WeCook</p>
         <small>&copy; {{ date('Y') }} WeCook. Todos los derechos reservados</small>
+    </div>
+</body>
+</html>
+                <strong>Asunto:</strong> {{ $datos['asunto'] }}
+            </div>
+            
+            <div class="message">
+                <strong>Mensaje:</strong><br>
+                {{ $datos['mensaje'] }}
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Este mensaje fue enviado desde el formulario de contacto de WeCook</p>
+            <small>&copy; {{ date('Y') }} WeCook. Todos los derechos reservados</small>
+        </div>
     </div>
 </body>
 </html>
