@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Validation\ValidationException;
 
 class RegisteredUserController extends Controller
 {
@@ -30,6 +31,26 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
+        if(User::where('email',$request->email)->exists()){
+            throw ValidationException::withMessages([
+                'email' => trans('Este email ya está registrado, inicie sesión o pruebe uno distinto'),
+            ]);
+
+        }else if(strlen($request->password)<8){
+
+            throw ValidationException::withMessages([
+                'password' => trans('Contraseña demasiado corta, de tener al menos 8 de longitud'),
+            ]);
+
+        }else if($request->password != $request->password_confirmation){
+
+            throw ValidationException::withMessages([
+                'password' => trans('Las contraseñas no coinciden, pruebe de nuevo'),
+            ]);
+            
+        }
+
         $request->validate([
             // 'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
