@@ -298,7 +298,7 @@ class RecetaController extends Controller {
             'titulo' => 'required|string|max:255',
             'tipo' => 'required|string|max:100',
             'ingredientes' => 'required|string',
-            'procedimiento' => 'required|string',
+            'procedimiento' => 'required|string', 
             'imagen' => 'nullable|image|max:2048',
         ]);
 
@@ -307,7 +307,7 @@ class RecetaController extends Controller {
             $rutaImagen = $request->file('imagen')->store('recetas', 'public');
         }
 
-        Receta::create([
+        $receta = Receta::create([
             'titulo' => $request->input('titulo'),
             'tipo' => $request->input('tipo'),
             'ingredientes' => $request->input('ingredientes'),
@@ -318,7 +318,7 @@ class RecetaController extends Controller {
             'created_at' => now()
         ]);
 
-        return redirect()->route('recetas.lista')->with('success', 'Receta creada exitosamente.');
+        return redirect()->route('recetas.mostrar', $receta->id)->with('success', 'Receta creada exitosamente.');
     }
 
     // Mostrar formulario con datos actuales
@@ -357,7 +357,7 @@ class RecetaController extends Controller {
             'procedimiento' => $request->input('procedimiento'),
         ]);
 
-        return redirect()->route('recetas.lista')->with('success', 'Receta actualizada correctamente.');
+        return redirect()->route('recetas.mostrar', $receta->id)->with('success', 'Receta actualizada correctamente.');
     }
 
     // Eliminar receta
