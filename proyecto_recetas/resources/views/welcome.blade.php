@@ -187,7 +187,7 @@
     </div>
     </div>
     <hr>
-    <!-- Fresas Beneficios -->
+    <!-- Tipos de ensaladas -->
     <div class="d-flex">
     <div class="row mb-4 align-items-center">
       <div class="col-md-4 tamaño">

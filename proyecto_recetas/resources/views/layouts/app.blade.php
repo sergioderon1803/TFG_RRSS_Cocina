@@ -36,7 +36,7 @@
 <body class="font-sans antialiased">
     <div class="d-flex min-vh-100 flex-column flex-lg-row position-relative"> <!-- Añadido position-relative -->
         @auth
-        @if(Route::has(Route::currentRouteName()))
+        @if(Route::has(Route::currentRouteName()) && Route::currentRouteName() !== 'verification.notice')
             <!-- Sidebar de móvil y tablet -->
             <aside id="sidebar-responsive">
                 @include('layouts.navigationResponsive')
@@ -57,7 +57,7 @@
             @include('layouts.navigationGuest')
         @endguest --}}
         
-        @if(Route::has(Route::currentRouteName()))
+        @if(Route::has(Route::currentRouteName()) && Route::currentRouteName() !== 'verification.notice')
             <!-- Contenido principal -->
             <main id="mainContent" class="main-content bg-light d-flex justify-content-center align-items-start py-3 flex-grow-1 pb-5">
                 <div class="container-fluid rounded-3 shadow-sm p-3 bg-white" style="max-width: 1200px;">
